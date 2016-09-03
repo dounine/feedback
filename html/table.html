@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>检测委托书</title>
+    <link rel="stylesheet" type="text/css" href="bootstrap/css/bootstrap.min.css"/>
+    <link rel="stylesheet" type="text/css" href="table.css"/>
+    <script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+    <script src="bootstrap/js/bootstrap.min.js" type="text/javascript" charset="utf-8"></script>
+    <script type="text/javascript">
+  
+	   $(function () {
+	      $('#myTab li:eq(1) a').tab('show');
+	   });
+
+    </script>
+</head>
+<body>
+	<div class="wrap container">
+		<h2>检测委托书</h2>
+		<div class="table1">
+			<h4>一、客户信息(委托方对提供资料和实物的真实性负责，并提供必要合作。)</h4>
+			<table class="table table-bordered">
+		  		<tr>
+        			<td>单位名称(公章)</td>
+        			<td colspan="5"><input type="type" name="" id="" value="" /></td>
+        			
+        		</tr>
+        		<tr>
+        			<td>通讯地址</td>
+        			<td colspan="3"><input type="type" name="" id="" value="" /></td>
+        			<td>邮编</td>
+        			<td><input type="number" name="" id="" value="" /></td>
+        		</tr>
+        		<tr>
+        			<td>联系人</td>
+        			<td><input type="type" name="" id="" value="" /></td>
+        			<td>电话</td>
+        			<td><input type="number" name="" id="" value="" /></td>
+        			<td>传正</td>
+        			<td><input type="number" name="" id="" value="" /></td>
+        		</tr>
+        		<tr>
+        			<td>E-mail</td>
+        			<td colspan="3"><input type="type" name="" id="" value="" /></td>
+        			<td>填表日期</td>
+        			<td><input type="date" name="" id="" value="" /></td>
+        		</tr>
+			</table>
+		</div>
+		
+		<div class="table1">
+			<h4>二、样品信息</h4> 
+			
+			
+			<ul id="myTab" class="nav nav-tabs">
+			   <li class="active"><a href="#huaxue" data-toggle="tab">
+			      化学电源</a></li>
+			   <li><a href="#wuli" data-toggle="tab">物理电源</a></li>
+			  </ul>
+			  <div  id="myTabContent" class="tab-content" >
+			
+			<table class="table table-bordered tab-pane fade in active"  id="huaxue">
+				
+		  		<tr>
+        			<td>样品名称</td>
+        			<td colspan="5"><input type="type" name="" id="" value="" /></td>
+        			
+        		</tr>
+        		<tr>
+        			<td>规格型号</td>
+        			<td colspan="5"><input type="type" name="" id="" value="" /></td>
+        			
+        		</tr>
+        		<tr>
+        			<td>注册商标</td>
+        			<td ><input type="type" name="" id="" value="" /></td>
+        			<td>样品数量</td>
+        			<td><input type="number" name="" id="" value="" /></td>
+        			<td>送样日期</td>
+        			<td><input type="number" name="" id="" value="" /></td>
+        		</tr>
+        		<tr>
+        			<td>外形尺寸</td>
+        			<td colspan="3"><input type="type" name="" id="" value="" /></td>
+        			<td>重量</td>
+        			<td><input type="number" name="" id="" value="" /></td>
+        		</tr>
+        		<tr>
+        			<td>外形尺寸</td>
+        			<td colspan="3"><input type="type" name="" id="" value="" /></td>
+        			<td>重量</td>
+        			<td><input type="date" name="" id="" value="" /></td>
+        		</tr>
+        		<tr>
+        			<td>充放电参数</td>
+        			<td colspan="5"><input type="text" name="" id="" value="" /></td>
+        		</tr>
+        		<tr>
+        			<td>包装类型</td>
+        			<td colspan="2">
+        				<input type="radio"/>纸箱
+        				<input type="radio"/>木箱
+        				<input type="radio"/>无包装
+        			</td>
+        			<td>样品状态（包装前后）</td>
+        			<td colspan="2"><input type="radio"/>完整
+        				<input type="radio"/>破损
+        			</td>
+        		</tr>
+			</table>
+			
+			<table class="table table-bordered tab-pane fade" id="wuli">
+				
+		  		<tr>
+        			<td>样品名称</td>
+        			<td colspan="3"><input type="type" name="" id="" value="" /></td>
+        			<td>型号规格</td>
+        			<td><input type="text" name="" id="" value="" /></td>
+        		</tr>
+        		<tr>
+        			<td>注册商标</td>
+        			<td ><input type="type" name="" id="" value="" /></td>
+        			<td>样品数量</td>
+        			<td ><input type="type" name="" id="" value="" /></td>
+        			<td>送样日期</td>
+        			<td ><input type="type" name="" id="" value="" /></td>
+        		</tr>
+        		
+        		<tr>
+        			<td>外形尺寸</td>
+        			<td colspan="3"><input type="type" name="" id="" value="" /></td>
+        			<td>重量</td>
+        			<td><input type="number" name="" id="" value="" /></td>
+        		</tr>
+        		<tr>
+        			<td>样品序列号</td>
+        			<td colspan="5"><input type="text" name="" id="" value="" /></td>
+        		</tr>
+        		<tr>
+        			<td>单体电池材料</td>
+        			<td colspan="5">
+        				<input type="radio"/>单晶硅
+        				<input type="radio"/>多晶硅
+        				<input type="radio"/>N型
+        				<input type="radio"/>P型
+        				<input type="radio"/>其他
+        				
+        			</td>
+        		</tr>
+        		<tr>
+        			<td>单体单位参数</td>
+        			<td colspan="5"><input type="type" name="" id="" value="" />
+        				尺寸：<input type="text" />
+		    			厚度：<input type="text" />
+		    			面积：<input type="text" />
+		    			减反射膜类型：<input type="text" />
+        			</td>
+        			
+        			
+        		</tr>
+        		<tr>
+        			<td>玻璃类型</td>
+        			<td colspan="2">
+        				<input type="radio" name="" id="" value="" />钢化
+        				<input type="radio" name="" id="" value="" />非钢化
+        			</td>
+        			<td>玻璃厚度</td>
+        			<td colspan="2"><input type="text" name="" id="" value="" /></td>
+        		</tr>
+        		<tr>
+        			<td>串连电池数</td>
+        			<td colspan="2">
+        				<input type="radio"/>18
+        				<input type="radio"/>36
+        				<input type="radio"/>54
+        				<input type="radio"/>72
+        			</td>
+        			<td>并联电池数</td>
+        			<td colspan="2">
+        				<input type="radio"/>1
+        				<input type="radio"/>2
+        				<input type="radio"/>3
+        				<input type="radio"/>4
+        				<input type="radio"/>5
+        			</td>
+        		
+        		</tr>
+        		<tr>
+        			<td>系统标称电压</td>
+        			<td colspan="5"></td>
+        		</tr>
+        		<tr>
+        			<td>|客户提供配件和资料</td>
+        			<td colspan="5">1、组件应有接线盒和引出线，并另附一套测试用转接线（必备）。2、电气原理图，二极管型号、参数
+        				<input type="radio"/>有
+        				<input type="radio"/>无。
+        				3、标识，包括：Voc、Isc、Vmp、Imp、Pamx等信息。<input type="radio" />有 <input type="radio" />无
+        			</td>
+        		</tr>
+        		<tr>
+        			<td>包装类型</td>
+        			<td colspan="2">
+        				<input type="radio"/>纸箱
+        				<input type="radio"/>木箱
+        				<input type="radio"/>无包装
+        			</td>
+        			<td>样品状态（包装前后）</td>
+        			<td colspan="2"><input type="radio"/>完整
+        				<input type="radio"/>破损
+        			</td>
+        		</tr>
+        		
+			</table>
+		</div>	
+		</div>
+		<div class="table1">
+			<h4>三、检测依据、检测项目与样品处理信息</h4>
+			<table class="table table-bordered">
+		  		<tr>
+        			<td>检测依据</td>
+        			<td colspan="5"><input type="type" name="" id="" value="" /></td>
+        			
+        		</tr>
+        		<tr>
+        			<td>检测项目</td>
+        			<td colspan="5"><input type="type" name="" id="" value="" /></td>
+        			
+        		</tr>
+        		<tr>
+        			<td>样品处理</td>
+        			<td colspan="5">
+        				<input type="radio" name="" id="" value="" />自提样品
+        				<input type="radio" name="" id="" value="" />退回样品（运费到付）
+        				<input type="radio" name="" id="" value="" />不要要求
+        			</td>
+        			
+        		</tr>
+        		<tr>
+        			<td>备注</td>
+        			<td colspan="5"><input type="text" name="" id="" value="" /></td>
+        			
+        		</tr>
+			</table>
+		</div>
+		<div class="table1">
+			<h4>四、开票信息</h4>
+			<table class="table table-bordered">
+		  		<tr>
+        			<td>名称</td>
+        			<td colspan="5"><input type="text" name="" id="" value="" /></td>
+        			
+        		</tr>
+        		<tr>
+        			<td>纳税人识别号</td>
+        			<td colspan="5"><input type="text" name="" id="" value="" /></td>
+        			
+        		</tr>
+        		
+        		<tr>
+        			<td>地址、电话</td>
+        			<td colspan="5"><input type="text" name="" id="" value="" /></td>
+        			
+        		</tr>
+        		<tr>
+        			<td>开户行、账号</td>
+        			<td colspan="5"><input type="text" name="" id="" value="" /></td>
+        			
+        		</tr>
+			</table>
+		</div>
+
+	</div>
+	
+
+</body>
+</html>
