@@ -1,0 +1,34 @@
+{
+  "name": "feeback",
+  "description": "",
+  "main": "",
+  "authors": [
+    "huanghuanlai <102535481@qq.com>"
+  ],
+  "license": "MIT",
+  "moduleType": [
+    "amd"
+  ],
+  "homepage": "dounine.com",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "jquery": "^2.2.3",
+    "bootstrap": "4.0.0-alpha",
+    "angular": "^1.5.7",
+    "echarts": "^3.1.7",
+    "angular-ui-router": "^0.2.18",
+    "requirejs": "^2.2.0",
+    "angular-loading-bar": "^0.9.0",
+    "angular-cookies": "^1.5.5",
+    "require-css": "^0.1.8",
+    "angular-animate": "^1.5.5",
+    "angular-file-upload": "^2.2.0",
+    "tether": "^1.2.0"
+  }
+}
