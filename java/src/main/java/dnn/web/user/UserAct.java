@@ -1,5 +1,6 @@
 package dnn.web.user;
 
+import dnn.common.dto.user.UserDto;
 import dnn.common.json.Callback;
 import dnn.common.json.ResponseText;
 import dnn.common.response.ResponseContext;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.Cookie;
+import java.util.List;
 
 /**
  * Created by huanghuanlai on 16/9/3.
@@ -30,6 +32,9 @@ public class UserAct {
     public ModelAndView loginContext(){
         return new ModelAndView("user/login");
     }
+
+
+
 
     @PostMapping("login")
     public ResponseText login(@Validated(Add.class) User user, BindingResult result, @Callback String callback) throws Throwable {
@@ -61,5 +66,7 @@ public class UserAct {
         }
         return rt;
     }
+
+
 
 }

@@ -1,8 +1,10 @@
 package dnn.service.user;
 
+import dnn.common.dto.user.UserDto;
 import dnn.common.exception.SerException;
 import dnn.common.utils.PasswordHash;
 import dnn.dao.user.IUserDao;
+import dnn.dao.user.UserDaoImpl;
 import dnn.entity.user.User;
 import dnn.service.ServiceImpl;
 import dnn.service.user.session.TokenUtils;
@@ -17,7 +19,7 @@ import java.security.spec.InvalidKeySpecException;
  * Created by huanghuanlai on 16/9/3.
  */
 @Service
-public class UserSerImpl extends ServiceImpl<User> implements ISerUser {
+public class UserSerImpl extends ServiceImpl<User,UserDto> implements ISerUser {
 
     @Autowired
     protected IUserDao userDao;
