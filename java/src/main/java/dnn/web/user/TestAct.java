@@ -2,11 +2,11 @@ package dnn.web.user;
 
 import dnn.common.dto.user.UserDto;
 import dnn.entity.user.User;
-import dnn.entity.user.UserDetails;
 import dnn.enums.Status;
 import dnn.service.user.ISerUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import java.time.LocalDateTime;
 import java.util.HashMap;
@@ -15,7 +15,7 @@ import java.util.List;
 /**
  * Created by lgq on 16-9-3.
  */
-@RestController("test")
+@RestController
 public class TestAct {
 
     @Autowired
@@ -66,12 +66,7 @@ public class TestAct {
         User user = new User();
         user.setPassword("deatil");
         user.setAccessTime(LocalDateTime.now());
-        user.setUsername("xinaml123");
-        UserDetails details = new UserDetails();
-        details.setAddress("南宁");
-        details.setCompany("艾佳");
-        details.setEmail("xinaml@qq.com");
-        user.setUserDetails(details);
+        user.setUsername("xinaml");
         serUser.save(user);
     }
 

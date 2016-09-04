@@ -12,7 +12,6 @@ import java.util.Map;
 /**
  * Created by huanghuanlai on 16/9/3.
  */
-@Service
 public class ServiceImpl<Entity extends BaseEntity, Dto extends BaseDto> implements IService<Entity, Dto> {
 
     @Autowired

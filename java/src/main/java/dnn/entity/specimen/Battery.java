@@ -2,6 +2,7 @@ package dnn.entity.specimen;
 
 import dnn.entity.BaseEntity;
 import dnn.enums.PackType;
+import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.time.LocalDateTime;
 
