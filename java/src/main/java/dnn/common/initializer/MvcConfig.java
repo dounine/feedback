@@ -4,6 +4,8 @@ import com.alibaba.fastjson.serializer.SerializerFeature;
 import com.alibaba.fastjson.support.config.FastJsonConfig;
 import com.alibaba.fastjson.support.spring.FastJsonHttpMessageConverter4;
 import dnn.common.handler.exception.ExceptionResolver;
+import dnn.common.handler.intercept.AdminInterceptor;
+import dnn.common.handler.intercept.LoginInterceptor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -12,10 +14,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 import org.springframework.web.servlet.HandlerExceptionResolver;
-import org.springframework.web.servlet.config.annotation.EnableWebMvc;
-import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
-import org.springframework.web.servlet.config.annotation.ViewResolverRegistry;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
+import org.springframework.web.servlet.config.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -38,6 +37,12 @@ public class MvcConfig extends WebMvcConfigurerAdapter {
         fastJsonHttpMessageConverter.setFastJsonConfig(fastJsonConfig);
 
         converters.add(fastJsonHttpMessageConverter);
+    }
+
+    @Override
+    public void addInterceptors(InterceptorRegistry registry) {
+        registry.addInterceptor(new LoginInterceptor());
+        registry.addInterceptor(new AdminInterceptor()).addPathPatterns("admin/*");
     }
 
     @Override

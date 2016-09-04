@@ -1,6 +1,7 @@
 package dnn.service;
 
 import dnn.common.dto.BaseDto;
+import dnn.common.exception.SerException;
 import dnn.dao.IDao;
 import dnn.entity.BaseEntity;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,32 +19,32 @@ public class ServiceImpl<Entity extends BaseEntity, Dto extends BaseDto> impleme
     protected IDao<Entity, Dto> dao;
 
     @Override
-    public List<Entity> findAll() {
+    public List<Entity> findAll() throws SerException {
         return dao.findAll();
     }
 
     @Override
-    public List<Entity> findByPage(Dto dto) {
+    public List<Entity> findByPage(Dto dto) throws SerException {
         return dao.findByPage(dto);
     }
 
     @Override
-    public Long count() {
+    public Long count() throws SerException {
         return dao.count();
     }
 
     @Override
-    public Entity findById(String id) {
+    public Entity findById(String id) throws SerException {
         return dao.findById(id);
     }
 
     @Override
-    public void save(Entity entity) {
+    public void save(Entity entity) throws SerException {
         dao.save(entity);
     }
 
     @Override
-    public void delete(String id) {
+    public void delete(String id) throws SerException {
         dao.delete(id);
     }
 
@@ -53,17 +54,17 @@ public class ServiceImpl<Entity extends BaseEntity, Dto extends BaseDto> impleme
     }
 
     @Override
-    public void update(Entity entity) {
+    public void update(Entity entity) throws SerException {
         dao.update(entity);
     }
 
     @Override
-    public List<Entity> findByCondition(Map<String, Object> conditions) {
+    public List<Entity> findByCondition(Map<String, Object> conditions) throws SerException {
         return dao.findByCondition(conditions);
     }
 
     @Override
-    public List<Entity> findByFuzzy(Map<String, Object> conditions) {
+    public List<Entity> findByFuzzy(Map<String, Object> conditions) throws SerException {
         return dao.findByFuzzy(conditions);
     }
 }

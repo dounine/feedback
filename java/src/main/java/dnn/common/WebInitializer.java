@@ -30,7 +30,7 @@ public class WebInitializer implements WebApplicationInitializer {
 
         DispatcherServlet dispatcherServlet = new DispatcherServlet(springMVCApplicationContext);
         dispatcherServlet.setPublishEvents(false);
-        ServletRegistration.Dynamic dispatcher = servletContext.addServlet("clouddisk-mvc", dispatcherServlet);
+        ServletRegistration.Dynamic dispatcher = servletContext.addServlet("dnn-mvc", dispatcherServlet);
         dispatcher.setLoadOnStartup(1);
         dispatcher.addMapping("/");
 

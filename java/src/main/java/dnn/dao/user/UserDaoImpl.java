@@ -8,7 +8,9 @@ import org.springframework.stereotype.Repository;
 
 import java.security.NoSuchAlgorithmException;
 import java.security.spec.InvalidKeySpecException;
-import java.time.LocalDateTime;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Created by huanghuanlai on 16/9/3.
@@ -18,12 +20,13 @@ public class UserDaoImpl extends DaoImpl<User,UserDto> implements IUserDao {
 
     @Override
     public User findByName(String username) {
-        User user = new User();
-        user.setId("123");
-        user.setUsername("admin");
-        user.setAccessTime(LocalDateTime.now());
-        user.setPassword("526cb1993b17402a71f88b46120037447a086f93b6e0d554:786987fa3055c393d0b07affc6a67bc6058bc8a7501be528");
-        return user;
+        Map<String,Object> keys = new HashMap<>();
+        keys.put("username",username);
+        List<User> users = findByCondition(keys);
+        if(null!=users&&users.size()>0){
+            return users.get(0);
+        }
+        return null;
     }
 
     public static void main(String args[]) throws InvalidKeySpecException, NoSuchAlgorithmException {

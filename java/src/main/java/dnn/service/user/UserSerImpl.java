@@ -33,21 +33,21 @@ public class UserSerImpl extends ServiceImpl<User,UserDto> implements ISerUser {
         User dbUser = userDao.findByName(user.getUsername());
         if(null!=dbUser){
             try {
-                if(!PasswordHash.validatePassword(user.getPassword(),dbUser.getPassword())){
-                    throw new SerException("用户名或密码错误");
+                if(PasswordHash.validatePassword(user.getPassword(),dbUser.getPassword())){
+                    UserSession.removeByUsername(user.getUsername());
+                    String token = TokenUtils.create(IpUtils.getRequestIp(),user.getUsername());
+
+                    Online online = new Online();
+                    online.setLastAccessTime(LocalDateTime.now());
+                    online.setId(dbUser.getId());
+                    online.setUsername(user.getUsername());
+                    online.setLoginTime(LocalDateTime.now());
+                    online.setToken(token);
+
+                    UserSession.put(token,online);
+
+                    return token;
                 }
-                UserSession.removeByUsername(user.getUsername());
-                String token = TokenUtils.create(IpUtils.getRequestIp(),user.getUsername());
-
-                Online online = new Online();
-                online.setLastAccessTime(LocalDateTime.now());
-                online.setId(dbUser.getId());
-                online.setUsername(user.getUsername());
-                online.setLoginTime(LocalDateTime.now());
-                online.setToken(token);
-
-                UserSession.put(token,online);
-                return token;
             } catch (SerException e) {
                 e.printStackTrace();
             } catch (InvalidKeySpecException e) {
@@ -68,7 +68,16 @@ public class UserSerImpl extends ServiceImpl<User,UserDto> implements ISerUser {
     }
 
     @Override
-    public void save(User entity) {
+    public void delete(User entity) {
+        super.delete(entity);
+    }
+
+    @Override
+    public void save(User entity) throws SerException {
+        User user = userDao.findByName(entity.getUsername());
+        if(null!=user){
+            throw new SerException(entity.getUsername()+" 用户已经存在");
+        }
         try {
             entity.setPassword(PasswordHash.createHash(entity.getPassword()));
         } catch (NoSuchAlgorithmException e) {
