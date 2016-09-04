@@ -17,26 +17,37 @@ public class LoginInterceptor implements HandlerInterceptor {
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         Cookie[] cookies = request.getCookies();
-        String token = null;
+        Cookie tokenCookie = null;
         if(null!=cookies){
             for(Cookie cookie : cookies){
                 if(cookie.getName().equals("token")){
-                    token = cookie.getValue();
+                    tokenCookie = cookie;
                     break;
                 }
             }
-            if(StringUtils.isNotBlank(token)){
-                if(UserSession.verify(token)){
+            if(null!=tokenCookie&&StringUtils.isNotBlank(tokenCookie.getValue())){
+                if(UserSession.verify(tokenCookie.getValue())){//验证令牌的正确性
+                    UserSession.update(tokenCookie.getValue());//更新会话
                     return true;
+                }else{
+                    tokenCookie.setMaxAge(0);//清除验证失败cookie
+                    response.addCookie(tokenCookie);
                 }
             }
         }
+        if(request.getRequestURI().equals("/login")){
+            request.setAttribute("login",true);
+            return true;
+        }
+        response.sendRedirect("login");
         return false;
     }
 
     @Override
     public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView) throws Exception {
-        response.sendRedirect("redirect:user/login");
+        if(request.getRequestURI().equals("/login")&&null==request.getAttribute("login")){
+            response.sendRedirect("/admin");
+        }
     }
 
     @Override

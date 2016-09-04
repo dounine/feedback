@@ -1,6 +1,8 @@
 package dnn.service.user.session;
 
 import dnn.common.exception.SerException;
+import dnn.common.utils.AddressUtils;
+import dnn.common.utils.IpUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -50,8 +52,9 @@ public final class UserSession {
     public static void remove(String token){
         if(StringUtils.isNotBlank(token)){
             SESSIONS.remove(token);
+        }else{
+            throw TOKEN_NOT_NULL;
         }
-        throw TOKEN_NOT_NULL;
     }
 
     public static void removeByUsername(String username) throws SerException {
@@ -106,7 +109,19 @@ public final class UserSession {
     }
 
     public static boolean verify(String token) {
-        return SESSIONS.get(token)!=null;
+        Online online = SESSIONS.get(token);
+        if(null!=online){
+            String[] tokens = online.getToken().split("\\.");
+            if(String.valueOf(tokens[1]).equals(String.valueOf(IpUtils.ipToLong(AddressUtils.getRemoteAddr())))){//检测是否是同一IP地扯
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public static void update(String token){
+        Online online = SESSIONS.get(token);
+        online.setLastAccessTime(LocalDateTime.now());
     }
 
     public static void main(String[] args){

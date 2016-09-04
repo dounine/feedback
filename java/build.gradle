@@ -21,5 +21,7 @@ dependencies {
     compile "org.springframework:spring-aop:$spring_version"
     compile "javax.validation:validation-api:$javax_validation_version"
     compile "com.alibaba:fastjson:$fastjson_version"
+    compile "jstl:jstl:$jstl_version"
+
 }
 
