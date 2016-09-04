@@ -2,6 +2,7 @@ package dnn.web.user;
 
 import dnn.common.dto.user.UserDto;
 import dnn.entity.user.User;
+import dnn.entity.user.UserDetails;
 import dnn.enums.Status;
 import dnn.service.user.ISerUser;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -63,9 +64,14 @@ public class TestAct {
     @GetMapping("add")
     public void add()throws Throwable {
         User user = new User();
-        user.setPassword("enum");
+        user.setPassword("deatil");
         user.setAccessTime(LocalDateTime.now());
-        user.setUsername("xinaml");
+        user.setUsername("xinaml123");
+        UserDetails details = new UserDetails();
+        details.setAddress("南宁");
+        details.setCompany("艾佳");
+        details.setEmail("xinaml@qq.com");
+        user.setUserDetails(details);
         serUser.save(user);
     }
 

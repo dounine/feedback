@@ -3,6 +3,7 @@ package dnn.dao;
 import dnn.common.dto.BaseDto;
 import dnn.common.utils.GenericsUtils;
 import dnn.entity.BaseEntity;
+import dnn.entity.specimen.ChemicalCell;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
@@ -38,7 +39,6 @@ public class DaoImpl<Entity extends BaseEntity, Dto extends BaseDto> implements 
         Query query = new Query();
         query.skip(dto.getSkip());
         query.limit(dto.getLimit());
-        long count = count();
         return mongoTemplate.find(query, clazz);
     }
 
