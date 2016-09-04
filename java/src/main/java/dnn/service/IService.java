@@ -49,6 +49,12 @@ public interface IService<Entity extends BaseEntity, Dto extends BaseDto> {
     void save(Entity entity)throws SerException;
 
     /**
+     * 保存对象列表
+     * @param entities
+     */
+    void save(List<Entity> entities)throws SerException;
+
+    /**
      * 通过id删除对象
      *
      * @param id
@@ -77,10 +83,30 @@ public interface IService<Entity extends BaseEntity, Dto extends BaseDto> {
     List<Entity> findByCondition(Map<String, Object> conditions)throws SerException;
 
     /**
+     * 根据字段条件查询对象列表数量
+     *
+     * @param conditions
+     */
+    long countByCondition(Map<String, Object> conditions)throws SerException;
+
+    /**
      * 模糊条件查询对象列表(只支持字段属性是字符串的查询)
      *
      * @param conditions
      */
     List<Entity> findByFuzzy(Map<String, Object> conditions)throws SerException;
+
+    /**
+     * 更新符合条件对象列表
+     * @param entity
+     * @param conditions
+     */
+    void UpdateByCis(Entity entity,Map<String, Object> conditions)throws SerException;
+
+    /**
+     * 删除符合条件对象列表
+     * @param conditions
+     */
+    List<Entity> findAndRemove(Map<String, Object> conditions)throws SerException;
 
 }

@@ -4,10 +4,13 @@ import dnn.common.dto.BaseDto;
 import dnn.common.utils.GenericsUtils;
 import dnn.entity.BaseEntity;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.data.mongodb.core.query.Update;
+import org.springframework.util.StringUtils;
+
 import java.util.List;
 import java.util.Map;
 
@@ -35,6 +38,13 @@ public class DaoImpl<Entity extends BaseEntity, Dto extends BaseDto> implements 
         Query query = new Query();
         query.skip(dto.getSkip());
         query.limit(dto.getLimit());
+        if (null != dto.getSort() && dto.getSort().size() > 0) {
+            Sort.Direction order = Sort.Direction.DESC;
+            if (!dto.getOrder().equals("desc")) {
+                order = Sort.Direction.ASC;
+            }
+            query.with(new Sort(order, dto.getSort()));
+        }
         return mongoTemplate.find(query, clazz);
     }
 
@@ -50,7 +60,12 @@ public class DaoImpl<Entity extends BaseEntity, Dto extends BaseDto> implements 
 
     @Override
     public void save(Entity entity) {
-        mongoTemplate.save(entity);
+        mongoTemplate.insert(entity);
+    }
+
+    @Override
+    public void save(List<Entity> entities) {
+        mongoTemplate.insert(entities,clazz);
     }
 
     @Override
@@ -81,6 +96,17 @@ public class DaoImpl<Entity extends BaseEntity, Dto extends BaseDto> implements 
     }
 
     @Override
+    public long countByCondition(Map<String, Object> conditions) {
+        Query query = new Query();
+        if (null != conditions && conditions.size() > 0) {
+            for (Map.Entry<String, Object> entry : conditions.entrySet()) {
+                query.addCriteria(Criteria.where(entry.getKey()).is(entry.getValue()));
+            }
+        }
+        return mongoTemplate.count(query, clazz);
+    }
+
+    @Override
     public List<Entity> findByFuzzy(Map<String, Object> conditions) {
         Query query = new Query();
         if (null != conditions && conditions.size() > 0) {
@@ -90,4 +116,29 @@ public class DaoImpl<Entity extends BaseEntity, Dto extends BaseDto> implements 
         }
         return mongoTemplate.find(query, clazz);
     }
+
+    @Override
+    public void UpdateByCis(Entity entity, Map<String, Object> conditions) {
+        Query query = new Query();
+        if (null != conditions && conditions.size() > 0) {
+            for (Map.Entry<String, Object> entry : conditions.entrySet()) {
+                query.addCriteria(Criteria.where(entry.getKey()).regex(entry.getValue().toString()));
+            }
+        }
+         mongoTemplate.updateMulti(query,
+                Update.update(clazz.getSimpleName(), entity), clazz);
+    }
+
+    @Override
+    public List<Entity> findAndRemove( Map<String, Object> conditions) {
+
+        Query query = new Query();
+        if (null != conditions && conditions.size() > 0) {
+            for (Map.Entry<String, Object> entry : conditions.entrySet()) {
+                query.addCriteria(Criteria.where(entry.getKey()).regex(entry.getValue().toString()));
+            }
+        }
+       return mongoTemplate.findAllAndRemove(query,clazz);
+    }
+
 }
