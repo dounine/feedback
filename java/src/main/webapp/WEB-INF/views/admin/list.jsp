@@ -13,12 +13,15 @@
         div li:nth-child(odd){
             background: #cccccc;
         }
+        form input{
+            margin:4px;
+        }
     </style>
 	<body style="padding: 20px">
         <form action="${ctx}/user/add" method="post">
             <input type="text" name="username" /><br/>
-            <input type="password" name="password" />
-            <input type="radio" name="userType" checked value="MANAGER">管理员 <input value="CUSTOM" type="radio" name="userType">客户<br/>
+            <input type="password" name="password" /></br>
+            <input type="radio" name="userType" checked value="MANAGER" id="m"><label for="m">管理员</label> <input value="CUSTOM" type="radio" name="userType" id="w"><label for="w">客户</label><br/>
             <span style="color:red">${msg}</span></br>
             <input type="submit" value="添加" />
             <a href="${ctx}/admin/index" />返回</a>
