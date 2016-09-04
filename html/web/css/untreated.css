@@ -1,0 +1,83 @@
+* {
+  margin: 0;
+  padding: 0;
+  font-size: 12px; }
+  * a {
+    text-decoration: none; }
+  * ul li {
+    list-style: none; }
+
+header {
+  height: 116px;
+  line-height: 116px; }
+  header .logo img {
+    margin-top: 40px; }
+
+nav {
+  height: 40px;
+  background: #28b8f4; }
+  nav ul li {
+    float: left;
+    width: 70px;
+    height: 40px;
+    line-height: 40px; }
+    nav ul li a {
+      font-size: 16px;
+      color: #fff;
+      text-decoration: none;
+      display: inline-block;
+      height: 40px;
+      width: 100%;
+      text-align: center;
+      font-weight: 700; }
+      nav ul li a:hover {
+        background: #fff;
+        color: #28b8f4;
+        text-decoration: none; }
+
+.untreabody {
+  margin-top: 10px; }
+  .untreabody .srea input {
+    width: 200px;
+    height: 35px;
+    margin-right: 5px; }
+  .untreabody .untretable {
+    margin-top: 50px; }
+    .untreabody .untretable th {
+      background: #EAEAEA;
+      text-align: center; }
+    .untreabody .untretable td {
+      text-align: center; }
+    .untreabody .untretable td:nth-child(2) {
+      color: red; }
+  .untreabody .fenye {
+    position: relative;
+    text-align: center; }
+    .untreabody .fenye .prey {
+      display: inline-block;
+      background: url(../img/page_next.png);
+      height: 30px;
+      width: 30px;
+      margin-right: 20px;
+      margin-bottom: 25px; }
+    .untreabody .fenye .next2 {
+      display: inline-block;
+      background: url(../img/page_next2.png);
+      height: 30px;
+      width: 30px;
+      margin-left: 20px;
+      margin-bottom: 25px; }
+    .untreabody .fenye .pagination li a {
+      margin: 5px; }
+    .untreabody .fenye .text_go {
+      display: inline-block;
+      height: 30px;
+      line-height: 30px;
+      margin-left: 10px;
+      position: absolute;
+      top: 23px;
+      left: 65%; }
+      .untreabody .fenye .text_go button {
+        width: 40px; }
+
+/*# sourceMappingURL=untreated.css.map */
