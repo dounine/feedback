@@ -15,7 +15,7 @@ public class MongoDbSource {
     @Bean
     public MongoDbFactory mongoDbFactory() throws Exception{
         //UserCredentials userCredentials = new UserCredentials("lake", "lake");
-        return new SimpleMongoDbFactory(new MongoClient("localhost",27016), "lake");
+        return new SimpleMongoDbFactory(new MongoClient("192.168.99.100",27017), "lake");
     }
 
     @Bean

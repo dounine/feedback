@@ -1,12 +1,13 @@
 package dnn.service.user.session;
 
 import dnn.common.exception.SerException;
-import dnn.entity.user.User;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -16,7 +17,7 @@ import java.util.concurrent.ConcurrentHashMap;
 public final class UserSession {
 
     private static final Logger CONSOLE = LoggerFactory.getLogger(UserSession.class);
-    private static final Map<String,User> SESSIONS = new ConcurrentHashMap<>(0);
+    private static final Map<String,Online> SESSIONS = new ConcurrentHashMap<>(0);
     private static final RuntimeException TOKEN_NOT_NULL = new RuntimeException("token令牌不能为空");
 
     private UserSession(){}
@@ -29,13 +30,13 @@ public final class UserSession {
     /**
      * 新增用户会话信息
      * @param token 令牌值
-     * @param user 登录用户信息
+     * @param online 登录用户信息
      * @return 是否已经登录
      */
-    public static void put(String token,User user){
+    public static void put(String token,Online online){
         if(StringUtils.isNotBlank(token)){
-            user.setAccessTime(LocalDateTime.now());
-            SESSIONS.put(token,user);
+            online.setLastAccessTime(LocalDateTime.now());
+            SESSIONS.put(token,online);
         }else{
             throw TOKEN_NOT_NULL;
         }
@@ -55,7 +56,7 @@ public final class UserSession {
 
     public static void removeByUsername(String username) throws SerException {
         if(StringUtils.isNotBlank(username)){
-            for(Map.Entry<String,User> entry : SESSIONS.entrySet()){
+            for(Map.Entry<String,Online> entry : SESSIONS.entrySet()){
                 if(username.equals(entry.getValue().getUsername())){
                     SESSIONS.remove(entry.getKey());
                     break;
@@ -90,9 +91,16 @@ public final class UserSession {
      * 获取全部用户会话信息
      * @return 会话信息集合
      */
-    public static Map<String,User> sessions(){
-        if(null!=SESSIONS&&SESSIONS.size()>0){
-            return SESSIONS;
+    public static List<Online> sessions(){
+        int size = 0;
+        if(null!=SESSIONS&&(size = SESSIONS.size())>0){
+            List<Online> onlines = new ArrayList<>(size);
+            for(Map.Entry<String,Online> entry : SESSIONS.entrySet()){
+                Online online = entry.getValue();
+                online.setToken(entry.getKey());
+                onlines.add(online);
+            }
+            return onlines;
         }
         return null;
     }

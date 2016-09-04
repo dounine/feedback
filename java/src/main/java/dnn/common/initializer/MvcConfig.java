@@ -3,16 +3,19 @@ package dnn.common.initializer;
 import com.alibaba.fastjson.serializer.SerializerFeature;
 import com.alibaba.fastjson.support.config.FastJsonConfig;
 import com.alibaba.fastjson.support.spring.FastJsonHttpMessageConverter4;
-import dnn.common.handler.exception.GlobalExceptionResolver;
+import dnn.common.handler.exception.ExceptionResolver;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.http.MediaType;
 import org.springframework.http.converter.HttpMessageConverter;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 import org.springframework.web.servlet.HandlerExceptionResolver;
-import org.springframework.web.servlet.config.annotation.*;
+import org.springframework.web.servlet.config.annotation.EnableWebMvc;
+import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
+import org.springframework.web.servlet.config.annotation.ViewResolverRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,6 +23,7 @@ import java.util.List;
 @Configuration
 @EnableWebMvc
 @ComponentScan(basePackages = Constant.SCAN_MVC_PACKAGES)
+@EnableAspectJAutoProxy
 public class MvcConfig extends WebMvcConfigurerAdapter {
 
     @Override
@@ -51,20 +55,12 @@ public class MvcConfig extends WebMvcConfigurerAdapter {
 
     @Override
     public void configureHandlerExceptionResolvers(List<HandlerExceptionResolver> exceptionResolvers) {
-        exceptionResolvers.add(new GlobalExceptionResolver());//使用统一异常处理
+        exceptionResolvers.add(new ExceptionResolver());//使用统一异常处理
     }
 
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         registry.addResourceHandler("/public/**").addResourceLocations("/public/");
-        registry.addResourceHandler("/static/**").addResourceLocations("/static/");
-    }
-
-    @Override
-    public void addCorsMappings(CorsRegistry registry) {//允许跨站访问
-        registry.addMapping("/**")
-                .allowedOrigins("http://dounine.com")
-                .allowedMethods(RequestMethod.GET.name(),RequestMethod.POST.name());
     }
 
 }

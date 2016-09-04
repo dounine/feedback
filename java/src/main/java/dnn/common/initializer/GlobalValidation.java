@@ -1,4 +1,4 @@
-package dnn.common;
+package dnn.common.initializer;
 
 import com.alibaba.fastjson.JSON;
 import dnn.common.json.Callback;
@@ -8,8 +8,10 @@ import dnn.common.validation.ValidRep;
 import org.apache.commons.lang3.StringUtils;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
+import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Pointcut;
 import org.aspectj.lang.reflect.MethodSignature;
+import org.springframework.stereotype.Component;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 
@@ -19,6 +21,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+@Component
+@Aspect
 public class GlobalValidation {
 
     private static final int COMMON_ERROR_CODE = 3;
@@ -92,7 +96,7 @@ public class GlobalValidation {
                     sb.append(")");
                     ResponseContext.writeData(sb);
                 } else {
-                    responseText.setData(validReps);
+                    responseText.setMsg(validReps);
                     responseText.setErrno(COMMON_ERROR_CODE);
                     ResponseContext.writeData(responseText);
                 }

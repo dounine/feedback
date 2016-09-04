@@ -21,7 +21,7 @@ public @interface PasswordValid {
     int min() default PASS_MIN_SIZE;
     int max() default PASS_MAX_SIZE;
 
-    String message() default "passwd size between {min} the {max}";
+    String message() default "密码长度在 {min} 到 {max} 之间";
 
     Class<?>[] groups() default {};
 
