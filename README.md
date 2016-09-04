@@ -11,6 +11,6 @@
 
 ## 使用说明
 
-* 重点在 **java** 目录中
+* 重点在 **[java](https://github.com/dounine/feedback/tree/master/java)** 目录中
 * 使用方法请参考目录里面的使用说明文档
 
