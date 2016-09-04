@@ -21,6 +21,7 @@ public final class ResponseContext {
     public static void writeData(Object data){
         HttpServletResponse response = get();
         response.setCharacterEncoding("utf-8");
+        response.setContentType("text/html;charset=UTF-8");
         try {
             if(data instanceof String || data instanceof StringBuffer || data instanceof StringBuilder){
                 response.getWriter().print(data.toString());

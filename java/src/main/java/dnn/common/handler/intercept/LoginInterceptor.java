@@ -44,6 +44,7 @@ public class LoginInterceptor implements HandlerInterceptor {
                 }else{
                     tokenCookie.setMaxAge(0);//清除验证失败cookie
                     response.addCookie(tokenCookie);
+                    response.sendRedirect("/login");
                 }
             }else{
                 response.sendRedirect("/login");

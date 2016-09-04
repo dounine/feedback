@@ -1,4 +1,4 @@
-package dnn.web.custom;
+package dnn.web.custom.untreated;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -8,17 +8,17 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.servlet.http.HttpServletRequest;
 
 @RestController
-@RequestMapping("custom")
-public class CustomAction {
+@RequestMapping("custom/untreated")
+public class UntreatedAct {
 
     @GetMapping("")
     public ModelAndView home(HttpServletRequest request) {
-        return new ModelAndView("custom/index");
+        return new ModelAndView("redirect:/custom/untreated/index");
     }
 
-    @GetMapping("aa")
-    public ModelAndView aa(HttpServletRequest request) {
-        return new ModelAndView("custom/index");
+    @GetMapping("index")
+    public ModelAndView index(HttpServletRequest request) {
+        return new ModelAndView("custom/untreated/index");
     }
 
 }

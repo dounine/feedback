@@ -1,0 +1,111 @@
+* {
+  margin: 0;
+  padding: 0;
+  font-size: 12px; }
+  * a {
+    text-decoration: none; }
+  * ul li {
+    list-style: none; }
+
+header {
+  height: 116px;
+  line-height: 116px; }
+  header .logo img {
+    margin-top: 40px; }
+
+nav {
+  height: 40px;
+  background: #28b8f4; }
+  nav ul li {
+    float: left;
+    width: 70px;
+    height: 40px;
+    line-height: 40px; }
+    nav ul li a {
+      font-size: 16px;
+      color: #fff;
+      text-decoration: none;
+      display: inline-block;
+      height: 40px;
+      width: 100%;
+      text-align: center;
+      font-weight: 700; }
+      nav ul li a:hover {
+        background: #fff;
+        color: #28b8f4;
+        text-decoration: none; }
+
+.mainbody {
+  margin-top: 30px; }
+  .mainbody h5 {
+    background: url(/public/app/custom/imgs/zs.png) no-repeat;
+    height: 40px;
+    line-height: 40px;
+    margin-top: 20px; }
+  .mainbody .user {
+    height: 230px;
+    border-bottom: 1px solid #ddd; }
+    .mainbody .user .usercon ul li {
+      float: left;
+      margin: 10px;
+      font-size: 16px; }
+  .mainbody .product ol li a {
+    color: #8b8b8b; }
+  .mainbody .product .active {
+    color: #3b3b3b; }
+  .mainbody .product ul {
+    border: 1px solid #ccc; }
+    .mainbody .product ul li {
+      border-bottom: 1px solid #ccc; }
+      .mainbody .product ul li span {
+        display: inline-block;
+        height: 28px;
+        font-size: 16px;
+        line-height: 28px; }
+      .mainbody .product ul li span:nth-child(2n-1) {
+        border-right: 1px solid #ccc;
+        border-left: 1px solid #ccc; }
+      .mainbody .product ul li input {
+        border: none; }
+      .mainbody .product ul li input[type|=radio] {
+        width: 40px; }
+  .mainbody #teshuli {
+    height: 87px; }
+    .mainbody #teshuli .wid15 {
+      height: 87px;
+      line-height: 87px;
+      position: relative;
+      top: -30px; }
+    .mainbody #teshuli .sp2 span {
+      border: none;
+      margin: 0px 20px; }
+      .mainbody #teshuli .sp2 span .sp3 {
+        width: 100px;
+        text-align: center; }
+  .mainbody .wid15 {
+    display: inline-block;
+    width: 15%;
+    text-align: center; }
+
+.but button {
+  border-radius: 10px;
+  width: 100px;
+  height: 35px;
+  text-align: center;
+  margin: 20px; }
+.but .btn-default {
+  background: #d7d7d7; }
+.but .btn-info {
+  background: #29b8f4; }
+
+.tijiao {
+  text-align: center;
+  width: 424px;
+  height: 250px; }
+  .tijiao h4 {
+    margin-top: 63px; }
+  .tijiao button {
+    width: 150px;
+    margin: 60px 25px; }
+
+/*# sourceMappingURL=form.css.map */

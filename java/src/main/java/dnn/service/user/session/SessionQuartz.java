@@ -15,7 +15,7 @@ public class SessionQuartz extends Thread{
     private static final Logger CONSOLE = LoggerFactory.getLogger(SessionQuartz.class);
 
     private static final int POLL_MIN = 1;//循环时间(分)
-    private static final int SESSION_TIMEOUT = 2;//会话过期时间
+    private static final int SESSION_TIMEOUT = 60 * 10;//会话过期时间
     private Map<String,Online> sessions;
     public SessionQuartz(Map<String,Online> sessions){
         this.sessions = sessions;
