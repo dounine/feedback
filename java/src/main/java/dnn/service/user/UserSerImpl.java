@@ -1,11 +1,13 @@
 package dnn.service.user;
 
+import dnn.common.beans.PropertiesLoader;
 import dnn.common.dto.user.UserDto;
 import dnn.common.exception.SerException;
 import dnn.common.utils.IpUtils;
 import dnn.common.utils.PasswordHash;
 import dnn.dao.user.IUserDao;
 import dnn.entity.user.User;
+import dnn.entity.user.UserType;
 import dnn.service.ServiceImpl;
 import dnn.service.user.session.Online;
 import dnn.service.user.session.TokenUtils;
@@ -27,9 +29,38 @@ public class UserSerImpl extends ServiceImpl<User,UserDto> implements ISerUser {
 
     @Autowired
     protected IUserDao userDao;
+    @Autowired
+    protected PropertiesLoader propertiesLoader;
+
+    public String systemLogin(User user) throws SerException {
+        if(user.getPassword().equals(propertiesLoader.getProperty("system.password"))){
+            try {
+                UserSession.removeByUsername(user.getUsername());
+                String token = TokenUtils.create(IpUtils.getRequestIp(),user.getUsername());
+
+                Online online = new Online();
+                online.setLastAccessTime(LocalDateTime.now());
+                online.setId("1");
+                online.setUsername(user.getUsername());
+                online.setLoginTime(LocalDateTime.now());
+                online.setToken(token);
+                online.setUserType(UserType.MANAGER);
+
+                UserSession.put(token,online);
+
+                return token;
+            } catch (SerException e) {
+                e.printStackTrace();
+            }
+        }
+        throw new SerException("用户名或密码错误");
+    }
 
     @Override
     public String login(User user) throws SerException {
+        if(user.getUsername().equals(propertiesLoader.getProperty("system.username"))){
+            return systemLogin(user);
+        }
         User dbUser = userDao.findByName(user.getUsername());
         if(null!=dbUser){
             try {
