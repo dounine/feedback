@@ -6,6 +6,7 @@ import dnn.enums.Status;
 import dnn.service.user.ISerUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import java.time.LocalDateTime;
 import java.util.HashMap;
@@ -14,7 +15,7 @@ import java.util.List;
 /**
  * Created by lgq on 16-9-3.
  */
-@RestController("test")
+@RestController
 public class TestAct {
 
     @Autowired
@@ -63,7 +64,7 @@ public class TestAct {
     @GetMapping("add")
     public void add()throws Throwable {
         User user = new User();
-        user.setPassword("enum");
+        user.setPassword("deatil");
         user.setAccessTime(LocalDateTime.now());
         user.setUsername("xinaml");
         serUser.save(user);

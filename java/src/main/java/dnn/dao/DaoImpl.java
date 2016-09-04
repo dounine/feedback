@@ -8,9 +8,6 @@ import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.data.mongodb.core.query.Update;
-
-import java.util.Collection;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -38,7 +35,6 @@ public class DaoImpl<Entity extends BaseEntity, Dto extends BaseDto> implements 
         Query query = new Query();
         query.skip(dto.getSkip());
         query.limit(dto.getLimit());
-        long count = count();
         return mongoTemplate.find(query, clazz);
     }
 
