@@ -12,15 +12,18 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.Cookie;
+import java.util.Map;
 
 /**
  * Created by huanghuanlai on 16/9/3.
  */
-@RestController("user")
+@RestController
+@RequestMapping("user")
 public class UserAct {
 
     @Autowired
@@ -29,6 +32,17 @@ public class UserAct {
     @GetMapping("login")
     public ModelAndView loginContext(){
         return new ModelAndView("user/login");
+    }
+
+    @PostMapping("add")
+    public ResponseText add(@Validated(Add.class) User user){
+        serUser.save(user);
+        return new ResponseText();
+    }
+
+    @GetMapping("online")
+    public Map<String,Object> online(){
+        return serUser.listOnline();
     }
 
     @PostMapping("login")
@@ -61,5 +75,7 @@ public class UserAct {
         }
         return rt;
     }
+
+
 
 }

@@ -5,6 +5,10 @@ package dnn.common.utils;
  */
 public class IpUtils {
 
+    public static String getRequestIp(){
+        return AddressUtils.getRemoteAddr();
+    }
+
     public static long ipToLong(String sip) {
         long[] ip = new long[4];
         int[] pos = new int[3];

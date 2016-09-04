@@ -19,10 +19,11 @@ public class User extends BaseEntity{
     public static final int UNAME_MAX_SIZE = 20;
 
     //groups 用于CRUD组合使用,当字段有分组时,@Validated(?)占位符内必需有值(Add,Del,Edit,Get)
-    @NotBlank(message = "username not blank",groups = {Add.class})
-    @Length(message = "username size between {min} the {max}",min = UNAME_MIN_SIZE,max = UNAME_MAX_SIZE,groups = {Add.class})
+    @NotBlank(message = "用户名不能空",groups = {Add.class})
+    @Length(message = "用户名长度在 {min} 到 {max} 之间",min = UNAME_MIN_SIZE,max = UNAME_MAX_SIZE,groups = {Add.class})
     private String username;
 
+    @NotBlank(message = "密码不能空",groups = {Add.class})
     @PasswordValid(groups = {Add.class})
     private String password;
 

@@ -17,8 +17,8 @@ public class SessionQuartz extends Thread{
 
     private static final int POLL_MIN = 1;//循环时间(分)
     private static final int SESSION_TIMEOUT = 3;//会话过期时间
-    private Map<String,User> sessions;
-    public SessionQuartz(Map<String,User> sessions){
+    private Map<String,Online> sessions;
+    public SessionQuartz(Map<String,Online> sessions){
         this.sessions = sessions;
     }
 
@@ -26,8 +26,8 @@ public class SessionQuartz extends Thread{
     public void run() {
         try {
             for(;;){
-                for(Map.Entry<String,User> entry : sessions.entrySet()){
-                    if(entry.getValue().getAccessTime().plusMinutes(SESSION_TIMEOUT).isBefore(LocalDateTime.now())){
+                for(Map.Entry<String,Online> entry : sessions.entrySet()){
+                    if(entry.getValue().getLastAccessTime().plusMinutes(SESSION_TIMEOUT).isBefore(LocalDateTime.now())){
                         CONSOLE.info("remove token:"+entry.getKey());
                         sessions.remove(entry.getKey());
                     }

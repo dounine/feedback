@@ -1,5 +1,10 @@
 **/target/
 **/bower_components/
 **/node_modules/
+java/.idea/
 java/src/main/webapp/public/js/lib
+java/classes/
+java/build/
+java/src/main/resources/rebel.xml
 **/.gradle/
+**/build/

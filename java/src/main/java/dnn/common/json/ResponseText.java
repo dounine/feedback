@@ -9,7 +9,7 @@ public class ResponseText<T> {
 
     private int errno = SUCCESS_CODE;
     private T data;
-    private String msg;
+    private Object msg;
 
     public ResponseText(){}
     public ResponseText(T data) {
@@ -32,11 +32,11 @@ public class ResponseText<T> {
         this.errno = errno;
     }
 
-    public String getMsg() {
+    public Object getMsg() {
         return msg;
     }
 
-    public void setMsg(String msg) {
+    public void setMsg(Object msg) {
         this.msg = msg;
     }
 }
