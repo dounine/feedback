@@ -35,7 +35,7 @@ public class UserAct {
     }
 
     @PostMapping("add")
-    public ResponseText add(@Validated(Add.class) User user){
+    public ResponseText add(@Validated(Add.class) User user)throws Throwable{
         serUser.save(user);
         return new ResponseText();
     }

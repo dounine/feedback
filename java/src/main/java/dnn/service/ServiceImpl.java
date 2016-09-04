@@ -5,8 +5,8 @@ import dnn.dao.IDao;
 import dnn.entity.BaseEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by huanghuanlai on 16/9/3.
@@ -57,4 +57,13 @@ public class ServiceImpl<Entity extends BaseEntity, Dto extends BaseDto> impleme
         dao.update(entity);
     }
 
+    @Override
+    public List<Entity> findByCondition(Map<String, Object> conditions) {
+        return dao.findByCondition(conditions);
+    }
+
+    @Override
+    public List<Entity> findByFuzzy(Map<String, Object> conditions) {
+        return dao.findByFuzzy(conditions);
+    }
 }
