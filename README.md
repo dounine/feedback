@@ -5,9 +5,9 @@
 
 ## 项目目录使用说明
 
-1. **design** 为UI设计界面图纸
-2. **html** 实现UI设计的web界面
-3. **java** 后台处理项目
+1. **[design](https://github.com/dounine/feedback/design)** 为UI设计界面图纸
+2. **[html](https://github.com/dounine/feedback/html)** 实现UI设计的web界面
+3. **[java](https://github.com/dounine/feedback/java)** 后台处理项目
 
 ## 使用说明
 
