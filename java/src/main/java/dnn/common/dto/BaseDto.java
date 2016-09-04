@@ -1,6 +1,7 @@
 package dnn.common.dto;
 
 import java.io.Serializable;
+import java.util.List;
 
 /**
  * Created by lgq on 16-9-2.
@@ -9,8 +10,9 @@ public class BaseDto extends PageDto implements Serializable {
     private static final long serialVersionUID = -3558525794931360478L;
 
     private Boolean findAll =Boolean.FALSE;
-    private String sort ;
+    private List<String> sort ;
     private String search;
+    private String order="desc";
 
     public void findAll() {
         this.findAll =true;
@@ -20,19 +22,27 @@ public class BaseDto extends PageDto implements Serializable {
         this.findAll = findAll;
     }
 
-    public String getSort() {
-        return sort;
-    }
-
-    public void setSort(String sort) {
-        this.sort = sort;
-    }
-
     public String getSearch() {
         return search;
     }
 
     public void setSearch(String search) {
         this.search = search;
+    }
+
+    public List<String> getSort() {
+        return sort;
+    }
+
+    public void setSort(List<String> sort) {
+        this.sort = sort;
+    }
+
+    public String getOrder() {
+        return order;
+    }
+
+    public void setOrder(String order) {
+        this.order = order;
     }
 }

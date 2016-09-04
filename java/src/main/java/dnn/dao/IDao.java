@@ -2,6 +2,8 @@ package dnn.dao;
 
 import dnn.common.dto.BaseDto;
 import dnn.entity.BaseEntity;
+import org.springframework.data.mongodb.core.query.Update;
+
 import java.util.List;
 import java.util.Map;
 
@@ -48,6 +50,12 @@ public interface IDao<Entity extends BaseEntity, Dto extends BaseDto> {
     void save(Entity entity);
 
     /**
+     * 保存对象列表
+     * @param entities
+     */
+    void save(List<Entity> entities);
+
+    /**
      * 通过id删除对象
      *
      * @param id
@@ -76,9 +84,31 @@ public interface IDao<Entity extends BaseEntity, Dto extends BaseDto> {
     public List<Entity> findByCondition(Map<String, Object> conditions);
 
     /**
+     * 根据字段条件查询对象列表数量
+     *
+     * @param conditions
+     */
+    long countByCondition(Map<String, Object> conditions);
+
+
+    /**
      * 模糊条件查询对象列表(只支持字段属性是字符串的查询)
      *
      * @param conditions
      */
     List<Entity> findByFuzzy(Map<String, Object> conditions);
+
+    /**
+     * 更新符合条件对象列表
+     * @param entity
+     * @param conditions
+     */
+    void UpdateByCis(Entity entity,Map<String, Object> conditions);
+
+    /**
+     * 删除符合条件对象列表
+     * @param conditions
+     */
+    List<Entity> findAndRemove(Map<String, Object> conditions);
+
 }

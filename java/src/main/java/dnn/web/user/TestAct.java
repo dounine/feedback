@@ -25,8 +25,7 @@ public class TestAct {
     @GetMapping("findByCondition")
     public List<User> findByCondition() throws Throwable {
         HashMap<String, Object> conditions = new HashMap<>();
-        conditions.put("username", "liguiqin");
-        conditions.put("password", "9999999999");
+        conditions.put("userDetails.company", "艾佳");
         return serUser.findByCondition(conditions);
     }
 
