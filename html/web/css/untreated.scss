@@ -1,0 +1,105 @@
+*{margin:0;padding:0;font-size: 12px; a{text-decoration: none;} ul li{list-style: none;}}
+header{
+    height: 116px;
+    line-height: 116px;
+    .logo{
+   
+      img{margin-top: 40px;}
+    }
+    
+}
+nav {
+    height: 40px;
+    background: rgba(40,184,244,1);
+    ul li{
+        float: left;
+        width: 70px;
+        height: 40px;
+        line-height: 40px;
+        a{
+            font-size: 16px;
+            color: #fff;
+            text-decoration: none;
+            display: inline-block;
+            height: 40px;
+            width: 100%;
+            text-align:center ;
+            font-weight: 700;
+            
+            &:hover{
+                background: #fff;
+                color:rgba(40,184,244,1);
+                text-decoration: none;
+            }
+           
+        }
+    }
+}
+.untreabody{
+    margin-top: 10px;
+    .srea{
+        input{
+            width: 200px;
+            height: 35px;
+            margin-right: 5px;
+        }
+    }
+    .untretable{
+        margin-top: 50px;
+        th{
+            background: #EAEAEA;
+            text-align: center;
+        }
+        td{
+            text-align: center;
+        }
+        td:nth-child(2){
+            color: red;
+        }
+    }
+    .fenye{
+        position: relative;
+        text-align: center;
+        .prey{
+                display: inline-block;
+                background: url(../img/page_next.png);
+                height: 30px;
+                width: 30px;
+                margin-right: 20px;
+                margin-bottom: 25px;
+            }
+            .next2{
+                display: inline-block;
+                 background: url(../img/page_next2.png);
+                height: 30px;
+                width: 30px;
+                margin-left: 20px;
+                margin-bottom: 25px;
+            }
+        .pagination{
+            
+       
+        li a{
+            margin: 5px;
+            
+        }
+        
+       
+    }
+ 
+     .text_go{
+            display: inline-block;
+            height: 30px;
+            line-height: 30px;
+            margin-left: 10px;
+            position: absolute;
+            top: 23px;
+           left: 65%;
+           button{
+               width: 40px;
+           }
+        }
+    }
+    
+    
+}

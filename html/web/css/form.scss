@@ -1,0 +1,146 @@
+*{margin:0;padding:0;font-size: 12px; a{text-decoration: none;} ul li{list-style: none;}}
+header{
+    height: 116px;
+    line-height: 116px;
+    .logo{
+   
+      img{margin-top: 40px;}
+    }
+    
+}
+nav {
+    height: 40px;
+    background: rgba(40,184,244,1);
+    ul li{
+        float: left;
+        width: 70px;
+        height: 40px;
+        line-height: 40px;
+        a{
+            font-size: 16px;
+            color: #fff;
+            text-decoration: none;
+            display: inline-block;
+            height: 40px;
+            width: 100%;
+            text-align:center ;
+            font-weight: 700;
+            
+            &:hover{
+                background: #fff;
+                color:rgba(40,184,244,1);
+                text-decoration: none;
+            }
+        }
+    }
+}
+.mainbody{
+    margin-top: 30px;
+    h5{
+        background: url(../img/zs.png) no-repeat;
+        height: 40px;
+        line-height: 40px;
+        margin-top: 20px;
+    }
+    .user{
+        height: 230px;
+        border-bottom: 1px solid #ddd;
+        .usercon{
+            ul li{
+                float: left;
+                margin: 10px;
+                font-size: 16px;
+            }
+        }
+    }
+    .product{
+        ol li a{
+            color:rgba(139,139,139,1);
+        }
+        .active{
+            color: rgba(59,59,59,1);
+        }
+        
+            ul { border: 1px solid #ccc;
+                li {
+                
+                border-bottom: 1px solid #ccc;
+                 
+                span{
+                    display: inline-block;
+                    height:28px;
+                    font-size: 16px;
+                    line-height: 28px;
+//             
+                }
+                span:nth-child(2n-1){
+                    border-right: 1px solid #ccc;
+                    border-left: 1px solid #ccc;
+                }
+                input{
+                    border: none;
+//                  height: 30px;
+                }
+                input[type|=radio]{
+                    width: 40px;
+                }
+            }
+        }
+  
+    }
+    
+    #teshuli{height: 87px;
+        .wid15{
+            height: 87px;
+            line-height: 87px;
+            position: relative;
+            top: -30px;
+        }
+        .sp2 span{
+            border: none;
+            margin: 0px 20px;
+            .sp3{
+                width: 100px;
+              text-align: center;
+            }
+        }
+           
+            
+           
+        
+    }
+ 
+    
+    .wid15{
+        display: inline-block;
+        width: 15%;
+        text-align: center;
+    }
+   
+}
+.but{
+   button{
+       border-radius:10px ;
+       width: 100px;
+       height: 35px;
+       text-align: center;
+        margin: 20px;
+       
+   }
+   .btn-default{
+       background: #d7d7d7;
+   }
+   .btn-info{background: #29b8f4;}
+}
+.tijiao{
+    text-align: center;
+    width: 424px;
+    height: 250px;
+    h4{
+        margin-top: 63px;
+    }
+    button{
+        width:150px ;
+        margin: 60px 25px;
+    }
+}
