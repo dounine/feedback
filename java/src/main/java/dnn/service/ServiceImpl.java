@@ -43,12 +43,17 @@ public class ServiceImpl<Entity extends BaseEntity, Dto extends BaseDto> impleme
     }
 
     @Override
+    public void save(List<Entity> entities) throws SerException {
+        dao.save(entities);
+    }
+
+    @Override
     public void delete(String id) throws SerException {
         dao.delete(id);
     }
 
     @Override
-    public void delete(Entity entity) {
+    public void delete(Entity entity)throws SerException {
         dao.delete(entity);
     }
 
@@ -65,5 +70,20 @@ public class ServiceImpl<Entity extends BaseEntity, Dto extends BaseDto> impleme
     @Override
     public List<Entity> findByFuzzy(Map<String, Object> conditions) throws SerException {
         return dao.findByFuzzy(conditions);
+    }
+
+    @Override
+    public long countByCondition(Map<String, Object> conditions)throws SerException {
+        return dao.countByCondition(conditions);
+    }
+
+    @Override
+    public void UpdateByCis(Entity entity, Map<String, Object> conditions)throws SerException {
+        dao.UpdateByCis(entity,conditions);
+    }
+
+    @Override
+    public List<Entity> findAndRemove(Map<String, Object> conditions)throws SerException {
+        return  dao.findAndRemove(conditions);
     }
 }
