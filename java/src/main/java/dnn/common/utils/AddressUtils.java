@@ -39,6 +39,9 @@ public final class AddressUtils {
                 e.printStackTrace();
             }
         }
+        if(ipAddress.length()>11){
+            ipAddress = "127.0.0.1";
+        }
         return ipAddress;
     }
 

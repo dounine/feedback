@@ -5,7 +5,7 @@ import dnn.common.exception.SerException;
 import dnn.dao.IDao;
 import dnn.entity.BaseEntity;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
+
 import java.util.List;
 import java.util.Map;
 
