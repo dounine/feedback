@@ -3,7 +3,7 @@
 <!DOCTYPE HTML>
 <HTML xmlns="http://www.w3.org/1999/xhtml">
 	<head>
-		<title>admin </title>
+		<title>custom</title>
 		<link rel="stylesheet" href="${ctx}/public/js/lib/bootstrap/bootstrap.css">
 		<link rel="stylesheet" href="${ctx}/public/js/lib/angular-loading-bar/loading-bar.css">
 		<link rel="icon" href="${ctx}/static/public/favicon/favicon-48.ico" sizes="48x48">

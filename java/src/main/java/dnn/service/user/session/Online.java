@@ -1,5 +1,7 @@
 package dnn.service.user.session;
 
+import dnn.entity.user.UserType;
+
 import java.time.LocalDateTime;
 
 /**
@@ -11,6 +13,7 @@ public class Online {
     private String username;
     private LocalDateTime lastAccessTime;
     private LocalDateTime loginTime;
+    private UserType userType = UserType.MANAGER;
     private String token;
 
     public String getId() {
@@ -51,5 +54,13 @@ public class Online {
 
     public void setToken(String token) {
         this.token = token;
+    }
+
+    public UserType getUserType() {
+        return userType;
+    }
+
+    public void setUserType(UserType userType) {
+        this.userType = userType;
     }
 }

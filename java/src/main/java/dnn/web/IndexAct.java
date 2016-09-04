@@ -4,6 +4,7 @@ import dnn.common.exception.SerException;
 import dnn.common.json.Callback;
 import dnn.common.json.ResponseText;
 import dnn.common.response.ResponseContext;
+import dnn.common.utils.RequestUtils;
 import dnn.common.validation.Add;
 import dnn.entity.user.User;
 import dnn.service.user.ISerUser;
@@ -18,6 +19,8 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 /**
  * Created by huanghuanlai on 16/3/29.
@@ -36,7 +39,7 @@ public class IndexAct {
      */
     @RequestMapping(value = {""})
     public ModelAndView index() {
-        return  new ModelAndView("redirect:admin");
+        return new ModelAndView("redirect:/login");
     }
 
 
@@ -46,11 +49,14 @@ public class IndexAct {
     }
 
     @GetMapping("logout")
-    public ModelAndView logout(@CookieValue("token") String token){
+    public ModelAndView logout(@CookieValue("token") String token, HttpServletRequest request, HttpServletResponse response){
         if(StringUtils.isNotBlank(token)){
             UserSession.remove(token);
+            Cookie cookie = RequestUtils.getUserTokenCookie(request);
+            cookie.setMaxAge(0);
+            response.addCookie(cookie);
         }
-        return new ModelAndView("redirect:/user/login");
+        return new ModelAndView("redirect:/login");
     }
 
     @PostMapping("login")

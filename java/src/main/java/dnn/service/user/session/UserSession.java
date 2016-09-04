@@ -82,6 +82,13 @@ public final class UserSession {
         throw TOKEN_NOT_NULL;
     }
 
+    public static Online findByToken(String token){
+        if(StringUtils.isNotBlank(token)){
+            return SESSIONS.get(token);
+        }
+        throw TOKEN_NOT_NULL;
+    }
+
     /**
      * 获取用户会话总数
      * @return 总数

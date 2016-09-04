@@ -1,15 +1,12 @@
 package dnn.common.datasource;
 
 import com.mongodb.MongoClient;
-import org.hibernate.validator.valuehandling.UnwrapValidatedValue;
+import dnn.common.beans.PropertiesLoader;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.data.mongodb.MongoDbFactory;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.SimpleMongoDbFactory;
-import org.springframework.data.mongodb.core.convert.DefaultMongoTypeMapper;
-import org.springframework.data.mongodb.core.convert.MappingMongoConverter;
-import org.springframework.data.mongodb.core.mapping.MongoMappingContext;
-import org.springframework.data.mongodb.core.mapping.MongoPersistentProperty;
 import org.springframework.stereotype.Component;
 
 /**
@@ -17,10 +14,19 @@ import org.springframework.stereotype.Component;
  */
 @Component
 public class MongoDbSource {
+
+    @Autowired
+    protected PropertiesLoader propertiesLoader;
+
+    @Bean
+    public PropertiesLoader propertiesLoader(){
+        return new PropertiesLoader("config.properties");
+    }
+
     @Bean
     public MongoDbFactory mongoDbFactory() throws Exception{
         //UserCredentials userCredentials = new UserCredentials("lake", "lake");
-        return new SimpleMongoDbFactory(new MongoClient("localhost",27016), "lake");
+        return new SimpleMongoDbFactory(new MongoClient(propertiesLoader.getProperty("mongo.host"),propertiesLoader.getInteger("mongo.port")), propertiesLoader.getProperty("mongo.db"));
     }
 
     @Bean

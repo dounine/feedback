@@ -43,6 +43,7 @@ public class UserSerImpl extends ServiceImpl<User,UserDto> implements ISerUser {
                     online.setUsername(user.getUsername());
                     online.setLoginTime(LocalDateTime.now());
                     online.setToken(token);
+                    online.setUserType(dbUser.getUserType());
 
                     UserSession.put(token,online);
 

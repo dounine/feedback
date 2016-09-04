@@ -1,5 +1,7 @@
 package dnn.common.handler.intercept;
 
+import dnn.common.utils.RequestUtils;
+import dnn.entity.user.UserType;
 import dnn.service.user.session.UserSession;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.web.servlet.HandlerInterceptor;
@@ -14,44 +16,67 @@ import javax.servlet.http.HttpServletResponse;
  */
 public class LoginInterceptor implements HandlerInterceptor {
 
+    private static final String[] IGNORE_URI = {"/login"};
+
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-        Cookie[] cookies = request.getCookies();
-        Cookie tokenCookie = null;
-        if(null!=cookies){
-            for(Cookie cookie : cookies){
-                if(cookie.getName().equals("token")){
-                    tokenCookie = cookie;
-                    break;
-                }
+        boolean flag = false;
+        String url = request.getRequestURI().toString();
+        for (String s : IGNORE_URI) {
+            if (url.contains(s)) {
+                flag = true;
+                break;
             }
-            if(null!=tokenCookie&&StringUtils.isNotBlank(tokenCookie.getValue())){
+        }
+        Cookie tokenCookie = RequestUtils.getUserTokenCookie(request);
+        if (!flag) {
+            if(null!=tokenCookie&& StringUtils.isNotBlank(tokenCookie.getValue())){
+                if(UserSession.verify(tokenCookie.getValue())){//验证令牌的正确性
+                    UserType userType = UserSession.findByToken(tokenCookie.getValue()).getUserType();
+                    if(UserType.CUSTOM.equals(userType)&&url.startsWith("/admin")){
+                        response.sendRedirect("/404");
+                    }else if(UserType.MANAGER.equals(userType)&&url.startsWith("/custom")){
+                        response.sendRedirect("/404");
+                    }else{
+                        UserSession.update(tokenCookie.getValue());//更新会话
+                        flag = true;
+                    }
+                }else{
+                    tokenCookie.setMaxAge(0);//清除验证失败cookie
+                    response.addCookie(tokenCookie);
+                }
+            }else{
+                response.sendRedirect("/login");
+            }
+        }else{
+            if(null!=tokenCookie&& StringUtils.isNotBlank(tokenCookie.getValue())){
                 if(UserSession.verify(tokenCookie.getValue())){//验证令牌的正确性
                     UserSession.update(tokenCookie.getValue());//更新会话
-                    return true;
+                    UserType userType = UserSession.findByToken(tokenCookie.getValue()).getUserType();
+                    if(UserType.CUSTOM.equals(userType)){
+                        response.sendRedirect("/custom");
+                    }else{
+                        response.sendRedirect("/admin");
+                    }
                 }else{
                     tokenCookie.setMaxAge(0);//清除验证失败cookie
                     response.addCookie(tokenCookie);
                 }
             }
         }
-        if(request.getRequestURI().equals("/login")){
-            request.setAttribute("login",true);
-            return true;
-        }
-        response.sendRedirect("login");
-        return false;
+        return flag;
     }
+
+
 
     @Override
     public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView) throws Exception {
-        if(request.getRequestURI().equals("/login")&&null==request.getAttribute("login")){
-            response.sendRedirect("/admin");
-        }
+
     }
 
     @Override
     public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) throws Exception {
 
     }
+
 }

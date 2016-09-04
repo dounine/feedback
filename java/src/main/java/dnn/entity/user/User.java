@@ -29,6 +29,8 @@ public class User extends BaseEntity{
 
     private LocalDateTime accessTime;
 
+    private UserType userType=UserType.MANAGER;
+
     public LocalDateTime getAccessTime() {
         return accessTime;
     }
@@ -53,4 +55,11 @@ public class User extends BaseEntity{
         this.password = password;
     }
 
+    public UserType getUserType() {
+        return userType;
+    }
+
+    public void setUserType(UserType userType) {
+        this.userType = userType;
+    }
 }
