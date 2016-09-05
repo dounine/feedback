@@ -8,10 +8,16 @@ $(function () {
 		count ++
 	});
 	$('.clearWuli').click(function () {
+
 		$('#huaxue input').each(function () {
-//			$('#huaxue input').val(" ");
-			
-			
+			$('#huaxue input').val(" ");
+		})
+	})
+	
+	$('.clearhuaxue').click(function () {
+
+		$('#wuli input').each(function () {
+			$('#wuli input').val(" ");
 		})
 	})
 	 //重置按钮事件  
