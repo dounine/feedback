@@ -8,3 +8,6 @@ java/build/
 java/src/main/resources/rebel.xml
 **/.gradle/
 **/build/
+**/feeback.iml
+**/.idea/
+.idea/

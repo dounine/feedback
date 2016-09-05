@@ -27,6 +27,7 @@ public class ExceptionResolver extends AbstractHandlerExceptionResolver {
             responseText.setErrno(COMMON_ERROR_CODE);
             responseText.setMsg(ex.getCause().getMessage());
             response.setCharacterEncoding("utf-8");
+            response.setContentType("text/html;charset=UTF-8");
             Object resp = null;
             String callback = request.getParameter("callback");
             if(StringUtils.isNotBlank(callback)){

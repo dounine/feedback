@@ -1,6 +1,5 @@
 package dnn.service.user.session;
 
-import dnn.entity.user.User;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -16,7 +15,7 @@ public class SessionQuartz extends Thread{
     private static final Logger CONSOLE = LoggerFactory.getLogger(SessionQuartz.class);
 
     private static final int POLL_MIN = 1;//循环时间(分)
-    private static final int SESSION_TIMEOUT = 3;//会话过期时间
+    private static final int SESSION_TIMEOUT = 60 * 10;//会话过期时间
     private Map<String,Online> sessions;
     public SessionQuartz(Map<String,Online> sessions){
         this.sessions = sessions;

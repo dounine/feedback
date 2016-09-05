@@ -3,18 +3,10 @@
 <!DOCTYPE HTML>
 <HTML xmlns="http://www.w3.org/1999/xhtml">
 	<head>
-		<title>dounine 集成测试框架</title>
-		<link rel="stylesheet" href="${ctx}/public/js/lib/bootstrap/bootstrap.css">
-		<link rel="stylesheet" href="${ctx}/public/js/lib/angular-loading-bar/loading-bar.css">
-		<link rel="icon" href="${ctx}/static/public/favicon/favicon-48.ico" sizes="48x48">
-		<link rel="stylesheet" href="${ctx}/static/admin/app/css/base.css">
+		<title>admin </title>
 	</head>
-	<body ng-app="dnnApp" class="container" ctx="${ctx}">
-		<div ui-view></div>
-		<script></script>
-		<script src="${ctx}/public/js/lib/requirejs/require.js"></script>
-		<script>
-			require(['${ctx}/public/js/main.js?______t='+new Date().getTime()]);
-		</script>
+	<body>
+        <a href="${ctx}/user/list">用户列表</a><br/>
+		<a href="${ctx}/logout">退出系统</a>
 	</body>
 </html>

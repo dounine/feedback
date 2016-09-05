@@ -4,17 +4,21 @@ import dnn.common.dto.BaseDto;
 import dnn.common.utils.GenericsUtils;
 import dnn.entity.BaseEntity;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.data.mongodb.core.query.Update;
+import org.springframework.util.StringUtils;
 
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Stream;
 
 /**
  * Created by huanghuanlai on 16/9/3.
  */
-public class DaoImpl<Entity extends BaseEntity,Dto extends BaseDto> implements IDao<Entity,Dto> {
+public class DaoImpl<Entity extends BaseEntity, Dto extends BaseDto> implements IDao<Entity, Dto> {
 
     @Autowired
     protected MongoTemplate mongoTemplate;
@@ -35,37 +39,125 @@ public class DaoImpl<Entity extends BaseEntity,Dto extends BaseDto> implements I
         Query query = new Query();
         query.skip(dto.getSkip());
         query.limit(dto.getLimit());
-        return mongoTemplate.find(query,clazz);
+        if (null != dto.getSort() && dto.getSort().size() > 0) {
+            Sort.Direction order = Sort.Direction.DESC;
+            if (!dto.getOrder().equals("desc")) {
+                order = Sort.Direction.ASC;
+            }
+            query.with(new Sort(order, dto.getSort()));
+        }
+        return mongoTemplate.find(query, clazz);
     }
 
     @Override
     public Long count() {
-        return mongoTemplate.count(new Query(),clazz);
+        return mongoTemplate.count(new Query(), clazz);
     }
 
     @Override
     public Entity findById(String id) {
-        return mongoTemplate.findById(id,clazz);
+        return mongoTemplate.findById(id, clazz);
     }
 
     @Override
     public void save(Entity entity) {
-        mongoTemplate.save(entity);
+        mongoTemplate.insert(entity);
     }
 
     @Override
-    public void delete(String id) {
-        mongoTemplate.remove(new Query(Criteria.where("id").is(id)),clazz);
+    public void save(List<Entity> entities) {
+        mongoTemplate.insert(entities, clazz);
     }
 
     @Override
-    public void delete(Entity entity) {
+    public void remove(String id) {
+        mongoTemplate.remove(new Query(Criteria.where("id").is(id)), clazz);
+    }
+
+    @Override
+    public void remove(Entity entity) {
         mongoTemplate.remove(entity);
+    }
+
+    @Override
+    public void remove(List<Entity> entities) {
+        Stream<Entity> stream = entities.stream();
+        stream.forEach(entity -> {
+            mongoTemplate.remove(entity);
+        });
     }
 
     @Override
     public void update(Entity entity) {
         mongoTemplate.updateFirst(new Query(Criteria.where("id").is(entity.getId())),
-                Update.update(clazz.getSimpleName(),entity),clazz);
+                Update.update(clazz.getSimpleName(), entity), clazz);
     }
+
+    @Override
+    public void update(List<Entity> entities) {
+        Stream<Entity> stream = entities.stream();
+        stream.forEach(entity -> {
+            mongoTemplate.updateFirst(new Query(Criteria.where("id").is(entity.getId())),
+                    Update.update(clazz.getSimpleName(), entity), clazz);
+        });
+
+    }
+
+    @Override
+    public List<Entity> findByCis(Map<String, Object> conditions) {
+        Query query = new Query();
+        if (null != conditions && conditions.size() > 0) {
+            for (Map.Entry<String, Object> entry : conditions.entrySet()) {
+                query.addCriteria(Criteria.where(entry.getKey()).is(entry.getValue()));
+            }
+        }
+        return mongoTemplate.find(query, clazz);
+    }
+
+    @Override
+    public long countByCis(Map<String, Object> conditions) {
+        Query query = new Query();
+        if (null != conditions && conditions.size() > 0) {
+            for (Map.Entry<String, Object> entry : conditions.entrySet()) {
+                query.addCriteria(Criteria.where(entry.getKey()).is(entry.getValue()));
+            }
+        }
+        return mongoTemplate.count(query, clazz);
+    }
+
+    @Override
+    public List<Entity> findByFuzzy(Map<String, Object> conditions) {
+        Query query = new Query();
+        if (null != conditions && conditions.size() > 0) {
+            for (Map.Entry<String, Object> entry : conditions.entrySet()) {
+                query.addCriteria(Criteria.where(entry.getKey()).regex(entry.getValue().toString()));
+            }
+        }
+        return mongoTemplate.find(query, clazz);
+    }
+
+    @Override
+    public void UpdateByCis(Entity entity, Map<String, Object> conditions) {
+        Query query = new Query();
+        if (null != conditions && conditions.size() > 0) {
+            for (Map.Entry<String, Object> entry : conditions.entrySet()) {
+                query.addCriteria(Criteria.where(entry.getKey()).regex(entry.getValue().toString()));
+            }
+        }
+        mongoTemplate.updateMulti(query,
+                Update.update(clazz.getSimpleName(), entity), clazz);
+    }
+
+    @Override
+    public void removeByCis(Map<String, Object> conditions) {
+
+        Query query = new Query();
+        if (null != conditions && conditions.size() > 0) {
+            for (Map.Entry<String, Object> entry : conditions.entrySet()) {
+                query.addCriteria(Criteria.where(entry.getKey()).regex(entry.getValue().toString()));
+            }
+        }
+        mongoTemplate.remove(query, clazz);
+    }
+
 }
