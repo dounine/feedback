@@ -1,6 +1,6 @@
 package dnn.entity.feedbackInfo.specimen;
 
-import dnn.enums.MaterialType;
+import java.util.List;
 
 /**
  * Created by lgq on 16-9-4.
@@ -9,7 +9,7 @@ import dnn.enums.MaterialType;
 public class PhysicalEnergy extends Battery {
 
     private String serialNumber; //样品序列号
-    private MaterialType materialType; //单体电池材料类型
+    private List<String> materialTypes; //单体电池材料类型
 
 
     //单体相关参数
@@ -21,8 +21,8 @@ public class PhysicalEnergy extends Battery {
     private Boolean tempered ; //(玻璃)钢化,非钢化
     private String tempered_thickness;//厚度
 
-    private Integer series_battery_num;// 串联电池数
-    private Integer parallel_battery_num;//并联电池数
+    private List<String> series_battery;// 串联电池数
+    private List<String> parallel_battery;//并联电池数
     private Boolean parameter; //电气原理图(参数...)
     private Boolean identifying; //标识
 
@@ -34,12 +34,12 @@ public class PhysicalEnergy extends Battery {
         this.serialNumber = serialNumber;
     }
 
-    public MaterialType getMaterialType() {
-        return materialType;
+    public List<String> getMaterialTypes() {
+        return materialTypes;
     }
 
-    public void setMaterialType(MaterialType materialType) {
-        this.materialType = materialType;
+    public void setMaterialTypes(List<String> materialTypes) {
+        this.materialTypes = materialTypes;
     }
 
     public String getMonomer_Size() {
@@ -90,20 +90,20 @@ public class PhysicalEnergy extends Battery {
         this.tempered_thickness = tempered_thickness;
     }
 
-    public Integer getSeries_battery_num() {
-        return series_battery_num;
+    public List<String> getSeries_battery() {
+        return series_battery;
     }
 
-    public void setSeries_battery_num(Integer series_battery_num) {
-        this.series_battery_num = series_battery_num;
+    public void setSeries_battery(List<String> series_battery) {
+        this.series_battery = series_battery;
     }
 
-    public Integer getParallel_battery_num() {
-        return parallel_battery_num;
+    public List<String> getParallel_battery() {
+        return parallel_battery;
     }
 
-    public void setParallel_battery_num(Integer parallel_battery_num) {
-        this.parallel_battery_num = parallel_battery_num;
+    public void setParallel_battery(List<String> parallel_battery) {
+        this.parallel_battery = parallel_battery;
     }
 
     public Boolean getParameter() {
@@ -121,4 +121,5 @@ public class PhysicalEnergy extends Battery {
     public void setIdentifying(Boolean identifying) {
         this.identifying = identifying;
     }
+
 }

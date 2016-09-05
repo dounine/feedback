@@ -2,7 +2,7 @@ package dnn.dao.feedbackInfo;
 
 import dnn.common.dto.feedbackInfo.FeedbackInfoDto;
 import dnn.dao.DaoImpl;
-import dnn.entity.feedbackInfo.order.FeedbackInfo;
+import dnn.entity.feedbackInfo.FeedbackInfo;
 import org.springframework.stereotype.Repository;
 
 /**

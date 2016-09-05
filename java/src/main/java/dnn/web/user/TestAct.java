@@ -15,6 +15,7 @@ import java.util.List;
 /**
  * Created by lgq on 16-9-3.
  */
+@RequestMapping("test")
 @RestController
 public class TestAct {
 
@@ -63,9 +64,11 @@ public class TestAct {
     @GetMapping("add")
     public void add()throws Throwable {
         User user = new User();
-        user.setPassword("deatil");
+        user.setPassword("tags");
         user.setAccessTime(LocalDateTime.now());
-        user.setUsername("xinaml");
+        user.setUsername("tas");
+        String[] tags = {"aa","bb","cc"};
+        user.setTags(tags);
         serUser.save(user);
     }
 

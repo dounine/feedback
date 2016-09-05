@@ -2,7 +2,7 @@ package dnn.service.feedbackInfo;
 
 import dnn.common.dto.feedbackInfo.FeedbackInfoDto;
 import dnn.common.exception.SerException;
-import dnn.entity.feedbackInfo.order.FeedbackInfo;
+import dnn.entity.feedbackInfo.FeedbackInfo;
 import dnn.service.ServiceImpl;
 import org.springframework.stereotype.Service;
 

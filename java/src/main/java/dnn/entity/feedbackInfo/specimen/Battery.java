@@ -1,9 +1,9 @@
 package dnn.entity.feedbackInfo.specimen;
 
 import dnn.entity.BaseEntity;
-import dnn.enums.PackType;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 /**
  * Created by lgq on 16-9-4.
@@ -16,7 +16,7 @@ public class Battery extends BaseEntity{
     private String amount ;// 样品数量
     private LocalDateTime submitDate; //送样日期
     private String size; //外形尺寸
-    private PackType packType;//包装类型
+    private List<String> packTypes;//包装类型
     private Boolean damage ; //是否损坏
 
     public String getSampleName() {
@@ -67,12 +67,12 @@ public class Battery extends BaseEntity{
         this.size = size;
     }
 
-    public PackType getPackType() {
-        return packType;
+    public List<String> getPackTypes() {
+        return packTypes;
     }
 
-    public void setPackType(PackType packType) {
-        this.packType = packType;
+    public void setPackTypes(List<String> packTypes) {
+        this.packTypes = packTypes;
     }
 
     public Boolean getDamage() {
