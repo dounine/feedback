@@ -59,14 +59,14 @@ public interface IService<Entity extends BaseEntity, Dto extends BaseDto> {
      *
      * @param id
      */
-    void delete(String id)throws SerException;
+    void remove(String id)throws SerException;
 
     /**
      * 删除对象
      *
      * @param entity
      */
-    void delete(Entity entity)throws SerException;
+    void remove(Entity entity)throws SerException;
 
     /**
      * 更新对象
@@ -80,14 +80,14 @@ public interface IService<Entity extends BaseEntity, Dto extends BaseDto> {
      *
      * @param conditions
      */
-    List<Entity> findByCondition(Map<String, Object> conditions)throws SerException;
+    List<Entity> findByCis(Map<String, Object> conditions)throws SerException;
 
     /**
      * 根据字段条件查询对象列表数量
      *
      * @param conditions
      */
-    long countByCondition(Map<String, Object> conditions)throws SerException;
+    long countByCis(Map<String, Object> conditions)throws SerException;
 
     /**
      * 模糊条件查询对象列表(只支持字段属性是字符串的查询)
@@ -107,6 +107,6 @@ public interface IService<Entity extends BaseEntity, Dto extends BaseDto> {
      * 删除符合条件对象列表
      * @param conditions
      */
-    List<Entity> findAndRemove(Map<String, Object> conditions)throws SerException;
+    void removeByCis(Map<String, Object> conditions)throws SerException;
 
 }

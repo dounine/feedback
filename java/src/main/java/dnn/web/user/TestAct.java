@@ -15,6 +15,7 @@ import java.util.List;
 /**
  * Created by lgq on 16-9-3.
  */
+@RequestMapping("test")
 @RestController
 public class TestAct {
 
@@ -26,7 +27,7 @@ public class TestAct {
     public List<User> findByCondition() throws Throwable {
         HashMap<String, Object> conditions = new HashMap<>();
         conditions.put("userDetails.company", "艾佳");
-        return serUser.findByCondition(conditions);
+        return serUser.findByCis(conditions);
     }
 
     @GetMapping("findByFuzzy")
@@ -63,9 +64,11 @@ public class TestAct {
     @GetMapping("add")
     public void add()throws Throwable {
         User user = new User();
-        user.setPassword("deatil");
+        user.setPassword("tags");
         user.setAccessTime(LocalDateTime.now());
-        user.setUsername("xinaml");
+        user.setUsername("tas");
+        String[] tags = {"aa","bb","cc"};
+        user.setTags(tags);
         serUser.save(user);
     }
 
@@ -73,13 +76,13 @@ public class TestAct {
     public void del() throws Throwable{
         String id = "57cad2a9ba340a7851437add";
         User user = serUser.findById(id);
-        serUser.delete(user);
+        serUser.remove(user);
     }
 
     @GetMapping("delId")
     public void delId()throws Throwable {
         String id = "57cad2f0ba340a7851437ade";
-        serUser.delete(id);
+        serUser.remove(id);
     }
 
     @GetMapping("update")

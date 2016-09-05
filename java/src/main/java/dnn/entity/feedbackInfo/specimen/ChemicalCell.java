@@ -1,4 +1,4 @@
-package dnn.entity.specimen;
+package dnn.entity.feedbackInfo.specimen;
 
 /**
  * Created by lgq on 16-9-4.

@@ -48,13 +48,13 @@ public class ServiceImpl<Entity extends BaseEntity, Dto extends BaseDto> impleme
     }
 
     @Override
-    public void delete(String id) throws SerException {
-        dao.delete(id);
+    public void remove(String id) throws SerException {
+        dao.remove(id);
     }
 
     @Override
-    public void delete(Entity entity)throws SerException {
-        dao.delete(entity);
+    public void remove(Entity entity)throws SerException {
+        dao.remove(entity);
     }
 
     @Override
@@ -63,8 +63,8 @@ public class ServiceImpl<Entity extends BaseEntity, Dto extends BaseDto> impleme
     }
 
     @Override
-    public List<Entity> findByCondition(Map<String, Object> conditions) throws SerException {
-        return dao.findByCondition(conditions);
+    public List<Entity> findByCis(Map<String, Object> conditions) throws SerException {
+        return dao.findByCis(conditions);
     }
 
     @Override
@@ -73,8 +73,8 @@ public class ServiceImpl<Entity extends BaseEntity, Dto extends BaseDto> impleme
     }
 
     @Override
-    public long countByCondition(Map<String, Object> conditions)throws SerException {
-        return dao.countByCondition(conditions);
+    public long countByCis(Map<String, Object> conditions)throws SerException {
+        return dao.countByCis(conditions);
     }
 
     @Override
@@ -83,7 +83,7 @@ public class ServiceImpl<Entity extends BaseEntity, Dto extends BaseDto> impleme
     }
 
     @Override
-    public List<Entity> findAndRemove(Map<String, Object> conditions)throws SerException {
-        return  dao.findAndRemove(conditions);
+    public void removeByCis(Map<String, Object> conditions)throws SerException {
+        dao.removeByCis(conditions);
     }
 }

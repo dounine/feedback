@@ -26,6 +26,7 @@ public class User extends BaseEntity{
     @NotBlank(message = "密码不能空",groups = {Add.class})
     @PasswordValid(groups = {Add.class})
     private String password;
+    private String[] tags;
 
     private LocalDateTime accessTime;
 
@@ -61,5 +62,13 @@ public class User extends BaseEntity{
 
     public void setUserType(UserType userType) {
         this.userType = userType;
+    }
+
+    public String[] getTags() {
+        return tags;
+    }
+
+    public void setTags(String[] tags) {
+        this.tags = tags;
     }
 }

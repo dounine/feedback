@@ -1,8 +1,5 @@
-package dnn.entity.detection;
+package dnn.entity.feedbackInfo.detection;
 
-import dnn.entity.specimen.Battery;
-import dnn.entity.specimen.ChemicalCell;
-import dnn.entity.specimen.PhysicalEnergy;
 import dnn.enums.DisposeType;
 
 /**

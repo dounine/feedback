@@ -22,7 +22,7 @@ public class UserDaoImpl extends DaoImpl<User,UserDto> implements IUserDao {
     public User findByName(String username) {
         Map<String,Object> keys = new HashMap<>();
         keys.put("username",username);
-        List<User> users = findByCondition(keys);
+        List<User> users = findByCis(keys);
         if(null!=users&&users.size()>0){
             return users.get(0);
         }

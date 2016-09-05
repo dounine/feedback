@@ -1,11 +1,11 @@
-package dnn.entity.order;
+package dnn.entity.feedbackInfo;
 
 import dnn.entity.BaseEntity;
-import dnn.entity.invoice.InvoiceInfo;
-import dnn.entity.specimen.Battery;
-import dnn.entity.detection.DetectionInfo;
-import dnn.entity.specimen.ChemicalCell;
-import dnn.entity.specimen.PhysicalEnergy;
+import dnn.entity.feedbackInfo.invoice.InvoiceInfo;
+import dnn.entity.feedbackInfo.detection.DetectionInfo;
+import dnn.entity.feedbackInfo.specimen.ChemicalCell;
+import dnn.entity.feedbackInfo.specimen.PhysicalEnergy;
+import dnn.enums.FeedbackStatus;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.time.LocalDateTime;
@@ -22,6 +22,7 @@ public class FeedbackInfo extends BaseEntity {
     private InvoiceInfo invoiceInfo; //发票信息
     private ChemicalCell chemicalCell; //化学电池
     private PhysicalEnergy physicalEnergy; //物理电池
+    private FeedbackStatus feedbackStatus ; //处理状态
 
     public String getUser_id() {
         return user_id;
@@ -69,5 +70,13 @@ public class FeedbackInfo extends BaseEntity {
 
     public void setPhysicalEnergy(PhysicalEnergy physicalEnergy) {
         this.physicalEnergy = physicalEnergy;
+    }
+
+    public FeedbackStatus getFeedbackStatus() {
+        return feedbackStatus;
+    }
+
+    public void setFeedbackStatus(FeedbackStatus feedbackStatus) {
+        this.feedbackStatus = feedbackStatus;
     }
 }

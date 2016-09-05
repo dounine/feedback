@@ -100,8 +100,8 @@ public class UserSerImpl extends ServiceImpl<User,UserDto> implements ISerUser {
     }
 
     @Override
-    public void  delete(User entity) throws SerException {
-        super.delete(entity);
+    public void  remove(User entity) throws SerException {
+        super.remove(entity);
     }
 
     @Override

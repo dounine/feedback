@@ -13,6 +13,7 @@ import org.springframework.util.StringUtils;
 
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Stream;
 
 /**
  * Created by huanghuanlai on 16/9/3.
@@ -65,17 +66,25 @@ public class DaoImpl<Entity extends BaseEntity, Dto extends BaseDto> implements 
 
     @Override
     public void save(List<Entity> entities) {
-        mongoTemplate.insert(entities,clazz);
+        mongoTemplate.insert(entities, clazz);
     }
 
     @Override
-    public void delete(String id) {
+    public void remove(String id) {
         mongoTemplate.remove(new Query(Criteria.where("id").is(id)), clazz);
     }
 
     @Override
-    public void delete(Entity entity) {
+    public void remove(Entity entity) {
         mongoTemplate.remove(entity);
+    }
+
+    @Override
+    public void remove(List<Entity> entities) {
+        Stream<Entity> stream = entities.stream();
+        stream.forEach(entity -> {
+            mongoTemplate.remove(entity);
+        });
     }
 
     @Override
@@ -85,7 +94,17 @@ public class DaoImpl<Entity extends BaseEntity, Dto extends BaseDto> implements 
     }
 
     @Override
-    public List<Entity> findByCondition(Map<String, Object> conditions) {
+    public void update(List<Entity> entities) {
+        Stream<Entity> stream = entities.stream();
+        stream.forEach(entity -> {
+            mongoTemplate.updateFirst(new Query(Criteria.where("id").is(entity.getId())),
+                    Update.update(clazz.getSimpleName(), entity), clazz);
+        });
+
+    }
+
+    @Override
+    public List<Entity> findByCis(Map<String, Object> conditions) {
         Query query = new Query();
         if (null != conditions && conditions.size() > 0) {
             for (Map.Entry<String, Object> entry : conditions.entrySet()) {
@@ -96,7 +115,7 @@ public class DaoImpl<Entity extends BaseEntity, Dto extends BaseDto> implements 
     }
 
     @Override
-    public long countByCondition(Map<String, Object> conditions) {
+    public long countByCis(Map<String, Object> conditions) {
         Query query = new Query();
         if (null != conditions && conditions.size() > 0) {
             for (Map.Entry<String, Object> entry : conditions.entrySet()) {
@@ -125,12 +144,12 @@ public class DaoImpl<Entity extends BaseEntity, Dto extends BaseDto> implements 
                 query.addCriteria(Criteria.where(entry.getKey()).regex(entry.getValue().toString()));
             }
         }
-         mongoTemplate.updateMulti(query,
+        mongoTemplate.updateMulti(query,
                 Update.update(clazz.getSimpleName(), entity), clazz);
     }
 
     @Override
-    public List<Entity> findAndRemove( Map<String, Object> conditions) {
+    public void removeByCis(Map<String, Object> conditions) {
 
         Query query = new Query();
         if (null != conditions && conditions.size() > 0) {
@@ -138,7 +157,7 @@ public class DaoImpl<Entity extends BaseEntity, Dto extends BaseDto> implements 
                 query.addCriteria(Criteria.where(entry.getKey()).regex(entry.getValue().toString()));
             }
         }
-       return mongoTemplate.findAllAndRemove(query,clazz);
+        mongoTemplate.remove(query, clazz);
     }
 
 }

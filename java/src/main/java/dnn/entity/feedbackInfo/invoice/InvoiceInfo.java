@@ -1,4 +1,4 @@
-package dnn.entity.invoice;
+package dnn.entity.feedbackInfo.invoice;
 
 /**
  * Created by lgq on 16-9-4.
