@@ -4,13 +4,13 @@
     <meta charset="UTF-8">
     <title>表单</title>
 
-    	<link rel="stylesheet" type="text/css" href="../css/bootstrap.css"/>
-    <link rel="stylesheet" type="text/css" href="../css/form.css">
-    <script src="../js/lib/jquery/jquery.js" type="text/javascript" charset="utf-8"></script>
-    <script src="../js/lib/bootstrap/bootstrap.min.js" type="text/javascript" charset="utf-8"></script>
-    <script src="../js/lib/angular/angular.js" type="text/javascript" charset="utf-8"></script>
-    <script src="../js/app.js" type="text/javascript" charset="utf-8"></script>
-    <script src="../js/app/form.js" type="text/javascript" charset="utf-8"></script>
+    	<link rel="stylesheet" type="text/css" href="../js/lib/bootstrap/bootstrap.css"/>
+	    <link rel="stylesheet" type="text/css" href="../css/form.css">
+	    <script src="../js/lib/jquery/jquery.js" type="text/javascript" charset="utf-8"></script>
+	    <script src="../js/lib/bootstrap/bootstrap.js" type="text/javascript" charset="utf-8"></script>
+	    <script src="../js/lib/angular/angular.js" type="text/javascript" charset="utf-8"></script>
+	    <script src="../js/app.js" type="text/javascript" charset="utf-8"></script>
+	    <script src="../js/app/form.js" type="text/javascript" charset="utf-8"></script>
     
     
 </head>
@@ -75,9 +75,9 @@
     		<h5>样品信息</h5>
     		<ul id="myTab" class="nav nav-tabs" role="tablist" style="border: none;">
 			   <li class="active">
-			   	<a href="#huaxue" data-toggle="tab">化学电源(蓄电池)</a>
+			   	<a href="#huaxue" data-toggle="tab" class="clearWuli">化学电源(蓄电池)</a>
 			   </li>
-			   <li><a href="#wuli" data-toggle="tab">物理电源（太阳电池组件）</a></li>
+			   <li><a href="#wuli" data-toggle="tab" class="clearhuaxue">物理电源（太阳电池组件）</a></li>
 			</ul>
 			<div  id="myTabContent" class="tab-content" >
 				
@@ -111,9 +111,9 @@
 						<li>
 							<span class="wid15">包装类别</span>
 							<span style="width: 50%;">
-								<input type="radio" name="type"/>纸箱
-								<input type="radio" name="type" />木箱
-								<input type="radio" name="type" />无包装
+								<input type="checkbox" name="type"/>纸箱
+								<input type="checkbox" name="type" />木箱
+								<input type="checkbox" name="type" />无包装
 							</span>
 							<span class="wid15">样品状态（装箱前后）</span>
 							<span >
@@ -157,11 +157,11 @@
 						<li>
 							<span class="wid15">单体电池材料</span>
 							<span >
-								<input type="radio" name="type2"/>单晶硅
-								<input type="radio" name="type2" />多晶硅
-								<input type="radio" name="type2" />N型
-								<input type="radio" name="type2" />P型
-								<input type="radio" name="type2" />其他
+								<input type="checkbox" name="type2"/>单晶硅
+								<input type="checkbox" name="type2" />多晶硅
+								<input type="checkbox" name="type2" />N型
+								<input type="checkbox" name="type2" />P型
+								<input type="checkbox" name="type2" />其他
 							</span>
 						</li>
 						<li>
@@ -178,8 +178,8 @@
 						<li>
 							<span class="wid15">玻璃类型</span>
 							<span>	
-								<input type="radio" name="type3" />钢化
-								<input type="radio" name="type3" />非钢化
+								<input type="checkbox" name="type3" />钢化
+								<input type="checkbox" name="type3" />非钢化
 							</span>
 							<span>玻璃厚度</span>
 							<span><input type="text" /></span>
@@ -187,19 +187,19 @@
 						<li>
 							<span class="wid15">串联电池数</span>
 							<span >
-								<input type="radio" name="type4"/>18
-								<input type="radio" name="type4" />36
-								<input type="radio" name="type4" />54
-								<input type="radio" name="type4" />72
+								<input type="checkbox" name="type4"/>18
+								<input type="checkbox" name="type4" />36
+								<input type="checkbox" name="type4" />54
+								<input type="checkbox" name="type4" />72
 							
 							</span>
 							<span class="wid15">并联电池数</span>
 							<span >
-								<input type="radio" name="type5"/>1
-								<input type="radio" name="type5" />2
-								<input type="radio" name="type5" />3
-								<input type="radio" name="type5" />4
-								<input type="radio" name="type5" />5
+								<input type="checkbox" name="type5"/>1
+								<input type="checkbox" name="type5" />2
+								<input type="checkbox" name="type5" />3
+								<input type="checkbox" name="type5" />4
+								<input type="checkbox" name="type5" />5
 							</span>
 						</li>
 						<li>
@@ -217,9 +217,9 @@
 						<li>
 							<span class="wid15">包装类别</span>
 							<span>	
-								<input type="radio" name="type8" />纸箱
-								<input type="radio" name="type8" />木箱
-								<input type="radio" name="type8" />无包装
+								<input type="checkbox" name="type8" />纸箱
+								<input type="checkbox" name="type8" />木箱
+								<input type="checkbox" name="type8" />无包装
 							</span>
 							<span style="margin-left: 60px;width: 20%;text-align: center;">样品状态前后</span>
 							<span><input type="radio" name="type8" />完整
@@ -246,7 +246,7 @@
 							<span class="">
 									<input type="radio" name="type9" />字体样品
 									<input type="radio" name="type9" />退回样品（运费到付）
-									<input type="radio" name="type9" />不要求
+									<input type="radio" name="type9"/>不要求
 							</span>
 						
 						</li>
@@ -286,8 +286,9 @@
 					</ul>
     	</div>
     	<div class="container but clearfix">
-    		<button type="button" class="btn btn-default pull-right" >重置</button>
+    		
     		<button type="button" class="btn btn-info pull-right" data-toggle="modal" data-target=".bs-example-modal-sm">提交</button>
+    		<button type="button" class="btn btn-default pull-right" id="resetBtn">重置</button>
     	</div>
     	<div class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true" ng-controller="tijiao">
 		  <div class="modal-dialog modal-sm">
