@@ -2,8 +2,7 @@ package dnn.service.feedbackInfo;
 
 import dnn.common.dto.feedbackInfo.FeedbackInfoDto;
 import dnn.common.exception.SerException;
-import dnn.dao.IDao;
-import dnn.entity.order.FeedbackInfo;
+import dnn.entity.feedbackInfo.order.FeedbackInfo;
 import dnn.service.IService;
 
 import java.util.List;

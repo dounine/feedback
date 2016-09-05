@@ -1,8 +1,7 @@
-package dnn.entity.specimen;
+package dnn.entity.feedbackInfo.specimen;
 
 import dnn.entity.BaseEntity;
 import dnn.enums.PackType;
-import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.time.LocalDateTime;
 

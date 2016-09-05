@@ -60,14 +60,20 @@ public interface IDao<Entity extends BaseEntity, Dto extends BaseDto> {
      *
      * @param id
      */
-    void delete(String id);
+    void remove(String id);
 
     /**
      * 删除对象
      *
      * @param entity
      */
-    void delete(Entity entity);
+    void remove(Entity entity);
+    /**
+     * 删除对象列表
+     *
+     * @param entities
+     */
+    void remove(List<Entity> entities);
 
     /**
      * 更新对象
@@ -77,18 +83,25 @@ public interface IDao<Entity extends BaseEntity, Dto extends BaseDto> {
     void update(Entity entity);
 
     /**
+     * 更新对象列表
+     *
+     * @param entities
+     */
+    void update(List<Entity> entities);
+
+    /**
      * 根据字段条件查询对象列表
      *
      * @param conditions
      */
-    public List<Entity> findByCondition(Map<String, Object> conditions);
+    public List<Entity> findByCis(Map<String, Object> conditions);
 
     /**
      * 根据字段条件查询对象列表数量
      *
      * @param conditions
      */
-    long countByCondition(Map<String, Object> conditions);
+    long countByCis(Map<String, Object> conditions);
 
 
     /**
@@ -109,6 +122,6 @@ public interface IDao<Entity extends BaseEntity, Dto extends BaseDto> {
      * 删除符合条件对象列表
      * @param conditions
      */
-    List<Entity> findAndRemove(Map<String, Object> conditions);
+    void removeByCis(Map<String, Object> conditions);
 
 }

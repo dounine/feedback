@@ -2,8 +2,7 @@ package dnn.service.feedbackInfo;
 
 import dnn.common.dto.feedbackInfo.FeedbackInfoDto;
 import dnn.common.exception.SerException;
-import dnn.entity.order.FeedbackInfo;
-import dnn.service.IService;
+import dnn.entity.feedbackInfo.order.FeedbackInfo;
 import dnn.service.ServiceImpl;
 import org.springframework.stereotype.Service;
 
@@ -34,6 +33,6 @@ public class FeedbackInfoSerImpl extends ServiceImpl<FeedbackInfo,FeedbackInfoDt
     public List<FeedbackInfo> findByUserId(String user_id)throws SerException {
         Map<String, Object> conditions = new HashMap<>();
         conditions.put("user_id",user_id);
-        return findByCondition(conditions);
+        return findByCis(conditions);
     }
 }

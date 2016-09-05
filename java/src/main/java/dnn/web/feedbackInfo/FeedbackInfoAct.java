@@ -5,16 +5,14 @@ package dnn.web.feedbackInfo;
  */
 
 import dnn.common.json.ResponseText;
-import dnn.entity.detection.DetectionInfo;
-import dnn.entity.invoice.InvoiceInfo;
-import dnn.entity.order.FeedbackInfo;
-import dnn.entity.specimen.ChemicalCell;
+import dnn.entity.feedbackInfo.detection.DetectionInfo;
+import dnn.entity.feedbackInfo.invoice.InvoiceInfo;
+import dnn.entity.feedbackInfo.order.FeedbackInfo;
+import dnn.entity.feedbackInfo.specimen.ChemicalCell;
 import dnn.enums.DisposeType;
 import dnn.service.feedbackInfo.ISerFeedbackInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @RestController
 @RequestMapping("customer/feedbackInfo")

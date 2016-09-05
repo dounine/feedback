@@ -1,4 +1,4 @@
-package dnn.entity.specimen;
+package dnn.entity.feedbackInfo.specimen;
 
 import dnn.enums.MaterialType;
 

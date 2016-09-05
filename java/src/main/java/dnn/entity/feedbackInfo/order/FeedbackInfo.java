@@ -1,11 +1,10 @@
-package dnn.entity.order;
+package dnn.entity.feedbackInfo.order;
 
 import dnn.entity.BaseEntity;
-import dnn.entity.invoice.InvoiceInfo;
-import dnn.entity.specimen.Battery;
-import dnn.entity.detection.DetectionInfo;
-import dnn.entity.specimen.ChemicalCell;
-import dnn.entity.specimen.PhysicalEnergy;
+import dnn.entity.feedbackInfo.invoice.InvoiceInfo;
+import dnn.entity.feedbackInfo.detection.DetectionInfo;
+import dnn.entity.feedbackInfo.specimen.ChemicalCell;
+import dnn.entity.feedbackInfo.specimen.PhysicalEnergy;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.time.LocalDateTime;
