@@ -18,6 +18,8 @@ public class Battery extends BaseEntity{
     private String size; //外形尺寸
     private List<String> packTypes;//包装类型
     private Boolean damage ; //是否损坏
+    private String weight; // 重量
+
 
     public String getSampleName() {
         return sampleName;
@@ -81,5 +83,13 @@ public class Battery extends BaseEntity{
 
     public void setDamage(Boolean damage) {
         this.damage = damage;
+    }
+
+    public String getWeight() {
+        return weight;
+    }
+
+    public void setWeight(String weight) {
+        this.weight = weight;
     }
 }

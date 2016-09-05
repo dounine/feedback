@@ -18,11 +18,12 @@ public class PhysicalEnergy extends Battery {
     private String monomer_acreage; //单体面积
     private String monomer_type; //减反射膜类型
 
-    private Boolean tempered ; //(玻璃)钢化,非钢化
+    private List<String>tempered ; //(玻璃)钢化,非钢化
     private String tempered_thickness;//厚度
 
     private List<String> series_battery;// 串联电池数
     private List<String> parallel_battery;//并联电池数
+    private String voltage ; //系统标准电压
     private Boolean parameter; //电气原理图(参数...)
     private Boolean identifying; //标识
 
@@ -74,11 +75,11 @@ public class PhysicalEnergy extends Battery {
         this.monomer_type = monomer_type;
     }
 
-    public Boolean getTempered() {
+    public List<String> getTempered() {
         return tempered;
     }
 
-    public void setTempered(Boolean tempered) {
+    public void setTempered(List<String> tempered) {
         this.tempered = tempered;
     }
 
@@ -122,4 +123,11 @@ public class PhysicalEnergy extends Battery {
         this.identifying = identifying;
     }
 
+    public String getVoltage() {
+        return voltage;
+    }
+
+    public void setVoltage(String voltage) {
+        this.voltage = voltage;
+    }
 }

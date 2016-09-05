@@ -30,7 +30,7 @@ public class FeedbackInfoAct {
 
         ChemicalCell chemicalCell = new ChemicalCell();
         chemicalCell.setParameter("xxxx");
-        chemicalCell.setWeight(50.0);
+        chemicalCell.setWeight("50");
 
         DetectionInfo detectionInfo = new DetectionInfo();//检测信息
         detectionInfo.setBasis("aaa");
