@@ -10,3 +10,4 @@ java/src/main/resources/rebel.xml
 **/build/
 **/feeback.iml
 **/.idea/
+.idea/
