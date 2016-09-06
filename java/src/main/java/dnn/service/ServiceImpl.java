@@ -1,6 +1,6 @@
 package dnn.service;
 
-import dnn.common.dto.BaseDto;
+import dnn.dto.BaseDto;
 import dnn.common.exception.SerException;
 import dnn.dao.IDao;
 import dnn.entity.BaseEntity;
@@ -28,8 +28,8 @@ public class ServiceImpl<Entity extends BaseEntity, Dto extends BaseDto> impleme
     }
 
     @Override
-    public Long count() throws SerException {
-        return dao.count();
+    public Long count(Dto dto) throws SerException {
+        return dao.count(dto);
     }
 
     @Override

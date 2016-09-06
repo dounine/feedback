@@ -1,6 +1,6 @@
 package dnn.service;
 
-import dnn.common.dto.BaseDto;
+import dnn.dto.BaseDto;
 import dnn.common.exception.SerException;
 import dnn.entity.BaseEntity;
 import java.util.List;
@@ -31,7 +31,7 @@ public interface IService<Entity extends BaseEntity, Dto extends BaseDto> {
      *
      * @return
      */
-    Long count()throws SerException;
+    Long count(Dto dto)throws SerException;
 
     /**
      * 查询某个对象

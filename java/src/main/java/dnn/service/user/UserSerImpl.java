@@ -1,7 +1,7 @@
 package dnn.service.user;
 
 import dnn.common.beans.PropertiesLoader;
-import dnn.common.dto.user.UserDto;
+import dnn.dto.user.UserDto;
 import dnn.common.exception.SerException;
 import dnn.common.utils.IpUtils;
 import dnn.common.utils.PasswordHash;
