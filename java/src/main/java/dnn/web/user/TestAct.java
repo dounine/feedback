@@ -1,8 +1,7 @@
 package dnn.web.user;
 
-import dnn.common.dto.user.UserDto;
+import dnn.dto.user.UserDto;
 import dnn.entity.user.User;
-import dnn.enums.Status;
 import dnn.service.user.ISerUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -46,7 +45,7 @@ public class TestAct {
 
     @GetMapping("count")
     public long count()throws Throwable {
-        return serUser.count();
+        return serUser.count(new UserDto());
     }
 
 

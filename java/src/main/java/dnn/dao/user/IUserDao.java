@@ -1,6 +1,6 @@
 package dnn.dao.user;
 
-import dnn.common.dto.user.UserDto;
+import dnn.dto.user.UserDto;
 import dnn.dao.IDao;
 import dnn.entity.user.User;
 

@@ -4,7 +4,7 @@ package dnn.web.feedbackInfo;
  * Created by lgq on 16-9-4.
  */
 
-import dnn.common.dto.feedbackInfo.FeedbackInfoDto;
+import dnn.dto.feedbackInfo.FeedbackInfoDto;
 import dnn.common.json.ResponseText;
 import dnn.entity.feedbackInfo.detection.DetectionInfo;
 import dnn.entity.feedbackInfo.invoice.InvoiceInfo;
@@ -61,7 +61,7 @@ public class FeedbackInfoAct {
     public ResponseText maps(FeedbackInfoDto dto) throws Throwable {
         Map<String,Object> maps = new HashMap<>();
         maps.put("rows",iSerFeedbackInfo.findByPage(dto));
-        maps.put("count",iSerFeedbackInfo.count());
+        maps.put("count",iSerFeedbackInfo.count(dto));
         return new ResponseText(maps);
     }
 

@@ -209,7 +209,7 @@
                 <li>
                     <span class="wid15">系统标称电压</span>
                     <span><input type="text" size="116" name="physicalEnergy.voltage"/></span>
-                </li>
+                </li>wwwwwwwwwww
                 <li id="teshuli">
                     <span class="wid15 " style="">客户提供配件和资料</span>
                     <span style="margin-left: 10px;" class="sp2">
