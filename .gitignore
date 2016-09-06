@@ -1,6 +1,12 @@
 **/target/
 **/bower_components/
+**/.sass-cache/
 **/node_modules/
+nodeapp/public/ng/modules/user/lib/
+**/app/css/sass/*.css
+**/app/css/sass/*.css.map
+**/app/sass/*.css
+**/app/sass/*.css.map
 java/.idea/
 java/src/main/webapp/public/js/lib
 java/classes/

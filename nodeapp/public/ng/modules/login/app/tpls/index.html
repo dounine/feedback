@@ -1,0 +1,16 @@
+<!DOCTYPE HTML>
+<HTML xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<title>feedback user</title>
+		<link rel="stylesheet" href="/login/lib/bootstrap/bootstrap.css">
+		<link rel="stylesheet" href="/login/app/css/sass/login.css">
+		<link rel="stylesheet" href="/login/lib/angular-loading-bar/loading-bar.css">
+	</head>
+	<body ng-app="app" class="container" ctx="/">
+		<div ui-view></div>
+		<script src="/login/lib/requirejs/require.js"></script>
+		<script>
+			require(['/login/main.js?______t='+new Date().getTime()]);
+		</script>
+	</body>
+</html>
