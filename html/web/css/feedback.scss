@@ -1,0 +1,197 @@
+*{
+    margin: 0;padding: 0;font-size: 14px;
+}
+body{
+    ul li{list-style: none;}
+    a{text-decoration: none;}
+    img{border: none;}
+}
+header{
+    background: #fff;
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: 0;
+    z-index: 990;
+    height: 116px;
+    line-height: 116px;
+    .logo{
+    background: #fff;
+      img{margin-top: 40px;}
+    }
+    nav {
+        
+        height: 40px;
+        background: rgba(40,184,244,1);
+        .nav .search {
+            height: 25px;
+            position: absolute;
+            top: 118px;
+            right: 20%;
+            input{height: 30px;}
+            span{
+                a{height:30px ;margin-bottom: 3px;}
+            }
+         
+        }    
+
+    }
+    .notice{height: 30px;line-height: 30px;background: #feaa50;p{margin-left: 250px;}}
+}
+
+.wrapbody{
+    .menu{
+        left: 0;
+        width: 180px;
+        right: 180px;
+        padding: 0;
+        position: fixed;
+        z-index: 990;
+        background: #29b8f4;
+        top: 196px;
+        bottom: 0;
+        ul>li{
+            background: #23a6de;
+        }
+        ul li{
+            text-indent: 20px;
+           
+
+            a{
+                display: inline-block;
+                height: 30px;
+                line-height: 30px;
+                width: 100%;
+                text-decoration: none;
+                margin-left: -20px;
+                color: #fff;
+                span{
+                    display: inline-block;
+                    width: 10px;
+                    height: 10px;
+//                  background:url(/html/web/img/sanjiao.png) no-repeat;
+                   
+                }
+                .icon_right{background: url(/html/web/img/sanjiao2.png) no-repeat;}
+                .icon_bonton{background: url(/html/web/img/sanjiao1.png) no-repeat;}
+                 
+            }
+        }
+        ul>li>ul>li{text-indent: 30px;background: #29b8f4;}
+        .on{background: #fff;}
+    }
+    .content{
+        margin-top: 180px;
+        margin-left: 230px;
+        width: 85%;
+        .mainbody{
+            margin-top: 30px;
+            h5{
+                background: url(../img/zs.png) no-repeat;
+                height: 40px;
+                line-height: 40px;
+                margin-top: 20px;
+            }
+            .user{
+                height: 230px;
+                border-bottom: 1px solid #ddd;
+                .usercon{
+                    ul li{
+                        float: left;
+                        margin: 10px;
+                        font-size: 16px;
+                    }
+                }
+            }
+            .product{
+                .active{
+                    color: rgba(59,59,59,1);
+                }
+                
+                    ul { border: 1px solid #ccc;
+                        li {
+                        
+                        border-bottom: 1px solid #ccc;
+                         
+                        span{
+                            display: inline-block;
+                            height:28px;
+                            font-size: 16px;
+                            line-height: 28px;
+        //             
+                        }
+                        span:nth-child(2n-1){
+                            border-right: 1px solid #ccc;
+                            border-left: 1px solid #ccc;
+                        }
+                        input{
+                            border: none;
+        //                  height: 30px;
+                        }
+                        input[type|=radio]{
+                            width: 40px;
+                        }
+                    }
+                }
+          
+            }
+            
+            #teshuli{
+                span{border: none;}
+                .wid15{
+//                  height: 87px;
+//                  line-height: 87px;
+//                  position: relative;
+//                  top: -30px;
+                }
+                .sp2 span{
+                    border: none;
+                    margin: 0px 20px;
+                    .sp3{
+                        width: 100px;
+                      text-align: center;
+                    }
+                }
+                   
+                    
+                   
+                
+            }
+         
+            
+            .wid15{
+                display: inline-block;
+                width: 120px;
+                text-align: center;
+            }
+           
+        }
+        .but{
+            text-align: center;
+           button{
+               border-radius:10px ;
+               width: 100px;
+               height: 35px;
+               text-align: center;
+                margin: 20px;
+               
+           }
+           .btn-default{
+               background: #d7d7d7;
+           }
+           .btn-info{background: #29b8f4;}
+        }
+        .tijiao{
+            text-align: center;
+            width: 424px;
+            height: 250px;
+            h4{
+                margin-top: 63px;
+            }
+            button{
+                width:150px ;
+                margin: 60px 25px;
+            }
+        }
+    }
+}

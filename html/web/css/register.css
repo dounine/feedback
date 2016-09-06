@@ -1,0 +1,61 @@
+* {
+  margin: 0;
+  padding: 0; }
+  * ul li {
+    list-style: none; }
+  * a {
+    text-decoration: none; }
+
+header {
+  margin: 30px; }
+
+.reg1 img, .reg2 img, .reg3 img, .reg4 img {
+  margin: 20px 0 70px 20px; }
+
+.reg2 .reg2-con {
+  width: 800px;
+  margin: 0 auto; }
+  .reg2 .reg2-con div {
+    margin-bottom: 10px; }
+    .reg2 .reg2-con div strong {
+      margin-right: 20px; }
+  .reg2 .reg2-con button {
+    margin-top: 30px; }
+
+.reg3 span {
+  color: red; }
+.reg3 label {
+  width: 130px; }
+.reg3 .button {
+  position: relative;
+  left: 30%;
+  top: 40px; }
+.reg3 .form-success {
+  border: 1px solid green; }
+.reg3 .form-err {
+  border: 1px solid red; }
+
+.reg4 .reg4-con {
+  margin-left: -25%;
+  text-align: center; }
+
+footer {
+  width: 100%;
+  height: 100px;
+  position: relative;
+  left: 10%;
+  top: 100px;
+  text-align: center; }
+  footer ul {
+    text-align: center; }
+    footer ul li {
+      float: left; }
+      footer ul li a {
+        border-right: 1px solid #ccc;
+        padding: 0 3px; }
+  footer .copy {
+    position: absolute;
+    left: 12%;
+    top: 30px; }
+
+/*# sourceMappingURL=register.css.map */
