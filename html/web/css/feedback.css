@@ -20,22 +20,17 @@ header {
   height: 116px;
   line-height: 116px; }
   header .logo {
-    background: #fff; }
+    background: #29b8f4;
+    height: 70px; }
     header .logo img {
-      margin-top: 40px; }
-  header nav {
-    height: 40px;
-    background: #28b8f4; }
-    header nav .nav .search {
-      height: 25px;
+      margin: 15px 50px; }
+    header .logo .search {
       position: absolute;
-      top: 118px;
-      right: 20%; }
-      header nav .nav .search input {
-        height: 30px; }
-      header nav .nav .search span a {
-        height: 30px;
-        margin-bottom: 3px; }
+      right: 80px;
+      top: 10px; }
+      header .logo .search input {
+        height: 35px;
+        border: none; }
   header .notice {
     height: 30px;
     line-height: 30px;
@@ -50,45 +45,46 @@ header {
   padding: 0;
   position: fixed;
   z-index: 990;
-  background: #29b8f4;
-  top: 196px;
+  background: #063346;
+  top: 100px;
   bottom: 0; }
   .wrapbody .menu ul > li {
-    background: #23a6de; }
-  .wrapbody .menu ul li {
-    text-indent: 20px; }
-    .wrapbody .menu ul li a {
+    background: #063346; }
+  .wrapbody .menu ul li a {
+    display: inline-block;
+    height: 30px;
+    line-height: 30px;
+    width: 100%;
+    text-decoration: none;
+    padding-left: 20px;
+    color: #fff; }
+    .wrapbody .menu ul li a span {
       display: inline-block;
-      height: 30px;
-      line-height: 30px;
-      width: 100%;
-      text-decoration: none;
-      margin-left: -20px;
-      color: #fff; }
-      .wrapbody .menu ul li a span {
-        display: inline-block;
-        width: 10px;
-        height: 10px; }
-      .wrapbody .menu ul li a .icon_right {
-        background: url(/html/web/img/sanjiao2.png) no-repeat; }
-      .wrapbody .menu ul li a .icon_bonton {
-        background: url(/html/web/img/sanjiao1.png) no-repeat; }
-  .wrapbody .menu ul > li > ul > li {
-    text-indent: 30px;
+      width: 10px;
+      height: 10px; }
+    .wrapbody .menu ul li a .icon_right {
+      background: url(/html/web/img/sanjiao2.png) no-repeat; }
+    .wrapbody .menu ul li a .icon_bonton {
+      background: url(/html/web/img/sanjiao1.png) no-repeat; }
+  .wrapbody .menu ul > li > ul > li a {
+    background: #114960;
+    text-indent: 30px; }
+  .wrapbody .menu .onMenu {
     background: #29b8f4; }
-  .wrapbody .menu .on {
-    background: #fff; }
 .wrapbody .content {
-  margin-top: 180px;
+  margin-top: 100px;
   margin-left: 230px;
   width: 85%; }
   .wrapbody .content .mainbody {
     margin-top: 30px; }
+    .wrapbody .content .mainbody .mainbody-top {
+      border-bottom: 1px solid #ccc;
+      height: 70px; }
     .wrapbody .content .mainbody h5 {
-      background: url(../img/zs.png) no-repeat;
+      background: url(../img/zs.png) no-repeat 0 5px;
       height: 40px;
       line-height: 40px;
-      margin-top: 20px; }
+      text-indent: 10px; }
     .wrapbody .content .mainbody .user {
       height: 230px;
       border-bottom: 1px solid #ddd; }
@@ -96,8 +92,6 @@ header {
         float: left;
         margin: 10px;
         font-size: 16px; }
-    .wrapbody .content .mainbody .product .active {
-      color: #3b3b3b; }
     .wrapbody .content .mainbody .product ul {
       border: 1px solid #ccc; }
       .wrapbody .content .mainbody .product ul li {
@@ -112,7 +106,7 @@ header {
           border-left: 1px solid #ccc; }
         .wrapbody .content .mainbody .product ul li input {
           border: none; }
-        .wrapbody .content .mainbody .product ul li input[type|=radio] {
+        .wrapbody .content .mainbody .product ul li input[type|="radio"], .wrapbody .content .mainbody .product ul li input[type="checkbox"] {
           width: 40px; }
     .wrapbody .content .mainbody #teshuli span {
       border: none; }
@@ -126,18 +120,35 @@ header {
       display: inline-block;
       width: 120px;
       text-align: center; }
-  .wrapbody .content .but {
-    text-align: center; }
-    .wrapbody .content .but button {
-      border-radius: 10px;
-      width: 100px;
-      height: 35px;
-      text-align: center;
-      margin: 20px; }
-    .wrapbody .content .but .btn-default {
-      background: #d7d7d7; }
-    .wrapbody .content .but .btn-info {
-      background: #29b8f4; }
+    .wrapbody .content .mainbody .usertable {
+      margin-top: 20px; }
+      .wrapbody .content .mainbody .usertable table td, .wrapbody .content .mainbody .usertable table th {
+        text-align: center; }
+      .wrapbody .content .mainbody .usertable table td:nth-child(2) {
+        color: red; }
+    .wrapbody .content .mainbody .fenye {
+      width: 530px;
+      margin: 0 auto; }
+      .wrapbody .content .mainbody .fenye .prey {
+        display: inline-block;
+        background: url(../img/page_next.png);
+        height: 30px;
+        width: 30px;
+        margin-right: 20px;
+        margin-bottom: 25px; }
+      .wrapbody .content .mainbody .fenye .next2 {
+        display: inline-block;
+        background: url(../img/page_next2.png);
+        height: 30px;
+        width: 30px;
+        margin-left: 20px;
+        margin-bottom: 25px; }
+      .wrapbody .content .mainbody .fenye .pagination li a {
+        margin: 5px; }
+      .wrapbody .content .mainbody .fenye .text_go {
+        margin-top: 30px; }
+        .wrapbody .content .mainbody .fenye .text_go button {
+          width: 40px; }
   .wrapbody .content .tijiao {
     text-align: center;
     width: 424px;
@@ -147,5 +158,7 @@ header {
     .wrapbody .content .tijiao button {
       width: 150px;
       margin: 60px 25px; }
+.wrapbody #resetBtn {
+  margin-right: 20px; }
 
 /*# sourceMappingURL=feedback.css.map */

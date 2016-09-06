@@ -1,6 +1,6 @@
 define(['app'],function (app) {
-	 'use strict';
-	 app.run(['$rootScope',function($rootScope){
+	'use strict';
+	app.run(['$rootScope',function($rootScope){
         $rootScope.nativeId=getCurrentNativeId();
         function getCurrentNativeId(){
                 var str = "#/index";
@@ -12,22 +12,24 @@ define(['app'],function (app) {
                 return str;
                
         }
-	}]).directive('native',['$rootScope',function($rootScope,$cookies){
+	}])
+	.directive('native',['$rootScope',function($rootScope){
         return{
             restrict:'A',
             link:function(scope,element,attrs){
-
+				
                 $(element).click(function(){
-                        scope.$apply(function(){
+                         scope.$apply(function(){
                                 $rootScope.nativeId = attrs.href;
+                                console.log($rootScope.nativeId)
                         });
-				if($(this).has(".on")){
-						$(this).addClass("on").parents("li").siblings("li").find("a").removeClass("on");
+				if($(this).has(".onMenu")){
+						$(this).addClass("onMenu").parents("li").siblings("li").find("a").removeClass("onMenu");
 					}
 
                 });
                
             }
         }
-}]);
+	}]);
 })

@@ -16,26 +16,22 @@ header{
     height: 116px;
     line-height: 116px;
     .logo{
-    background: #fff;
-      img{margin-top: 40px;}
-    }
-    nav {
-        
-        height: 40px;
-        background: rgba(40,184,244,1);
-        .nav .search {
-            height: 25px;
+        background: #29b8f4;
+        height: 70px;
+       
+      img{margin: 15px 50px;}
+        .search {
             position: absolute;
-            top: 118px;
-            right: 20%;
-            input{height: 30px;}
-            span{
-                a{height:30px ;margin-bottom: 3px;}
+            right: 80px;
+            top: 10px;
+            input{
+                  height: 35px;
+                  border: none;
             }
-         
-        }    
-
+        }
     }
+    
+
     .notice{height: 30px;line-height: 30px;background: #feaa50;p{margin-left: 250px;}}
 }
 
@@ -47,29 +43,27 @@ header{
         padding: 0;
         position: fixed;
         z-index: 990;
-        background: #29b8f4;
-        top: 196px;
+        background: #063346;
+        top: 100px;
         bottom: 0;
         ul>li{
-            background: #23a6de;
+            background: #063346;
+//          text-indent: 20px;
         }
         ul li{
-            text-indent: 20px;
            
-
             a{
                 display: inline-block;
                 height: 30px;
                 line-height: 30px;
                 width: 100%;
                 text-decoration: none;
-                margin-left: -20px;
+               padding-left: 20px;
                 color: #fff;
                 span{
                     display: inline-block;
                     width: 10px;
                     height: 10px;
-//                  background:url(/html/web/img/sanjiao.png) no-repeat;
                    
                 }
                 .icon_right{background: url(/html/web/img/sanjiao2.png) no-repeat;}
@@ -77,20 +71,21 @@ header{
                  
             }
         }
-        ul>li>ul>li{text-indent: 30px;background: #29b8f4;}
-        .on{background: #fff;}
+        ul>li>ul>li a{background: #114960;text-indent: 30px;}
+        .onMenu{background: #29b8f4;}
     }
     .content{
-        margin-top: 180px;
+        margin-top: 100px;
         margin-left: 230px;
         width: 85%;
         .mainbody{
+            .mainbody-top{border-bottom: 1px solid #ccc;height: 70px;}
             margin-top: 30px;
             h5{
-                background: url(../img/zs.png) no-repeat;
+                background: url(../img/zs.png) no-repeat 0 5px ;
                 height: 40px;
                 line-height: 40px;
-                margin-top: 20px;
+                text-indent: 10px;
             }
             .user{
                 height: 230px;
@@ -104,9 +99,6 @@ header{
                 }
             }
             .product{
-                .active{
-                    color: rgba(59,59,59,1);
-                }
                 
                     ul { border: 1px solid #ccc;
                         li {
@@ -118,7 +110,6 @@ header{
                             height:28px;
                             font-size: 16px;
                             line-height: 28px;
-        //             
                         }
                         span:nth-child(2n-1){
                             border-right: 1px solid #ccc;
@@ -126,9 +117,8 @@ header{
                         }
                         input{
                             border: none;
-        //                  height: 30px;
                         }
-                        input[type|=radio]{
+                        input[type|="radio"],input[type="checkbox"]{
                             width: 40px;
                         }
                     }
@@ -138,12 +128,6 @@ header{
             
             #teshuli{
                 span{border: none;}
-                .wid15{
-//                  height: 87px;
-//                  line-height: 87px;
-//                  position: relative;
-//                  top: -30px;
-                }
                 .sp2 span{
                     border: none;
                     margin: 0px 20px;
@@ -164,23 +148,54 @@ header{
                 width: 120px;
                 text-align: center;
             }
+            .usertable{
+                margin-top: 20px;
+                table{
+                    td,th{text-align: center;}
+                    td:nth-child(2){
+                        color: red;
+                    }
+                }
+            }
+            .fenye{
+               
+                width: 530px;
+                margin: 0 auto;
+                .prey{
+                        display: inline-block;
+                        background: url(../img/page_next.png);
+                        height: 30px;
+                        width: 30px;
+                        margin-right: 20px;
+                        margin-bottom: 25px;
+                    }
+                    .next2{
+                        display: inline-block;
+                         background: url(../img/page_next2.png);
+                        height: 30px;
+                        width: 30px;
+                        margin-left: 20px;
+                        margin-bottom: 25px;
+                    }
+                .pagination{
+                li a{
+                    margin: 5px;
+                }
+                
+               
+            }
+         
+             .text_go{
+                 margin-top: 30px;
+
+               button{
+                   width: 40px;
+               }
+            }
+            }
            
         }
-        .but{
-            text-align: center;
-           button{
-               border-radius:10px ;
-               width: 100px;
-               height: 35px;
-               text-align: center;
-                margin: 20px;
-               
-           }
-           .btn-default{
-               background: #d7d7d7;
-           }
-           .btn-info{background: #29b8f4;}
-        }
+        
         .tijiao{
             text-align: center;
             width: 424px;
@@ -194,4 +209,5 @@ header{
             }
         }
     }
+    #resetBtn{margin-right: 20px;}
 }

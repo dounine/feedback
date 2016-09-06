@@ -10,8 +10,10 @@ require.config({
         'app': 'app',
         'router':'app/router',
         'controler':'app/controller',
-        'directives':'app/directives',
-        'feedback':'app/feedback'
+        'menuController':'app/menu/menuController',
+        'feedback':'app/feedback',
+        'menuDirective':'app/menu/menuDirective',
+        'formDirective':'app/form/formDirective'
     },
     shim: {
         'jquery':{
@@ -55,9 +57,11 @@ require([
     'angular-loading-bar',
     'router',
     'controler',
-    'directives',
     'bootstrap',
-    'feedback'
+    'feedback',
+    'menuController',
+    'menuDirective',
+    'formDirective'
 ], function(app,angular,$,angularRoute,angularAnimate,angularLoading) {
 
 

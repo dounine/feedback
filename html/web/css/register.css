@@ -11,6 +11,10 @@ header {
 
 .reg1 img, .reg2 img, .reg3 img, .reg4 img {
   margin: 20px 0 70px 20px; }
+.reg1 .form-success, .reg2 .form-success, .reg3 .form-success, .reg4 .form-success {
+  border: 1px solid green; }
+.reg1 .form-err, .reg2 .form-err, .reg3 .form-err, .reg4 .form-err {
+  border: 1px solid red; }
 
 .reg2 .reg2-con {
   width: 800px;
@@ -30,10 +34,6 @@ header {
   position: relative;
   left: 30%;
   top: 40px; }
-.reg3 .form-success {
-  border: 1px solid green; }
-.reg3 .form-err {
-  border: 1px solid red; }
 
 .reg4 .reg4-con {
   margin-left: -25%;
