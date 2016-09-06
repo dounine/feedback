@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>Feedback</title>
+		<link rel="stylesheet" type="text/css" href="/html/web/js/lib/bootstrap/bootstrap.css"/>
+		<link rel="stylesheet" type="text/css" href="/html/web/css/feedback.css"/>
+		<script src="/html/web/js/lib/requirejs/require.js" defer async="true" data-main="js/main"></script>
+	</head>
+	<body ng-app="myapp">
+		<header>
+			 <div class="notice">
+		    	<p>公告</p>
+		    </div>
+	    	<div class="logo container">
+	    		<img src="/html/web/img/Feedbacklogo.png" class="pull-left"/>
+	    		<p class="pull-right"><a href="javascript:;">退出账号</a></p>
+	    	</div>
+	    	<nav>
+	    		<div class="nav container">
+			    	<div class="search ">
+			    		<input type="text" size="15" placeholder="输入关键字"/>
+			    		<span><a href="Javascript:;"class="btn btn-default">搜索</a></span>
+			    	</div>
+	    		</div>
+	    	
+	    </nav>
+	   
+	    </header>
+	    
+	    <div ui-view class="wrapbody"></div>
+	</body>
+</html>

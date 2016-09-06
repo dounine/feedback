@@ -1,0 +1,28 @@
+<div class="row">
+	<div class="menu col-lg-1 col-sm-1" ng-controller="menu">
+		<ul>
+			<li><a href="javascript:;" ng-click="flex1()"><span ng-class="{true: 'icon_right', false: 'icon_bonton'}[addcla]"></span> 添加</a>
+				<ul ng-hide="addmenu">
+					<li><a href="javascript:;"><span style="background:url(/html/web/img/book.png); background-size: cover;"></span> 检测委托书</a></li>
+					<li><a href="javascript:;"><span style="background:url(/html/web/img/book2.png); background-size: cover;"></span> 其他委托书</a></li>
+				</ul>
+			</li>
+			<li><a href="javascript:;"><span class="icon"></span> 用户信息</a>
+				
+			</li>
+			<li><a href="javascript:;" ng-click="flex2()"><span ng-class="{true: 'icon_right', false: 'icon_bonton'}[infocla]"></span> 信息处理</a>
+				<ul ng-hide="information">
+					<li><a href="javascript:;"><span style="background:url(/html/web/img/wcl.png); background-size: cover;"></span>  未处理信息</a></li>
+					<li><a href="javascript:;"><span style="background:url(/html/web/img/clz.png); background-size: cover;"></span> 处理中信息</a></li>
+					<li><a href="javascript:;"><span style="background:url(/html/web/img/clwb.png); background-size: cover;"></span> 处理完毕</a></li>
+				</ul>
+			</li>
+			<li><a href="javascript:;"><span class="icon"></span> 其他功能</a>
+				
+			</li>
+		</ul>
+	</div>
+	<div ui-view='content' class="col-lg-11 col-sm-11 content">
+		
+	</div>
+</div>

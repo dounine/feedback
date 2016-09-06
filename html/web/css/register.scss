@@ -1,0 +1,87 @@
+*{
+    margin: 0;
+    padding: 0;
+    ul li{
+        list-style: none;
+    }
+    a{text-decoration: none;}
+}
+
+header{
+    margin: 30px;
+}
+
+//h4{margin-top: 100px;}
+
+
+
+.reg1,.reg2,.reg3,.reg4{
+    img{
+        margin: 20px 0 70px 20px;
+    }
+}
+
+.reg2{
+   .reg2-con{
+       width: 800px;
+      margin: 0 auto;
+      div{
+          strong{margin-right: 20px;}
+        margin-bottom: 10px;
+      }
+      button{
+          margin-top: 30px;
+      }
+   }
+}
+.reg3{
+    span{color: red;}
+    label{
+        width: 130px;
+    }
+    .button{
+       position: relative;
+       left: 30%;
+       top: 40px;
+    }
+    .form-success{border: 1px solid green;}
+    .form-err{border: 1px solid red;}
+    
+}
+.reg4{
+   
+    .reg4-con{
+//      width: 600px;
+        margin-left:-25%;
+     text-align: center;
+    
+    }
+}
+
+
+footer{
+    width: 100%;
+    height: 100px;
+    position: relative;
+    left: 10%;
+    top: 100px;
+
+        text-align: center;
+          ul {
+              text-align: center;
+            li{
+        float: left;
+        a{
+            border-right:1px solid #ccc ;
+            padding:0 3px;
+        }
+        }
+          }
+          
+    .copy{
+        position: absolute;
+        left: 12%;
+        top: 30px;
+    }
+  
+}
