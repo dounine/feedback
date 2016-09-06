@@ -1,4 +1,4 @@
-package dnn.common.dto;
+package dnn.dto;
 
 /**
  * Created by lgq on 16-9-2.

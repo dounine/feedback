@@ -1,6 +1,6 @@
 package dnn.service.user;
 
-import dnn.common.dto.user.UserDto;
+import dnn.dto.user.UserDto;
 import dnn.common.exception.SerException;
 import dnn.entity.user.User;
 import dnn.service.IService;

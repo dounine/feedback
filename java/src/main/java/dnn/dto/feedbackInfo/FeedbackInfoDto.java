@@ -1,6 +1,6 @@
-package dnn.common.dto.feedbackInfo;
+package dnn.dto.feedbackInfo;
 
-import dnn.common.dto.BaseDto;
+import dnn.dto.BaseDto;
 
 /**
  * Created by lgq on 16-9-4.

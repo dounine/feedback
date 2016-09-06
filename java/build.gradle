@@ -22,6 +22,8 @@ dependencies {
     compile "javax.validation:validation-api:$javax_validation_version"
     compile "com.alibaba:fastjson:$fastjson_version"
     compile "jstl:jstl:$jstl_version"
+    compile "org.apache.commons:commons-email:$commons_email_version"
+
 
 }
 

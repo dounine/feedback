@@ -1,4 +1,4 @@
-package dnn.common.dto;
+package dnn.dto;
 
 import java.io.Serializable;
 import java.util.List;

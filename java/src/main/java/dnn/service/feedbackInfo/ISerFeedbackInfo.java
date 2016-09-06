@@ -1,6 +1,6 @@
 package dnn.service.feedbackInfo;
 
-import dnn.common.dto.feedbackInfo.FeedbackInfoDto;
+import dnn.dto.feedbackInfo.FeedbackInfoDto;
 import dnn.common.exception.SerException;
 import dnn.entity.feedbackInfo.FeedbackInfo;
 import dnn.service.IService;
