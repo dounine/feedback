@@ -1,81 +1,33 @@
+
 <div class="mainbody row ">
-	<div class="col-md-12 col-lg-6">
-		
-    	<div class="product">
-    		<h5>开票信息</h5>
-					<ul >
-						<li>
-							<span class="wid15">名称</span>
-							<span ><input type="text" /></span>
-						</li>
-						<li>
-							<span class="wid15">纳税人识别号</span>
-							<span ><input type="text" size="40"/></span>
-						</li>
-						<li>
-							<span class="wid15">地址、电话</span>
-							<span class="">
-									<input type="text"  size="40"/>
-								
-							</span>
-						
-						</li>
-						<li>
-							<span class="wid15">开户行、账户</span>
-							<span ><input type="text" size="40"/></span>
-						</li>
-					
-					</ul>
-    	</div>
-    	<div class="product">
-    		<h5>检测依据、检测项目与样品处理信息</h5>
-					<ul >
-						<li>
-							<span class="wid15">检测依据</span>
-							<span ><input type="text" size="40"/></span>
-						</li>
-						<li>
-							<span class="wid15">检测项目</span>
-							<span ><input type="text" size="40"/></span>
-						</li>
-						<li>
-							<span class="wid15">样品处置</span>
-							<span class="">
-									<input type="radio" name="type9" />字体样品
-									<input type="radio" name="type9" />退回样品（运费到付）
-									<input type="radio" name="type9"/>不要求
-							</span>
-						
-						</li>
-						<li>
-							<span class="wid15">备注</span>
-							
-							<span ><input type="text" size="40"/></span>
-						</li>
-					
-						
-					</ul>
-    	</div>
+	<div class="mainbody-top">
+		<h5 class="pull-left">添加委托书</h5>
+		<button type="button" class="btn btn-danger pull-right" data-toggle="modal" data-target=".bs-example-modal-sm">提交</button>
+		<button type="button" class="btn btn-default pull-right" id="resetBtn" clear>重置</button>
 	</div>
-	<div class="col-md-12 col-lg-6">
+	
+	<div class=" col-lg-12">
 		<div class="product ">
     		<h5>样品信息</h5>
-    		<ul id="myTab" class="nav nav-tabs" role="tablist" style="border: none;">
+    		<ul id="myTab" class="nav nav-tabs" role="tablist" style="border: none;" >
 			   <li class="active">
-			   	<a href="#huaxue" data-toggle="tab" class="clearWuli">化学电源(蓄电池)</a>
+			   	<a href="#huaxue" data-toggle="tab" class="clearWuli" cleartab>化学电源(蓄电池)</a>
 			   </li>
-			   <li><a href="#wuli" data-toggle="tab" class="clearhuaxue">物理电源（太阳电池组件）</a></li>
+			   <li><a href="#wuli" data-toggle="tab" class="clearhuaxue" cleartab>物理电源（太阳电池组件）</a></li>
 			</ul>
+			  <script type="text/javascript">
+   
+    </script>
 			<div  id="myTabContent" class="tab-content " >
 				
 					<ul class="huaxue tab-pane fade in active" id="huaxue" >
 						<li >
 							<span class="wid15">样品名称</span>
-							<span ><input type="text" size="40"/></span>
+							<span ><input type="text" size="70"/></span>
 						</li>
 						<li>
 							<span class="wid15">型号规格</span>
-							<span ><input type="text" size="40"/></span>
+							<span ><input type="text" size="70"/></span>
 						</li>
 						<li>
 							<span class="wid15">注册商标</span>
@@ -93,19 +45,25 @@
 						</li>
 						<li>
 							<span class="wid15">充放电参数</span>
-							<span ><input type="text"size="40" /></span>
+							<span ><input type="text"size="70" /></span>
 						</li>
 						<li>
 							<span class="wid15">包装类别</span>
 							<span >
+							<form action="">
 								<input type="checkbox" name="type"/>纸箱
 								<input type="checkbox" name="type" />木箱
 								<input type="checkbox" name="type" />无包装
+							</form>
+								
 							</span>
 							<span style="margin-left: 40px;">样品状态（装箱前后）</span>
 							<span >
-								<input type="radio" name="pro"/>完整
-								<input type="radio" name="pro"/>破损
+								<form action="">
+									<input type="radio" name="pro"/>完整
+									<input type="radio" name="pro"/>破损
+								</form>
+								
 								
 							</span>
 							
@@ -117,11 +75,11 @@
 					<ul class="wuli tab-pane fade" id="wuli" >
 						<li>
 							<span class="wid15">样品名称</span>
-							<span ><input type="text" size="40"/></span>
+							<span ><input type="text" size="70"/></span>
 						</li>
 						<li>
 							<span class="wid15">型号规格</span>
-							<span ><input type="text" size="40"/></span>
+							<span ><input type="text" size="70"/></span>
 						</li>
 						<li>
 							<span class="wid15">注册商标</span>
@@ -139,7 +97,7 @@
 						</li>
 						<li>
 							<span class="wid15">样品序列号</span>
-							<span ><input type="text" size="40"/></span>
+							<span ><input type="text" size="70"/></span>
 						</li>
 						<li>
 							<span class="wid15">单体电池材料</span>
@@ -191,7 +149,7 @@
 						</li>
 						<li>
 							<span class="wid15">系统标称电压</span>
-							<span ><input type="text" size="40"/></span>
+							<span ><input type="text" size="70"/></span>
 						</li>
 						<li id="teshuli">
 							<span class="wid15 " >客户提供配件和资料</span><span style="height: 90px;border-left: 1px solid #ccc;position: relative;left: -1px;top: 2px;"></span>
@@ -217,13 +175,62 @@
 			</div>	
     	</div>
 	</div>
-	
-    <div class="col-lg-12">
-    	<div class="container but">
-    		<button type="button" class="btn btn-default " id="resetBtn">重置</button>
-    		<button type="button" class="btn btn-danger " data-toggle="modal" data-target=".bs-example-modal-sm">提交</button>
-    		
+	<div >
+    		<div class="product col-lg-6">
+	    		<h5>开票信息</h5>
+				<ul >
+					<li>
+						<span class="wid15">名称</span>
+						<span ><input type="text" size="70"/></span>
+					</li>
+					<li>
+						<span class="wid15">纳税人识别号</span>
+						<span ><input type="text" size="70"/></span>
+					</li>
+					<li>
+						<span class="wid15">地址、电话</span>
+						<span class="">
+								<input type="text"  size="70"/>
+							
+						</span>
+					
+					</li>
+					<li>
+						<span class="wid15">开户行、账户</span>
+						<span ><input type="text" size="70"/></span>
+					</li>
+				
+				</ul>
+	    	</div>
+	    	<div class="product col-lg-6">
+    		<h5>检测依据、检测项目与样品处理信息</h5>
+				<ul >
+					<li>
+						<span class="wid15">检测依据</span>
+						<span ><input type="text" size="70"/></span>
+					</li>
+					<li>
+						<span class="wid15">检测项目</span>
+						<span ><input type="text" size="70"/></span>
+					</li>
+					<li>
+						<span class="wid15">样品处置</span>
+						<span class="">
+								<input type="radio" name="type9" />字体样品
+								<input type="radio" name="type9" />退回样品（运费到付）
+								<input type="radio" name="type9"/>不要求
+						</span>
+					
+					</li>
+					<li>
+						<span class="wid15">备注</span>
+						
+						<span ><input type="text" size="70"/></span>
+					</li>
+				</ul>
+    		</div>
     	</div>
+	
     	<div class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true"  ng-controller="tijiao">
 		  <div class="modal-dialog modal-sm">
 		    <div class="modal-content tijiao">
@@ -234,10 +241,7 @@
 		   
 		  </div>
 		</div>
-    </div>	
-    	
-    	
-    	
-    	
+
     	
     </div>
+  

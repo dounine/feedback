@@ -19,6 +19,8 @@ header{
     img{
         margin: 20px 0 70px 20px;
     }
+        .form-success{border: 1px solid green;}
+    .form-err{border: 1px solid red;}
 }
 
 .reg2{
@@ -44,8 +46,7 @@ header{
        left: 30%;
        top: 40px;
     }
-    .form-success{border: 1px solid green;}
-    .form-err{border: 1px solid red;}
+
     
 }
 .reg4{

@@ -13,12 +13,41 @@ define(['app'],function (app) {
 					'':{
 						templateUrl:'tpls/wrapbody.html'
 					},
+					'menu@index':{
+						templateUrl:'tpls/pro/menu.html'
+					},
 					'content@index':{
-						templateUrl:'tpls/content.html'
+						templateUrl:'tpls/pro/content.html'
 					}
+					
 				}
 				
 			})
+			.state('index.unpro',{
+				url:'/unpro',
+				views:{
+					'content@index':{
+						templateUrl:'tpls/pro/unpro.html'
+					}
+				}
+			})
+			.state('index.proing',{
+				url:'/proing',
+				views:{
+					'content@index':{
+						templateUrl:'tpls/pro/proing.html'
+					}
+				}
+			})
+			.state('index.proed',{
+				url:'/proed',
+				views:{
+					'content@index':{
+						templateUrl:'tpls/pro/proed.html'
+					}
+				}
+			})
+			
    })
     
 })
