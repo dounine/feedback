@@ -1,8 +1,9 @@
 var app = require('koa')();//koa web应用
 var path = require('path');//路径
 var router = require("koa-router")();//路由中间件
-var serve = require('koa-static-server');//
+var serve = require('koa-static-server');
 const routersPath = '/public/koa/modules/routers/';
+const env = 'app';
 
 
 //============路由跳转=============
@@ -11,8 +12,8 @@ router.get('/',function *(next){//根路由
 	this.status = 301;
 });
 
-app.use(require(path.join(__dirname,routersPath,'user/user.js'))().routes());//用户路由
-app.use(require(path.join(__dirname,routersPath,'login/login.js'))().routes());//登录路由
+app.use(require(path.join(__dirname,routersPath,'user/user.js'))(env).routes());//用户路由
+app.use(require(path.join(__dirname,routersPath,'login/login.js'))(env).routes());//登录路由
 
 //============路由跳转=============
 

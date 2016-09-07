@@ -1,26 +1,24 @@
 /*jshint unused: vars */
 require.config({
-    baseUrl: 'login',
+    baseUrl: '.',
     paths: {
         'app': 'app',
         'routers':'app/js/routers',
-        'config':'dist/js/config',
         'dataservices':'app/js/dataservices',
         'directives':'app/js/directives',
         'filters':'app/js/filters',
         'services':'app/js/services',
-        'jquery': 'dist/lib/jquery/dist/jquery.min',
-        'bootstrap':'dist/lib/bootstrap/dist/js/bootstrap.min',
-        'angular': 'dist/lib/angular/angular.min',
-        'css':'dist/lib/require-css/css',
-        'tetherWrapper':'app/js/require-wrapper/tetherWrapper',
-        'tether':'dist/lib/tether/dist/js/tether.min',
-        'normalize':'dist/lib/require-css/normalize',
-        'angular-ui-route': 'dist/lib/angular-ui-router/release/angular-ui-router.min',
-        'angular-animate':'dist/lib/angular-animate/angular-animate.min',
-        'angular-file-upload':'dist/lib/angular-file-upload/dist/angular-file-upload.min',
-        'angular-loading-bar':'dist/lib/angular-loading-bar/build/loading-bar.min',
-        'angular-cookies':'dist/lib/angular-cookies/angular-cookies.min'
+        'jquery': 'lib/jquery/jquery',
+        'bootstrap':'lib/bootstrap/bootstrap',
+        'angular': 'lib/angular/angular',
+        'css':'lib/require-css/css',
+        'tether':'app/require-wrapper/tetherWrapper',
+        'normalize':'lib/require-css/normalize',
+        'angular-route': 'lib/angular-ui-router/angular-ui-router',
+        'angular-animate':'lib/angular-animate/angular-animate',
+        'angular-file-upload':'lib/angular-file-upload/angular-file-upload.min',
+        'angular-loading-bar':'lib/angular-loading-bar/loading-bar',
+        'angular-cookies':'lib/angular-cookies/angular-cookies'
     },
     shim: {
         'jquery':{
@@ -35,11 +33,11 @@ require.config({
         },
         'bootstrap':{
             'deps':[
-                'tetherWrapper',
+                'tether',
                 'jquery'
             ]
         },
-        'angular-ui-route': {
+        'angular-route': {
             'deps':['angular']
         },
         'angular-loading-bar':{
@@ -56,7 +54,7 @@ require.config({
     packages: [
 
     ],
-    urlArgs: "_t=" + new Date().getTime()  //防止读取缓存，调试用
+    urlArgs: "______t=" + new Date().getTime()  //防止读取缓存，调试用
 });
 
 //http://code.angularjs.org/1.2.1/docs/guide/bootstrap#overview_deferred-bootstrap
@@ -64,17 +62,17 @@ window.name = 'NG_DEFER_BOOTSTRAP!';
 
 require([
     'angular',
-    'config',
     'app',
     'dataservices',
     'directives',
     'filters',
     'routers',
     'bootstrap',
-    'angular-ui-route',
+    'angular-route',
     'angular-cookies',
     'angular-animate',
-    'angular-loading-bar'
+    'angular-loading-bar',
+    'angular-file-upload'
 ], function(angular, app) {
     'use strict';
     /* jshint ignore:start */

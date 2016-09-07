@@ -1,5 +1,7 @@
 package dnn.common.mails;
 
+import org.apache.commons.lang3.StringUtils;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -15,7 +17,7 @@ import java.util.Map;
  */
 public class Email {
     private String sender;//发送人
-    private String senderName = "Feedback平台";//发送人名称（默认）
+    private String senderName ;//发送人名称（默认）
     private List<String> receiver;//接收人
     private String subject;//发送主题
     private String content;//发送内容
@@ -40,6 +42,11 @@ public class Email {
         this.sender = sender;
         this.receiver = receiver;
     }
+    public Email(String receiver) {
+        this.receiver = new ArrayList<>(1);
+        this.receiver.add(receiver);
+
+    }
 
     public Email(String sender, String senderName, List<String> receiver) {
         this.sender = sender;
@@ -52,6 +59,7 @@ public class Email {
         this.receiver = new ArrayList<>(1);
         this.receiver.add(receiver);
     }
+
 
     public void initEmailInfo(String subject, String content) {
         this.subject = subject;
@@ -154,6 +162,9 @@ public class Email {
     }
 
     public String getSenderName() {
+        if(StringUtils.isBlank(senderName)){
+            senderName = username;
+        }
         return senderName;
     }
 

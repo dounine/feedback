@@ -1,9 +1,8 @@
 package dnn.common.mails;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import sun.security.provider.MD5;
+
+import java.util.*;
 
 /**
  * 
@@ -23,14 +22,10 @@ public class SendEmail {
 	 * @throws Exception
 	 */
 	public static void main(String[] args)throws Exception{
-		
-		//构建接收人列表
-		List<String> receiver = new ArrayList<>();
-		receiver.add("liguiqin_aj@163.com");
-		receiver.add("xinaml@qq.com");
-		
+
+
 		//初始化发送人与接收人列表
-		Email email = new Email(EmailUtil.USERNAME, receiver); //使用系统账户，不需要再设置用户登录名及密码
+		Email email = new Email("xinaml@qq.com"); //使用系统账户，不需要再设置用户登录名及密码
 
 		//发送人名字（默认为 ISSP智能服务共享平台）
 		email.setSenderName("小明...");
@@ -58,10 +53,9 @@ public class SendEmail {
 		imgMap.put("imageName2", "http://101.200.198.169/static/admin/img/user/head/h/2.jpg");
 		email.setImgMap(imgMap);
 		//---------------------------------验证并发送邮件
-		if(EmailUtil.validateEmail(email)){
-			EmailUtil.SendMail(email);
-		}
-		
+
+		EmailUtil.SendMail(email);
+
 	}
 
 }

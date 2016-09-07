@@ -5,6 +5,7 @@ import dnn.common.exception.SerException;
 import dnn.dao.IDao;
 import dnn.entity.BaseEntity;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.mongodb.core.query.Criteria;
 
 import java.util.List;
 import java.util.Map;
@@ -25,6 +26,16 @@ public class ServiceImpl<Entity extends BaseEntity, Dto extends BaseDto> impleme
     @Override
     public List<Entity> findByPage(Dto dto) throws SerException {
         return dao.findByPage(dto);
+    }
+
+    @Override
+    public Entity findOne(Map<String, Object> conditions) throws SerException {
+        return dao.findOne(conditions);
+    }
+
+    @Override
+    public List<Entity> findByCriteria(Criteria criteria) throws SerException {
+        return dao.findByCriteria(criteria);
     }
 
     @Override

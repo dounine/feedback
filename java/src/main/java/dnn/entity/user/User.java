@@ -3,6 +3,7 @@ package dnn.entity.user;
 import dnn.common.jsr303.PasswordValid;
 import dnn.common.validation.Add;
 import dnn.entity.BaseEntity;
+import dnn.enums.Status;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotBlank;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -27,6 +28,8 @@ public class User extends BaseEntity{
     @PasswordValid(groups = {Add.class})
     private String password;
     private String[] tags;
+    private Status status;
+    private UserDetails details;
 
     private LocalDateTime accessTime;
 
@@ -70,5 +73,21 @@ public class User extends BaseEntity{
 
     public void setTags(String[] tags) {
         this.tags = tags;
+    }
+
+    public Status getStatus() {
+        return status;
+    }
+
+    public void setStatus(Status status) {
+        this.status = status;
+    }
+
+    public UserDetails getDetails() {
+        return details;
+    }
+
+    public void setDetails(UserDetails details) {
+        this.details = details;
     }
 }

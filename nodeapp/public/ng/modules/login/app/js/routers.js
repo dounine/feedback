@@ -19,7 +19,7 @@ define(["app"], function(app) {
             url : "/index",
             views : {
                 "" : {
-                    templateUrl : "login/app/tpls/login.html",
+                    templateUrl : "login/dist/tpls/login.html",
                     controller : "login"
                 }
             }
