@@ -68,7 +68,6 @@ require([
 	'config',
 	'app',
 	'dataservices',
-	'controllers',
 	'directives',
 	'filters',
 	'routers',
