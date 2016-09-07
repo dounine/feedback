@@ -71,6 +71,12 @@ public class FeedbackInfoAct {
         return text;
     }
 
+    @GetMapping("findBySampleName")
+    public ResponseText findBySampleName(String SampleName) throws Throwable {
+        ResponseText text = new ResponseText(iSerFeedbackInfo.findBySampleName(SampleName));
+        return text;
+    }
+
     @GetMapping("maps")
     public ResponseText maps(FeedbackInfoDto dto) throws Throwable {
         Map<String,Object> maps = new HashMap<>();

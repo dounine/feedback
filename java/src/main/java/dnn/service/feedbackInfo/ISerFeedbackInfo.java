@@ -14,5 +14,8 @@ import java.util.List;
 public interface ISerFeedbackInfo extends IService<FeedbackInfo,FeedbackInfoDto> {
 
     List<FeedbackInfo> findByUserId(String user_id)throws SerException;
+    List<FeedbackInfo> findBySampleName(String SampleName) throws SerException;
+
+    List<FeedbackInfo> findAllByFeedbackStatus(String feedbackStatus) throws SerException;
 
 }

@@ -4,6 +4,7 @@ import dnn.dto.feedbackInfo.FeedbackInfoDto;
 import dnn.common.exception.SerException;
 import dnn.entity.feedbackInfo.FeedbackInfo;
 import dnn.entity.feedbackInfo.detection.DetectionInfo;
+import dnn.enums.FeedbackStatus;
 import dnn.service.ServiceImpl;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
@@ -38,15 +39,46 @@ public class FeedbackInfoSerImpl extends ServiceImpl<FeedbackInfo,FeedbackInfoDt
         super.save(feedbackInfo);
     }
 
-
-   public static void main(String[] args){
-
-   }
-
     @Override
     public List<FeedbackInfo> findByUserId(String user_id)throws SerException {
         Map<String, Object> conditions = new HashMap<>();
         conditions.put("user_id",user_id);
         return findByCis(conditions);
+    }
+
+    /**
+     *
+     * @param SampleName 样品名
+     * @return
+     * @throws SerException
+     */
+    @Override
+    public List<FeedbackInfo> findBySampleName(String SampleName) throws SerException {
+        Map<String, Object> conditions = new HashMap<String, Object>();
+        conditions.put("chemicalCell.sampleName",SampleName);
+        return findByFuzzy(conditions);
+    }
+
+    @Override
+    public List<FeedbackInfo> findAllByFeedbackStatus(String feedbackStatus) throws SerException {
+        Map<String, Object> conditions = new HashMap<String, Object>();
+        List<FeedbackInfo> feedbackinfo=null;
+        String status=null;
+        if(feedbackStatus.equals(FeedbackStatus.UNTREATED.name().toString())){
+            status=feedbackStatus;
+        }else if(feedbackStatus.equals(FeedbackStatus.INHAND.name().toString())){
+            status=feedbackStatus;
+        }else if(feedbackStatus.equals(FeedbackStatus.FINISH.name().toString())){
+            status=feedbackStatus;
+        }
+        conditions.put("feedbackStatus",status);
+        Long count =countByCis(conditions);
+        if(count>0){
+            feedbackinfo = findByCis(conditions);
+            //TODO 时间处理
+        }else{
+            feedbackinfo =null;
+        }
+        return feedbackinfo;
     }
 }

@@ -1,13 +1,19 @@
 package dnn.web.user;
 
+import dnn.common.mails.Email;
+import dnn.common.mails.EmailUtil;
 import dnn.dto.user.UserDto;
 import dnn.entity.user.User;
+import dnn.entity.user.UserDetails;
+import dnn.entity.user.UserType;
+import dnn.enums.Status;
 import dnn.service.user.ISerUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -38,6 +44,13 @@ public class TestAct {
 
     @GetMapping("page")
     public List<User> Page() throws Throwable{
+        //构建接收人列表
+
+        //初始化发送人与接收人列表
+        Email email = new Email("liguiqin_aj@163.com"); //使用系统账户，不需要再设置用户登录名及密码
+        //设置邮件要发送的内容以及标题信息
+        email.initEmailInfo("你好,逗比  ", "请你明天来办公室开会！");
+        EmailUtil.SendMail(email);
         UserDto dto = new UserDto();
         dto.setPage(2);
         return serUser.findByPage(dto);
@@ -63,11 +76,21 @@ public class TestAct {
     @GetMapping("add")
     public void add()throws Throwable {
         User user = new User();
-        user.setPassword("tags");
+        user.setPassword("1234567890");
         user.setAccessTime(LocalDateTime.now());
-        user.setUsername("tas");
+        user.setUsername("刘霞");
+        user.setStatus(Status.THAW);
+        user.setUserType(UserType.CUSTOM);
+        UserDetails userDetails = new UserDetails();
+        userDetails.setCompany("艾佳");
+        userDetails.setAddress("冠达商务中心");
+        userDetails.setContact("程小姐");
+        userDetails.setPostcodes("56483");
+        userDetails.setTelephone("14543556577");
+        userDetails.setFax("0734-14543556577");
+        userDetails.setEmail("456466@qq.com");
+        user.setDetails(userDetails);
         String[] tags = {"aa","bb","cc"};
-        user.setTags(tags);
         serUser.save(user);
     }
 
