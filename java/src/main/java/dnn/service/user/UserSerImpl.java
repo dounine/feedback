@@ -8,11 +8,13 @@ import dnn.common.utils.PasswordHash;
 import dnn.dao.user.IUserDao;
 import dnn.entity.user.User;
 import dnn.entity.user.UserType;
+import dnn.enums.Status;
 import dnn.service.ServiceImpl;
 import dnn.service.user.session.Online;
 import dnn.service.user.session.TokenUtils;
 import dnn.service.user.session.UserSession;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.stereotype.Service;
 
 import java.security.NoSuchAlgorithmException;
@@ -119,4 +121,5 @@ public class UserSerImpl extends ServiceImpl<User,UserDto> implements ISerUser {
         }
         super.save(entity);
     }
+
 }

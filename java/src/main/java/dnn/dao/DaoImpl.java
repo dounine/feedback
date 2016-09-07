@@ -1,5 +1,6 @@
 package dnn.dao;
 
+import dnn.common.exception.SerException;
 import dnn.dto.BaseDto;
 import dnn.common.utils.GenericsUtils;
 import dnn.entity.BaseEntity;
@@ -46,6 +47,24 @@ public class DaoImpl<Entity extends BaseEntity, Dto extends BaseDto> implements 
             query.with(new Sort(order, dto.getSort()));
         }
         return mongoTemplate.find(query, clazz);
+    }
+
+    @Override
+    public Entity findOne(Map<String, Object> conditions) throws SerException {
+        Query query = new Query();
+        if (null != conditions && conditions.size() > 0) {
+            for (Map.Entry<String, Object> entry : conditions.entrySet()) {
+                query.addCriteria(Criteria.where(entry.getKey()).is(entry.getValue()));
+            }
+        }
+        return mongoTemplate.findOne(query,clazz);
+    }
+
+    @Override
+    public List<Entity> findByCriteria(Criteria criteria) throws SerException {
+        Query query = new Query();
+        query.addCriteria(criteria);
+        return mongoTemplate.find(query,clazz);
     }
 
     @Override
