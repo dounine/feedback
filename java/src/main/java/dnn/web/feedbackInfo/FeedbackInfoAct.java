@@ -10,11 +10,19 @@ import dnn.entity.feedbackInfo.detection.DetectionInfo;
 import dnn.entity.feedbackInfo.invoice.InvoiceInfo;
 import dnn.entity.feedbackInfo.FeedbackInfo;
 import dnn.entity.feedbackInfo.specimen.ChemicalCell;
+import dnn.entity.feedbackInfo.specimen.PhysicalEnergy;
 import dnn.enums.DisposeType;
 import dnn.service.feedbackInfo.ISerFeedbackInfo;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cglib.core.Local;
 import org.springframework.web.bind.annotation.*;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -25,31 +33,42 @@ public class FeedbackInfoAct {
     private ISerFeedbackInfo iSerFeedbackInfo;
 
     @PostMapping("save")
-    public ResponseText save(FeedbackInfo feedbackInfo) throws Throwable {
-        feedbackInfo.setUser_id("57cbe7581c3404d62ad95515"); //所属用户
+    public ResponseText save(FeedbackInfo feedbackInfo, String c_submitDate,String p_submitDate,String disposeType) throws Throwable {
+//        feedbackInfo.setUser_id("57cbe7581c3404d62ad95515"); //所属用户
+        LocalDate c_date=null;
+        LocalDate p_date=null;
 
+        DateTimeFormatter DATE_FORMAT = DateTimeFormatter.ofPattern("yyyy/MM/dd");
+        if(StringUtils.isNotBlank(c_submitDate)){
+            c_date=LocalDate.parse(c_submitDate, DATE_FORMAT);
+        }else{
+            p_date =LocalDate.parse(p_submitDate, DATE_FORMAT);
+        }
         ChemicalCell chemicalCell = new ChemicalCell();
-        chemicalCell.setParameter("xxxx");
-        chemicalCell.setWeight("50");
+        PhysicalEnergy physicalEnergy = new PhysicalEnergy();
+        if (null!=c_date) {
+            chemicalCell = feedbackInfo.getChemicalCell();
+            chemicalCell.setSubmitDate(c_date);
+            feedbackInfo.setChemicalCell(chemicalCell);
+        } else {
+            physicalEnergy = feedbackInfo.getPhysicalEnergy();
+            physicalEnergy.setSubmitDate(p_date);
+            feedbackInfo.setPhysicalEnergy(physicalEnergy);
+        }
 
-        DetectionInfo detectionInfo = new DetectionInfo();//检测信息
-        detectionInfo.setBasis("aaa");
-        detectionInfo.setDisposeType(DisposeType.BACK);
-        detectionInfo.setRemark("备注");
-
-        InvoiceInfo invoiceInfo = new InvoiceInfo();//开票信息
-        invoiceInfo.setAddress("南宁");
-        invoiceInfo.setCard("111123312332132");
-        invoiceInfo.setBank("工商银行");
-
-        feedbackInfo.setInvoiceInfo(invoiceInfo);
+        DetectionInfo detectionInfo =new DetectionInfo();
+        if( disposeType.equals("NOT")){
+            detectionInfo.setDisposeType(DisposeType.NOT);
+        }else if(disposeType.equals("PICKUP")){
+            detectionInfo.setDisposeType(DisposeType.PICKUP);
+        }else if(disposeType.equals("BACK")){
+            detectionInfo.setDisposeType(DisposeType.BACK);
+        }
         feedbackInfo.setDetectionInfo(detectionInfo);
-        feedbackInfo.setChemicalCell(chemicalCell);
 
         iSerFeedbackInfo.save(feedbackInfo);
         return new ResponseText<>();
     }
-
 
     @GetMapping("findById")
     public ResponseText findById(String id) throws Throwable {

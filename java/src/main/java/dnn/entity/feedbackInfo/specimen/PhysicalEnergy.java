@@ -9,7 +9,7 @@ import java.util.List;
 public class PhysicalEnergy extends Battery {
 
     private String serialNumber; //样品序列号
-    private List<String> materialTypes; //单体电池材料类型
+    private String materialTypes; //单体电池材料类型
 
 
     //单体相关参数
@@ -18,11 +18,11 @@ public class PhysicalEnergy extends Battery {
     private String monomer_acreage; //单体面积
     private String monomer_type; //减反射膜类型
 
-    private List<String>tempered ; //(玻璃)钢化,非钢化
+    private String tempered ; //(玻璃)钢化,非钢化
     private String tempered_thickness;//厚度
 
-    private List<String> series_battery;// 串联电池数
-    private List<String> parallel_battery;//并联电池数
+    private String series_battery;// 串联电池数
+    private String parallel_battery;//并联电池数
     private String voltage ; //系统标准电压
     private Boolean parameter; //电气原理图(参数...)
     private Boolean identifying; //标识
@@ -35,11 +35,11 @@ public class PhysicalEnergy extends Battery {
         this.serialNumber = serialNumber;
     }
 
-    public List<String> getMaterialTypes() {
+    public String getMaterialTypes() {
         return materialTypes;
     }
 
-    public void setMaterialTypes(List<String> materialTypes) {
+    public void setMaterialTypes(String materialTypes) {
         this.materialTypes = materialTypes;
     }
 
@@ -75,11 +75,11 @@ public class PhysicalEnergy extends Battery {
         this.monomer_type = monomer_type;
     }
 
-    public List<String> getTempered() {
+    public String getTempered() {
         return tempered;
     }
 
-    public void setTempered(List<String> tempered) {
+    public void setTempered(String tempered) {
         this.tempered = tempered;
     }
 
@@ -91,19 +91,19 @@ public class PhysicalEnergy extends Battery {
         this.tempered_thickness = tempered_thickness;
     }
 
-    public List<String> getSeries_battery() {
+    public String getSeries_battery() {
         return series_battery;
     }
 
-    public void setSeries_battery(List<String> series_battery) {
+    public void setSeries_battery(String series_battery) {
         this.series_battery = series_battery;
     }
 
-    public List<String> getParallel_battery() {
+    public String getParallel_battery() {
         return parallel_battery;
     }
 
-    public void setParallel_battery(List<String> parallel_battery) {
+    public void setParallel_battery(String parallel_battery) {
         this.parallel_battery = parallel_battery;
     }
 
