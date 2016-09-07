@@ -322,8 +322,8 @@
         $(this).tab('show')
     })
     var $feedback = new Feedback();
-    $feedback.feedbackUrl = '${ctx}/customer/feedbackInfo/';
-    $feedback.userUrl = '${ctx}/customer/userUrl/';
+    $feedback.feedbackUrl = '${ctx}/custom/feedbackInfo/';
+    $feedback.userUrl = '${ctx}/custom/userUrl/';
     $feedback.addFrom = $("#add_from");
     $feedback.init_model($feedback.feedbackUrl);
 </script>
