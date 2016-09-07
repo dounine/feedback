@@ -1,6 +1,7 @@
 package dnn.dto;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -8,18 +9,17 @@ import java.util.List;
  */
 public class BaseDto extends PageDto implements Serializable {
     private static final long serialVersionUID = -3558525794931360478L;
+    private List<String> sort ; //排序字段
+    private String search; // 搜索字段
+    private String order="desc"; //排序方式
+    private List<SearchJson> searchJsons = new ArrayList<SearchJson>(0);// 类搜索条件
 
-    private Boolean findAll =Boolean.FALSE;
-    private List<String> sort ;
-    private String search;
-    private String order="desc";
-
-    public void findAll() {
-        this.findAll =true;
+    public List<String> getSort() {
+        return sort;
     }
 
-    public void setFindAll(Boolean findAll) {
-        this.findAll = findAll;
+    public void setSort(List<String> sort) {
+        this.sort = sort;
     }
 
     public String getSearch() {
@@ -30,19 +30,19 @@ public class BaseDto extends PageDto implements Serializable {
         this.search = search;
     }
 
-    public List<String> getSort() {
-        return sort;
-    }
-
-    public void setSort(List<String> sort) {
-        this.sort = sort;
-    }
-
     public String getOrder() {
         return order;
     }
 
     public void setOrder(String order) {
         this.order = order;
+    }
+
+    public List<SearchJson> getSearchJsons() {
+        return searchJsons;
+    }
+
+    public void setSearchJsons(List<SearchJson> searchJsons) {
+        this.searchJsons = searchJsons;
     }
 }

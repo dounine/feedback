@@ -4,6 +4,7 @@ import dnn.common.exception.SerException;
 import dnn.dto.BaseDto;
 import dnn.entity.BaseEntity;
 import org.springframework.data.mongodb.core.query.Criteria;
+import org.springframework.data.mongodb.core.query.Query;
 
 import java.util.List;
 import java.util.Map;
@@ -13,6 +14,7 @@ import java.util.Map;
  */
 public interface IDao<Entity extends BaseEntity, Dto extends BaseDto> {
 
+
     /**
      * 查询所有数据
      *
@@ -20,13 +22,23 @@ public interface IDao<Entity extends BaseEntity, Dto extends BaseDto> {
      */
     List<Entity> findAll();
 
+
+
     /**
      * 查询分页数据
      *
-     * @param dto
+     * @param query
      * @return
      */
-    List<Entity> findByPage(Dto dto);
+    List<Entity> findByPage(Query query);
+
+
+    /**
+     * 查询数据量
+     *
+     * @return
+     */
+    Long count(Query query);
 
     /**
      * 查询第一个对象
@@ -34,7 +46,8 @@ public interface IDao<Entity extends BaseEntity, Dto extends BaseDto> {
      * @param conditions
      * @return
      */
-    Entity findOne(Map<String,Object> conditions)throws SerException;
+    Entity findOne(Map<String,Object> conditions) ;
+
 
     /**
      * 自定义查询
@@ -42,14 +55,8 @@ public interface IDao<Entity extends BaseEntity, Dto extends BaseDto> {
      * @param criteria
      * @return
      */
-    List<Entity> findByCriteria(Criteria criteria)throws SerException;
+    List<Entity> findByCriteria(Criteria criteria) ;
 
-    /**
-     * 查询数据量
-     *
-     * @return
-     */
-    Long count(Dto dto);
 
     /**
      * 查询某个对象
@@ -58,6 +65,15 @@ public interface IDao<Entity extends BaseEntity, Dto extends BaseDto> {
      * @return
      */
     Entity findById(String id);
+
+    /**
+     * 查询符合某个条件对象
+     *
+     * @param field
+     * param values
+     * @return
+     */
+    List<Entity> findByIn(String field,List<String> values);
 
     /**
      * 保存对象
@@ -70,7 +86,7 @@ public interface IDao<Entity extends BaseEntity, Dto extends BaseDto> {
      * 保存对象列表
      * @param entities
      */
-    void save(List<Entity> entities);
+    void saveAll(List<Entity> entities);
 
     /**
      * 通过id删除对象
@@ -133,12 +149,13 @@ public interface IDao<Entity extends BaseEntity, Dto extends BaseDto> {
      * @param entity
      * @param conditions
      */
-    void UpdateByCis(Entity entity,Map<String, Object> conditions);
+    void UpdateByCis(Entity entity, Map<String, Object> conditions);
 
     /**
      * 删除符合条件对象列表
      * @param conditions
      */
     void removeByCis(Map<String, Object> conditions);
+
 
 }

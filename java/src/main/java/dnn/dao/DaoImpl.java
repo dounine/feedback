@@ -35,42 +35,35 @@ public class DaoImpl<Entity extends BaseEntity, Dto extends BaseDto> implements 
     }
 
     @Override
-    public List<Entity> findByPage(Dto dto) {
-        Query query = new Query();
-        query.skip(dto.getSkip());
-        query.limit(dto.getLimit());
-        if (null != dto.getSort() && dto.getSort().size() > 0) {
-            Sort.Direction order = Sort.Direction.DESC;
-            if (!dto.getOrder().equals("desc")) {
-                order = Sort.Direction.ASC;
-            }
-            query.with(new Sort(order, dto.getSort()));
-        }
+    public List<Entity> findByPage(Query query) {
         return mongoTemplate.find(query, clazz);
     }
 
+
     @Override
-    public Entity findOne(Map<String, Object> conditions) throws SerException {
+    public Long count(Query query) {
+        return mongoTemplate.count(query, clazz);
+    }
+
+
+    @Override
+    public Entity findOne(Map<String, Object> conditions) {
         Query query = new Query();
         if (null != conditions && conditions.size() > 0) {
             for (Map.Entry<String, Object> entry : conditions.entrySet()) {
                 query.addCriteria(Criteria.where(entry.getKey()).is(entry.getValue()));
             }
         }
-        return mongoTemplate.findOne(query,clazz);
+        return mongoTemplate.findOne(query, clazz);
     }
 
     @Override
-    public List<Entity> findByCriteria(Criteria criteria) throws SerException {
+    public List<Entity> findByCriteria(Criteria criteria) {
         Query query = new Query();
         query.addCriteria(criteria);
-        return mongoTemplate.find(query,clazz);
+        return mongoTemplate.find(query, clazz);
     }
 
-    @Override
-    public Long count(Dto dto) {
-        return mongoTemplate.count(new Query(), clazz);
-    }
 
     @Override
     public Entity findById(String id) {
@@ -78,12 +71,18 @@ public class DaoImpl<Entity extends BaseEntity, Dto extends BaseDto> implements 
     }
 
     @Override
+    public List<Entity> findByIn(String field, List<String> values) {
+        return mongoTemplate.find(new Query().addCriteria(new Criteria().where(field).in(values)), clazz);
+    }
+
+    @Override
     public void save(Entity entity) {
+
         mongoTemplate.insert(entity);
     }
 
     @Override
-    public void save(List<Entity> entities) {
+    public void saveAll(List<Entity> entities) {
         mongoTemplate.insert(entities, clazz);
     }
 

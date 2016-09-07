@@ -18,7 +18,7 @@ public interface IService<Entity extends BaseEntity, Dto extends BaseDto> {
      *
      * @return
      */
-    List<Entity> findAll() throws SerException;
+    List<Entity> findAll()throws SerException ;
 
     /**
      * 查询分页数据
@@ -26,7 +26,8 @@ public interface IService<Entity extends BaseEntity, Dto extends BaseDto> {
      * @param dto
      * @return
      */
-    List<Entity> findByPage(Dto dto)throws SerException;
+    List<Entity> findByPage(Dto dto)throws SerException ;
+
 
     /**
      * 查询第一个对象
@@ -34,7 +35,7 @@ public interface IService<Entity extends BaseEntity, Dto extends BaseDto> {
      * @param conditions
      * @return
      */
-    Entity findOne(Map<String,Object> conditions)throws SerException;
+    Entity findOne(Map<String,Object> conditions) throws SerException ;
 
 
     /**
@@ -43,11 +44,12 @@ public interface IService<Entity extends BaseEntity, Dto extends BaseDto> {
      * @param criteria
      * @return
      */
-    List<Entity> findByCriteria(Criteria criteria)throws SerException;
+    List<Entity> findByCriteria(Criteria criteria) throws SerException ;
+
 
     /**
      * 查询数据量
-     *
+     *@param dto
      * @return
      */
     Long count(Dto dto)throws SerException;
@@ -59,6 +61,16 @@ public interface IService<Entity extends BaseEntity, Dto extends BaseDto> {
      * @return
      */
     Entity findById(String id)throws SerException;
+
+
+    /**
+     * 查询符合某个条件对象
+     *
+     * @param field
+     * param values
+     * @return
+     */
+    List<Entity> findByIn(String field,List<String> values)throws SerException;
 
     /**
      * 保存对象
@@ -109,23 +121,23 @@ public interface IService<Entity extends BaseEntity, Dto extends BaseDto> {
     long countByCis(Map<String, Object> conditions)throws SerException;
 
     /**
-     * 模糊条件查询对象列表(只支持字段属性是字符串的查询)
+     * 模糊条件查询对象列表(只支持字段属性是字符串的查询)throws SerException
      *
      * @param conditions
      */
-    List<Entity> findByFuzzy(Map<String, Object> conditions)throws SerException;
+    List<Entity> findByFuzzy(Map<String, Object> conditions)throws SerException ;
 
     /**
      * 更新符合条件对象列表
      * @param entity
      * @param conditions
      */
-    void UpdateByCis(Entity entity,Map<String, Object> conditions)throws SerException;
+    void UpdateByCis(Entity entity,Map<String, Object> conditions)throws SerException ;
 
     /**
      * 删除符合条件对象列表
      * @param conditions
      */
-    void removeByCis(Map<String, Object> conditions)throws SerException;
+    void removeByCis(Map<String, Object> conditions)throws SerException ;
 
 }

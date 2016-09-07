@@ -9,6 +9,9 @@ nodeapp/public/ng/modules/user/lib/
 **/app/sass/*.css.map
 java/.idea/
 java/src/main/webapp/public/js/lib
+java/gradle
+java/gradlew
+java/gradlew.bat
 java/classes/
 java/build/
 java/src/main/resources/rebel.xml
