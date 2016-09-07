@@ -46,33 +46,37 @@ header{
         background: #063346;
         top: 100px;
         bottom: 0;
-        ul>li{
-            background: #063346;
-//          text-indent: 20px;
-        }
+
         ul li{
-           
-            a{
-                display: inline-block;
-                height: 30px;
-                line-height: 30px;
-                width: 100%;
-                text-decoration: none;
-               padding-left: 20px;
-                color: #fff;
-                span{
+            &.li-root{
+                a{
                     display: inline-block;
-                    width: 10px;
-                    height: 10px;
-                   
+                    height: 30px;
+                    line-height: 30px;
+                    width: 100%;
+                    text-decoration: none;
+                   padding-left: 20px;
+                    color: #fff;
+                    span{
+                        display: inline-block;
+                        width: 10px;
+                        height: 10px;
+                       
+                    }
+                    .icon_right{background: url(/html/web/feedback/img/sanjiao2.png) center no-repeat;}
+                    .icon_bonton{background: url(/html/web/feedback/img/sanjiao1.png) center no-repeat;}
+                     
                 }
-                .icon_right{background: url(/html/web/feedback/img/sanjiao2.png) no-repeat;}
-                .icon_bonton{background: url(/html/web/feedback/img/sanjiao1.png) no-repeat;}
-                 
+            }
+            &.li-sec{
+                text-indent: 10px;
+                background: #114960;
+                &.active{
+                    background: #29b8f4 ;
+                }
+                
             }
         }
-        ul>li>ul>li a{background: #114960;text-indent: 30px;}
-        .onMenu{background: #29b8f4;font-weight: 700;}
     }
     .content{
         margin-top: 100px;

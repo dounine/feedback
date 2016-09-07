@@ -26,29 +26,53 @@ define(['app'],function (app) {
                 }
 
             })
-            .state('index.unpro',{
+            .state('unpro',{
                 url:'/unpro',
                 views:{
-                    'content@index':{
+                    '':{
+                        templateUrl:'/html/web/feedback/tpls/wrapbody.html'
+                    },
+                    'menu@unpro':{
+                        templateUrl:'/html/web/feedback/tpls/menu.html'
+                    },
+                    'content@unpro':{
                         templateUrl:'/html/web/feedback/tpls/unpro.html'
                     }
+
                 }
+
             })
-            .state('index.proing',{
+             .state('proing',{
                 url:'/proing',
                 views:{
-                    'content@index':{
+                    '':{
+                        templateUrl:'/html/web/feedback/tpls/wrapbody.html'
+                    },
+                    'menu@proing':{
+                        templateUrl:'/html/web/feedback/tpls/menu.html'
+                    },
+                    'content@proing':{
                         templateUrl:'/html/web/feedback/tpls/proing.html'
                     }
+
                 }
+
             })
-            .state('index.proed',{
+            .state('proed',{
                 url:'/proed',
                 views:{
-                    'content@index':{
+                    '':{
+                        templateUrl:'/html/web/feedback/tpls/wrapbody.html'
+                    },
+                    'menu@proed':{
+                        templateUrl:'/html/web/feedback/tpls/menu.html'
+                    },
+                    'content@proed':{
                         templateUrl:'/html/web/feedback/tpls/proed.html'
                     }
+
                 }
+
             })
 
     })
