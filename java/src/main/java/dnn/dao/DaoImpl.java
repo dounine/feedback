@@ -1,6 +1,6 @@
 package dnn.dao;
 
-import dnn.common.dto.BaseDto;
+import dnn.dto.BaseDto;
 import dnn.common.utils.GenericsUtils;
 import dnn.entity.BaseEntity;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,7 +9,6 @@ import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.data.mongodb.core.query.Update;
-import org.springframework.util.StringUtils;
 
 import java.util.List;
 import java.util.Map;
@@ -50,7 +49,7 @@ public class DaoImpl<Entity extends BaseEntity, Dto extends BaseDto> implements 
     }
 
     @Override
-    public Long count() {
+    public Long count(Dto dto) {
         return mongoTemplate.count(new Query(), clazz);
     }
 

@@ -4,7 +4,7 @@ package dnn.web.feedbackInfo;
  * Created by lgq on 16-9-4.
  */
 
-import dnn.common.dto.feedbackInfo.FeedbackInfoDto;
+import dnn.dto.feedbackInfo.FeedbackInfoDto;
 import dnn.common.json.ResponseText;
 import dnn.entity.feedbackInfo.detection.DetectionInfo;
 import dnn.entity.feedbackInfo.invoice.InvoiceInfo;
@@ -30,7 +30,7 @@ public class FeedbackInfoAct {
 
         ChemicalCell chemicalCell = new ChemicalCell();
         chemicalCell.setParameter("xxxx");
-        chemicalCell.setWeight(50.0);
+        chemicalCell.setWeight("50");
 
         DetectionInfo detectionInfo = new DetectionInfo();//检测信息
         detectionInfo.setBasis("aaa");
@@ -61,7 +61,7 @@ public class FeedbackInfoAct {
     public ResponseText maps(FeedbackInfoDto dto) throws Throwable {
         Map<String,Object> maps = new HashMap<>();
         maps.put("rows",iSerFeedbackInfo.findByPage(dto));
-        maps.put("count",iSerFeedbackInfo.count());
+        maps.put("count",iSerFeedbackInfo.count(dto));
         return new ResponseText(maps);
     }
 

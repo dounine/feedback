@@ -1,6 +1,6 @@
 package dnn.dao.user;
 
-import dnn.common.dto.user.UserDto;
+import dnn.dto.user.UserDto;
 import dnn.common.utils.PasswordHash;
 import dnn.dao.DaoImpl;
 import dnn.entity.user.User;

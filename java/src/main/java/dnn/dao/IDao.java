@@ -1,8 +1,7 @@
 package dnn.dao;
 
-import dnn.common.dto.BaseDto;
+import dnn.dto.BaseDto;
 import dnn.entity.BaseEntity;
-import org.springframework.data.mongodb.core.query.Update;
 
 import java.util.List;
 import java.util.Map;
@@ -32,7 +31,7 @@ public interface IDao<Entity extends BaseEntity, Dto extends BaseDto> {
      *
      * @return
      */
-    Long count();
+    Long count(Dto dto);
 
     /**
      * 查询某个对象

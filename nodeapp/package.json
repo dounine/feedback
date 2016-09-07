@@ -1,0 +1,26 @@
+{
+  "name": "feedback",
+  "main": "./app.js",
+  "version": "1.0.0",
+  "description": "feedback for nodejs koa",
+  "dependencies": {
+    "body-parser": "^1.15.2",
+    "express": "^4.14.0",
+    "grunt": "^1.0.1",
+    "grunt-bower-task": "^0.4.0",
+    "grunt-contrib-concat": "^1.0.1",
+    "grunt-contrib-copy": "^1.0.0",
+    "grunt-contrib-jshint": "^1.0.0",
+    "grunt-contrib-qunit": "^1.2.0",
+    "grunt-contrib-uglify": "^2.0.0",
+    "grunt-contrib-watch": "^1.0.0",
+    "grunt-contrib-sass": "^1.0.0",
+    "koa": "^1.2.2",
+    "koa-router": "^5.4.0",
+    "koa-send": "^3.2.0",
+    "koa-sendfile": "^2.0.0",
+    "koa-static": "^2.0.0",
+    "koa-static-server": "^0.1.8",
+    "sass": "^0.5.0"
+  }
+}
