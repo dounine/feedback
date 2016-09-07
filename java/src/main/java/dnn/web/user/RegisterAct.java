@@ -23,7 +23,9 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -43,6 +45,7 @@ public class RegisterAct {
 
     /**
      * 用户注册
+     *
      * @param user
      * @return
      * @throws Throwable
@@ -73,9 +76,9 @@ public class RegisterAct {
      * @throws Throwable
      */
     @GetMapping("activate")
-    public ModelAndView email_activate(String code, String sid,HttpServletRequest request) throws Throwable {
+    public ModelAndView email_activate(String code, String sid, HttpServletRequest request) throws Throwable {
         ModelAndView modelAndView = null;
-        if(StringUtils.isNotBlank(sid)){
+        if (StringUtils.isNotBlank(sid)) {
             sid = request.getParameter("amp;sid");
         }
         String str = CryptUtil.decryptBASE64(sid);
@@ -104,29 +107,32 @@ public class RegisterAct {
     @PostMapping("valid")
     public ModelAndView email_valid(String email) throws Throwable {
         String subject = "Feedback 注册验证";
-        StrBuilder sb = new StrBuilder();
-        sb.append ("请点击该链接或复制到浏览器进行注册验证:");
         String content = null;
         String errMsg = null;
-        ModelAndView modelAndView = new ModelAndView("user/login");
+        StrBuilder sb = new StrBuilder();
+        ModelAndView modelAndView = null;
         Map<String, Object> map = new HashMap<>(1);
         map.put("details.email", email);
         if (null != serUser.findOne(map)) {
             errMsg = "该邮箱已被注册!";
+            modelAndView = new ModelAndView("user/login");
             modelAndView.addObject("msg", errMsg);
             return modelAndView;
         } else {
             Email em = new Email(email);
+            sb.append("请点击该链接或复制到浏览器进行注册验证:");
             sb.append(PropertyUtil.getInstance().getProperty("domain.name")); //域名
             sb.append("/register/activate");
             sb.append("?code=");
             sb.append(PasswordHash.createHash(email));
             sb.append("?sid=");
             sb.append(CryptUtil.encryptBASE64(LocalDateTime.now().toString() + "#" + email));
-            content  = sb.toString();
+            content = sb.toString();
             em.initEmailInfo(subject, content);
             EmailUtil.SendMail(em);
-            return new ModelAndView("redirect: https://mail.qq.com"); //处理跳转到注册邮箱域名...
+            String host = email.split("@")[1];
+            host = host.substring(0,host.indexOf("."));
+            return new ModelAndView("redirect: https://mail."+host+".com"); //处理跳转到注册邮箱域名...
 
         }
     }
