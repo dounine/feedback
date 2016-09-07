@@ -82,10 +82,13 @@ module.exports = function(grunt) {
         files: [{
           expand: true,
           cwd: './app/',
-          src: ['**/*.sass','**/*.scss','**/*.less'],
-          dest: './app/css/',
+          src: ['**/*.scss'],
+          dest: './app/',
           ext: '.css'
         }]
+        // files: {
+        //   "./src/main/webapp/public/js/app/**/*.css": "./src/main/webapp/public/js/app/**/*.scss"
+        // }
       }
     },
     watch: {
@@ -118,6 +121,6 @@ module.exports = function(grunt) {
 
   // Default task.
   grunt.registerTask('default', ['jshint', 'qunit', 'concat', 'uglify']);
-  grunt.registerTask('begin', ['bower','sass', 'copy:main']);
+  grunt.registerTask('begin', ['bower', 'copy:main']);
 
 };

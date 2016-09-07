@@ -1,7 +1,9 @@
 package dnn.dao;
 
+import dnn.common.exception.SerException;
 import dnn.dto.BaseDto;
 import dnn.entity.BaseEntity;
+import org.springframework.data.mongodb.core.query.Criteria;
 
 import java.util.List;
 import java.util.Map;
@@ -25,6 +27,22 @@ public interface IDao<Entity extends BaseEntity, Dto extends BaseDto> {
      * @return
      */
     List<Entity> findByPage(Dto dto);
+
+    /**
+     * 查询第一个对象
+     *
+     * @param conditions
+     * @return
+     */
+    Entity findOne(Map<String,Object> conditions)throws SerException;
+
+    /**
+     * 自定义查询
+     *
+     * @param criteria
+     * @return
+     */
+    List<Entity> findByCriteria(Criteria criteria)throws SerException;
 
     /**
      * 查询数据量

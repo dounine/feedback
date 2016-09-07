@@ -18,6 +18,7 @@ public class CustomAct {
 
     @GetMapping("index")
     public ModelAndView index(HttpServletRequest request) {
+
         return new ModelAndView("custom/index");
     }
 

@@ -1,5 +1,5 @@
 body {
-    background: url("/login/app/img/form/bg.jpg") no-repeat;
+    background: url("/login/app/img/form/bg.jpg");
     font-family: "微软雅黑";
     color: #C1C3C6;
 }
@@ -9,7 +9,7 @@ $addon-icon-w: 60px;
 div.col-center-block {  
     margin:0 auto;
     float: none;  
-} 
+}
 div.login-bg {
     width: 450px;
     height: 440px;
