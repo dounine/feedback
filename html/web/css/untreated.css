@@ -55,14 +55,14 @@ nav {
     text-align: center; }
     .untreabody .fenye .prey {
       display: inline-block;
-      background: url(../img/page_next.png);
+      background: url(../feedback/img/page_next.png);
       height: 30px;
       width: 30px;
       margin-right: 20px;
       margin-bottom: 25px; }
     .untreabody .fenye .next2 {
       display: inline-block;
-      background: url(../img/page_next2.png);
+      background: url(../feedback/img/page_next2.png);
       height: 30px;
       width: 30px;
       margin-left: 20px;
