@@ -60,7 +60,6 @@ public class IndexAct {
         return new ModelAndView("redirect:/login");
     }
 
-    @PostMapping("login")
     public ModelAndView login(User user) throws Throwable {
         ModelAndView modelAndView = new ModelAndView("user/login");
         String token = null;
@@ -89,7 +88,7 @@ public class IndexAct {
         return modelAndView;
     }
 
-
+    @PostMapping("login")
     public ResponseText ssologin(@Validated(Add.class) User user, BindingResult result, @Callback String callback) throws Throwable {
         boolean callbackFun = StringUtils.isNotBlank(callback);
         ResponseText rt = null;
