@@ -100,11 +100,26 @@ public interface IService<Entity extends BaseEntity, Dto extends BaseDto> {
     void remove(Entity entity)throws SerException;
 
     /**
+     * 删除对象列表
+     *
+     * @param entities
+     */
+    void remove(List<Entity> entities);
+
+
+    /**
      * 更新对象
      *
      * @param entity
      */
     void update(Entity entity)throws SerException;
+
+    /**
+     * 更新对象列表
+     *
+     * @param entities
+     */
+    void update(List<Entity> entities);
 
     /**
      * 根据字段条件查询对象列表

@@ -1,16 +1,23 @@
 package dnn.service;
 
+import dnn.common.constant.FinalCommons;
 import dnn.dto.BaseDto;
 import dnn.common.exception.SerException;
 import dnn.dao.IDao;
 import dnn.dto.SearchJson;
 import dnn.entity.BaseEntity;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.math.NumberUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
-
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Stream;
@@ -18,10 +25,12 @@ import java.util.stream.Stream;
 /**
  * Created by huanghuanlai on 16/9/3.
  */
-public class ServiceImpl<Entity extends BaseEntity, Dto extends BaseDto> implements IService<Entity, Dto> {
+public class ServiceImpl<Entity extends BaseEntity, Dto extends BaseDto> extends FinalCommons implements IService<Entity, Dto> {
 
     @Autowired
     protected IDao<Entity, Dto> dao;
+    private static final Logger CONSOLE = LoggerFactory.getLogger(ServiceImpl.class);
+
 
     @Override
     public List<Entity> findAll() throws SerException {
@@ -72,7 +81,7 @@ public class ServiceImpl<Entity extends BaseEntity, Dto extends BaseDto> impleme
 
     @Override
     public void save(List<Entity> entities) throws SerException {
-        dao.saveAll(entities);
+        dao.save(entities);
     }
 
     @Override
@@ -86,8 +95,18 @@ public class ServiceImpl<Entity extends BaseEntity, Dto extends BaseDto> impleme
     }
 
     @Override
+    public void remove(List<Entity> entities) {
+        dao.remove(entities);
+    }
+
+    @Override
     public void update(Entity entity) throws SerException {
         dao.update(entity);
+    }
+
+    @Override
+    public void update(List<Entity> entities) {
+        dao.update(entities);
     }
 
     @Override
@@ -120,56 +139,96 @@ public class ServiceImpl<Entity extends BaseEntity, Dto extends BaseDto> impleme
         List<SearchJson> searchJsons = dto.getSearchJsons();
         Stream<SearchJson> stream = searchJsons.stream();
         stream.forEach(model -> {
+            String[] value = model.getSearchField();
             switch (model.getSearchName()) {
                 case EQ:
-                    break;
-                case BETWEEN:
+                    query.addCriteria(Criteria.where(value[0]).is(switchSearchType(value[1], value[2])));
                     break;
                 case LIKE:
+                    if (DATE.equals(String.valueOf(value[1]))) {
+                        if (null == value[2] || (null != value[2] && StringUtils.isBlank(value[2].toString()))) break;
+                    }
+                    query.addCriteria(Criteria.where(value[0]).regex(switchSearchType(value[1], value[2]).toString()));
                     break;
-                case IN:
+                case BETWEEN:
+                    if (DATE.equals(String.valueOf(value[1]))) {
+                        if (null == value[2] || (null != value[2] && StringUtils.isBlank(value[2].toString()))) break;
+                    }
+                    query.addCriteria(Criteria.where(value[0]).gt(switchSearchType(value[1], value[2])).lt(switchSearchType(value[1], value[3])));
                     break;
                 case GT:
+                    if (DATE.equals(String.valueOf(value[1])) || INT.equals(String.valueOf(value[1])) || "float".equals(String.valueOf(value[1]))) {
+                        if (null == value[2] || (null != value[2] && StringUtils.isBlank(value[2].toString()))) break;
+                    }
+                    query.addCriteria(Criteria.where(value[0]).gt(switchSearchType(value[1], value[2])));
                     break;
                 case LT:
+                    if (DATE.equals(String.valueOf(value[1])) || INT.equals(String.valueOf(value[1])) || "float".equals(String.valueOf(value[1]))) {
+                        if (null == value[2] || (null != value[2] && StringUtils.isBlank(value[2].toString()))) break;
+                    }
+                    query.addCriteria(Criteria.where(value[0]).lt(switchSearchType(value[1], value[2])));
                     break;
-                case OR:
-                    break;
-                case NE:
-                    break;
-            }
-
-        });
-
-        if (StringUtils.isNotBlank(dto.getSearch())) {
-            String searchName = "";
-            String searchField = "";
-            String searchValue = "";
-            switch (searchName) {
-                case "LIKES":
-                    query.addCriteria(Criteria.where(searchField).regex(searchValue));
-                    break;
-                case "BETWEEN":
-                    //field:value,value
-                    Criteria criteria = new Criteria();
-                    criteria.where(searchField).gt(searchValue).lt(searchValue);
-                    query.addCriteria(criteria);
+                case IN:
+                    if (DATE.equals(String.valueOf(value[1])) || INT.equals(String.valueOf(value[1])) || "float".equals(String.valueOf(value[1]))) {
+                        if (null == value[2] || (null != value[2] && StringUtils.isBlank(value[2].toString()))) break;
+                    }
+                    Object[] objects =value;
+                    query.addCriteria(Criteria.where(value[0]).in(objects));
                     break;
                 default:
                     break;
             }
-        }
+
+        });
         return query;
     }
 
     private Query init_sort(Query query, Dto dto) {
         if (null != dto.getSort() && dto.getSort().size() > 0) {
             Sort.Direction direction = Sort.Direction.DESC;
-            if (dto.getOrder().equals("asc")) {
+            if (dto.getOrder().equals(ASC)) {
                 direction = Sort.Direction.ASC;
             }
             query.with(new Sort(direction, dto.getSort()));
         }
         return query;
     }
+
+    public Object switchSearchType(Object type, Object value) {
+        Object field_value = null;
+        if (StringUtils.isNotBlank(String.valueOf(value))) {
+            switch (String.valueOf(type)) {
+                case STRING:
+                    field_value = String.valueOf(value);
+                    break;
+                case DATE:
+                    field_value = LocalDate.parse(String.valueOf(value), DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+                    break;
+                case TIME:
+                    field_value = LocalTime.parse(String.valueOf(value), DateTimeFormatter.ofPattern("HH:mm:ss"));
+                    break;
+                case DATETIME:
+                    field_value = LocalDateTime.parse(String.valueOf(value), DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+                    break;
+                case INT:
+                    field_value = value.toString();
+                    break;
+                case LONG:
+                    field_value = NumberUtils.createLong(value.toString());
+                    break;
+                case FLOAT:
+                    field_value = NumberUtils.createFloat(value.toString());
+                    break;
+                case DOUBLE:
+                    field_value = NumberUtils.createDouble(value.toString());
+                    break;
+                default:
+                    field_value = value;
+                    CONSOLE.info("value type not defined：" + value);
+                    break;
+            }
+        }
+        return field_value;
+    }
+
 }

@@ -13,7 +13,7 @@ import dnn.enums.RestrictionType;
  */
 public class SearchJson {
 	private RestrictionType searchName;
-	private String[] searchField;
+	private String[] searchField;//fieldName filedType value ...
 
 	public RestrictionType getSearchName() {
 		return searchName;

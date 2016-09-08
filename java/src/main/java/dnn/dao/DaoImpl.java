@@ -82,7 +82,7 @@ public class DaoImpl<Entity extends BaseEntity, Dto extends BaseDto> implements 
     }
 
     @Override
-    public void saveAll(List<Entity> entities) {
+    public void save(List<Entity> entities) {
         mongoTemplate.insert(entities, clazz);
     }
 
@@ -158,7 +158,7 @@ public class DaoImpl<Entity extends BaseEntity, Dto extends BaseDto> implements 
         Query query = new Query();
         if (null != conditions && conditions.size() > 0) {
             for (Map.Entry<String, Object> entry : conditions.entrySet()) {
-                query.addCriteria(Criteria.where(entry.getKey()).regex(entry.getValue().toString()));
+                query.addCriteria(Criteria.where(entry.getKey()).is(entry.getValue()));
             }
         }
         mongoTemplate.updateMulti(query,
@@ -171,7 +171,7 @@ public class DaoImpl<Entity extends BaseEntity, Dto extends BaseDto> implements 
         Query query = new Query();
         if (null != conditions && conditions.size() > 0) {
             for (Map.Entry<String, Object> entry : conditions.entrySet()) {
-                query.addCriteria(Criteria.where(entry.getKey()).regex(entry.getValue().toString()));
+                query.addCriteria(Criteria.where(entry.getKey()).is(entry.getValue()));
             }
         }
         mongoTemplate.remove(query, clazz);

@@ -86,7 +86,7 @@ public interface IDao<Entity extends BaseEntity, Dto extends BaseDto> {
      * 保存对象列表
      * @param entities
      */
-    void saveAll(List<Entity> entities);
+    void save(List<Entity> entities);
 
     /**
      * 通过id删除对象
