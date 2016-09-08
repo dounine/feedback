@@ -7,7 +7,6 @@ body{
     img{border: none;}
 }
 header{
-    background: #fff;
     position: fixed;
     left: 0;
     right: 0;
@@ -21,12 +20,13 @@ header{
        
       img{margin: 15px 50px;}
         .search {
-            position: absolute;
-            right: 80px;
-            top: 10px;
+            height: 70px;
+            line-height: 70px;
+            margin-right: 50px;
             input{
                   height: 35px;
                   border: none;
+                 line-height: 35px;
             }
         }
     }
