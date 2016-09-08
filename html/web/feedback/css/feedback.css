@@ -11,7 +11,6 @@ body img {
   border: none; }
 
 header {
-  background: #fff;
   position: fixed;
   left: 0;
   right: 0;
@@ -25,12 +24,13 @@ header {
     header .logo img {
       margin: 15px 50px; }
     header .logo .search {
-      position: absolute;
-      right: 80px;
-      top: 10px; }
+      height: 70px;
+      line-height: 70px;
+      margin-right: 50px; }
       header .logo .search input {
         height: 35px;
-        border: none; }
+        border: none;
+        line-height: 35px; }
   header .notice {
     height: 30px;
     line-height: 30px;
