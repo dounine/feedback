@@ -11,10 +11,12 @@ public class RequestUtils {
     public static Cookie getUserTokenCookie(HttpServletRequest request){
         Cookie[] cookies = request.getCookies();
         Cookie tokenCookie = null;
-        for(Cookie cookie : cookies){
-            if(cookie.getName().equals("token")){
-                tokenCookie = cookie;
-                break;
+        if(null!=cookies){
+            for(Cookie cookie : cookies){
+                if(cookie.getName().equals("token")){
+                    tokenCookie = cookie;
+                    break;
+                }
             }
         }
         return tokenCookie;
