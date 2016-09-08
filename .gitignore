@@ -1,4 +1,5 @@
 **/target/
+java/out/
 **/public/ng/modules/**/dist/
 **/bower_components/
 **/.sass-cache/

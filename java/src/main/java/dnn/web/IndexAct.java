@@ -7,6 +7,7 @@ import dnn.common.response.ResponseContext;
 import dnn.common.utils.RequestUtils;
 import dnn.common.validation.Add;
 import dnn.entity.user.User;
+import dnn.entity.user.UserType;
 import dnn.service.user.ISerUser;
 import dnn.service.user.session.UserSession;
 import org.apache.commons.lang3.StringUtils;
@@ -94,23 +95,24 @@ public class IndexAct {
         ResponseText rt = null;
         String token = serUser.login(user);
         StringBuffer sb = new StringBuffer();
-        if (StringUtils.isNotBlank(token)) {
-            if (callbackFun) {
+        if(StringUtils.isNotBlank(token)){
+            UserType userType = UserSession.findByToken(token).getUserType();
+            if(callbackFun){
                 sb.append(callback);
-                sb.append(String.format("({token:\"%s\"})", token));
+                sb.append(String.format("({\"token\":\"%s\",\"userType\":\"%s\"})",token,userType.getValue()));
                 ResponseContext.writeData(sb);
-            } else {
+            }else{
                 rt = new ResponseText();
-                rt.setData(String.format("{token:\"%s\"}", token));
-                Cookie tokenCookie = new Cookie("token", token);
+                rt.setData(String.format("{\"token\":\"%s\",\"userType\":\"%s\"}",token,userType.getValue()));
+                Cookie tokenCookie = new Cookie("token",token);
                 ResponseContext.get().addCookie(tokenCookie);
             }
-        } else {
-            if (callbackFun) {
+        }else{
+            if(callbackFun){
                 sb.append(callback);
                 sb.append("({msg:\"LOGIN-0002\"})");
                 ResponseContext.writeData(sb);
-            } else {
+            }else{
                 rt = new ResponseText();
                 rt.setErrno(2);
                 rt.setMsg("LOGIN-0002");
