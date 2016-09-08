@@ -6,9 +6,20 @@ import dnn.entity.feedbackInfo.FeedbackInfo;
 import dnn.entity.feedbackInfo.detection.DetectionInfo;
 import dnn.enums.FeedbackStatus;
 import dnn.service.ServiceImpl;
+import dnn.service.user.session.Online;
+import dnn.service.user.session.UserSession;
+import org.apache.commons.fileupload.servlet.ServletRequestContext;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.http.HttpRequest;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.ApplicationEvent;
+import org.springframework.http.server.ServerHttpRequest;
 import org.springframework.stereotype.Service;
 
+import javax.servlet.ServletContext;
+import javax.servlet.ServletRequest;
+import javax.servlet.http.*;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -60,9 +71,11 @@ public class FeedbackInfoSerImpl extends ServiceImpl<FeedbackInfo,FeedbackInfoDt
     }
 
     @Override
-    public List<FeedbackInfo> findAllByFeedbackStatus(String feedbackStatus) throws SerException {
+    public List<Map<String, Object>> findAllByFeedbackStatus(String feedbackStatus,String username) throws SerException {
         Map<String, Object> conditions = new HashMap<String, Object>();
+        Map<String, Object> result = new HashMap<String, Object>();
         List<FeedbackInfo> feedbackinfo=null;
+        List<Map<String, Object>> list=new ArrayList<Map<String, Object>>();
         String status=null;
         if(feedbackStatus.equals(FeedbackStatus.UNTREATED.name().toString())){
             status=feedbackStatus;
@@ -75,10 +88,13 @@ public class FeedbackInfoSerImpl extends ServiceImpl<FeedbackInfo,FeedbackInfoDt
         Long count =countByCis(conditions);
         if(count>0){
             feedbackinfo = findByCis(conditions);
-            //TODO 时间处理
         }else{
             feedbackinfo =null;
         }
-        return feedbackinfo;
+
+        result.put("feedbackinfo",feedbackinfo);
+        result.put("customerName",username);
+        list.add(result);
+        return list;
     }
 }

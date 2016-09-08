@@ -29,8 +29,8 @@ public class ProcingAct {
     }
 
     @GetMapping("findAllByFeedbackStatus")
-    public ResponseText findBySampleName(String feedbackStatus) throws Throwable {
-        ResponseText text = new ResponseText(feedbackStatus);
+    public ResponseText findBySampleName(String feedbackStatus,String username) throws Throwable {
+        ResponseText text = new ResponseText(iSerFeedbackInfo.findAllByFeedbackStatus(feedbackStatus,username));
         return text;
     }
 }
