@@ -1,2 +1,2 @@
 #!/bin/bash
-npm install && gulp
+cnpm install && gulp

@@ -1,10 +1,10 @@
 {
-  "development": { 
-  	"url": "http://localhost",
-  	"rootFold":"login/app/"
-  },
-  "production": { 
-  	"url": "http://localhost",
-  	"rootFold":"login/dist/"
-  }
+	"development": {
+		"url": "http://localhost",
+		"rootFold": "login/app/"
+	},
+	"production": {
+		"url": "http://localhost",
+		"rootFold": "login/dist/"
+	}
 }
