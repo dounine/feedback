@@ -9,7 +9,7 @@ define(['angular','services'], function(angular,config) {
 
     app.controller("login", login);
 
-    function login($scope, $rootScope,config,$http) {
+    function login($scope, $rootScope,config,$http,$location) {
         var vm = $scope;
         //vm.sso = sso;
         console.debug("全局环境变量：");
@@ -24,6 +24,7 @@ define(['angular','services'], function(angular,config) {
             $http.post(config.lurl+"/login",data).then(function successCallback(response) {
                 if(response.data){
                     vm.msg = null;
+                    window.location = "/admin";
                 }else{
                     vm.msg = response.data.msg;
                 }

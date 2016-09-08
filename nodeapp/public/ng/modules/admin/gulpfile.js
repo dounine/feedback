@@ -69,8 +69,8 @@ gulp.task('watch', ['sass:watch'], function() {
 
 gulp.task('copy-bower', ['clean'], function() {
 	return gulp.src(['bower_components/**/*.min.+(js|css)',
-			'bower_components/**/require.js'
-		]).pipe(gulp.dest('dist/lib/'));
+		'bower_components/**/require.js'
+	]).pipe(gulp.dest('dist/lib/'));
 });
 
 //默认development环境
@@ -137,7 +137,7 @@ gulp.task('config', ['config-koa'], function() { //angularjs 配置
 		cons += ("\"" + myConfig[name] + "\",");
 	}
 	cons += ("\"moduleName\":");
-	cons += ("\"login\",");
+	cons += ("\"admin\",");
 	cons += "})});"
 	string_src("./config.js", cons)
 		.pipe(gulp.dest('dist/js'));
