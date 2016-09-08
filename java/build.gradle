@@ -23,6 +23,7 @@ dependencies {
     compile "com.alibaba:fastjson:$fastjson_version"
     compile "jstl:jstl:$jstl_version"
     compile "org.apache.commons:commons-email:$commons_email_version"
+    compile "org.apache.directory.studio:org.apache.commons.codec:$commons_codec_version"
 
 
 }

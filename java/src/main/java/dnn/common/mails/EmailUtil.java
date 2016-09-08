@@ -68,7 +68,7 @@ public class EmailUtil {
         }
         if(StringUtils.isBlank(em.getSender())){
             em.setSender(loader.getProperty("email.username"));
-            em.setSenderName(loader.getProperty("email.sender_name"));
+            em.setSenderName(loader.getProperty("email.sender.name"));
         }
 
 
