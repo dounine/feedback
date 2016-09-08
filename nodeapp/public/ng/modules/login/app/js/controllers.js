@@ -7,9 +7,9 @@ define(['angular','services'], function(angular,config) {
             "app.services.login"
         ]);
 
-    app.controller("login", login);
+    app.controller("login", ctl);
 
-    function login($scope, $rootScope,config,$http,$location) {
+    function ctl($scope, $rootScope,config,$http,$location) {
         var vm = $scope;
         //vm.sso = sso;
         console.debug("全局环境变量：");
