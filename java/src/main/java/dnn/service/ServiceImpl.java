@@ -211,7 +211,7 @@ public class ServiceImpl<Entity extends BaseEntity, Dto extends BaseDto> extends
                     field_value = LocalDateTime.parse(String.valueOf(value), DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
                     break;
                 case INT:
-                    field_value = value.toString();
+                    field_value = NumberUtils.createInteger(value.toString());
                     break;
                 case LONG:
                     field_value = NumberUtils.createLong(value.toString());
