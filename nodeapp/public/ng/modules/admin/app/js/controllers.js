@@ -1,13 +1,11 @@
 define(['angular','services'], function(angular,config) {
-    "use strict";
-    var moduleName = config.moduleName;
     var app = angular.module(
-        "app.controllers."+moduleName,
+        "app.controllers.admin",//定义的模块名称
         [
-            "app.services."+moduleName
+            "app.services.admin"
         ]);
 
-    app.controller(moduleName, ctl);
+    app.controller("admin", ctl);
 
     function ctl($scope, $rootScope,config,$http) {
         var vm = $scope;
