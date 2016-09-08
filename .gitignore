@@ -1,8 +1,10 @@
 **/target/
+**/public/ng/modules/**/dist/
 **/bower_components/
 **/.sass-cache/
 **/node_modules/
 nodeapp/public/ng/modules/user/lib/
+**/.gulp-scss-cache/
 **/app/css/sass/*.css
 **/app/css/sass/*.css.map
 **/app/sass/*.css

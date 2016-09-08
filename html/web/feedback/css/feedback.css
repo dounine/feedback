@@ -1,0 +1,162 @@
+* {
+  margin: 0;
+  padding: 0;
+  font-size: 14px; }
+
+body ul li {
+  list-style: none; }
+body a {
+  text-decoration: none; }
+body img {
+  border: none; }
+
+header {
+  background: #fff;
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 0;
+  z-index: 990;
+  height: 116px;
+  line-height: 116px; }
+  header .logo {
+    background: #29b8f4;
+    height: 70px; }
+    header .logo img {
+      margin: 15px 50px; }
+    header .logo .search {
+      position: absolute;
+      right: 80px;
+      top: 10px; }
+      header .logo .search input {
+        height: 35px;
+        border: none; }
+  header .notice {
+    height: 30px;
+    line-height: 30px;
+    background: #feaa50; }
+    header .notice p {
+      margin-left: 250px; }
+
+.wrapbody .menu {
+  left: 0;
+  width: 180px;
+  right: 180px;
+  padding: 0;
+  position: fixed;
+  z-index: 990;
+  background: #063346;
+  top: 100px;
+  bottom: 0; }
+  .wrapbody .menu ul li.li-root a {
+    display: inline-block;
+    height: 30px;
+    line-height: 30px;
+    width: 100%;
+    text-decoration: none;
+    padding-left: 20px;
+    color: #fff; }
+    .wrapbody .menu ul li.li-root a span {
+      display: inline-block;
+      width: 10px;
+      height: 10px; }
+    .wrapbody .menu ul li.li-root a .icon_right {
+      background: url(/html/web/feedback/img/sanjiao2.png) center no-repeat; }
+    .wrapbody .menu ul li.li-root a .icon_bonton {
+      background: url(/html/web/feedback/img/sanjiao1.png) center no-repeat; }
+  .wrapbody .menu ul li.li-sec {
+    text-indent: 10px;
+    background: #114960; }
+    .wrapbody .menu ul li.li-sec.active {
+      background: #29b8f4; }
+.wrapbody .content {
+  margin-top: 100px;
+  margin-left: 230px;
+  width: 85%; }
+  .wrapbody .content .mainbody {
+    margin-top: 30px; }
+    .wrapbody .content .mainbody .mainbody-top {
+      border-bottom: 1px solid #ccc;
+      height: 70px; }
+    .wrapbody .content .mainbody h5 {
+      background: url(../img/zs.png) no-repeat 0 5px;
+      height: 40px;
+      line-height: 40px;
+      text-indent: 10px; }
+    .wrapbody .content .mainbody .user {
+      height: 230px;
+      border-bottom: 1px solid #ddd; }
+      .wrapbody .content .mainbody .user .usercon ul li {
+        float: left;
+        margin: 10px;
+        font-size: 16px; }
+    .wrapbody .content .mainbody .product ul {
+      border: 1px solid #ccc; }
+      .wrapbody .content .mainbody .product ul li {
+        border-bottom: 1px solid #ccc; }
+        .wrapbody .content .mainbody .product ul li span {
+          display: inline-block;
+          height: 28px;
+          font-size: 16px;
+          line-height: 28px; }
+        .wrapbody .content .mainbody .product ul li span:nth-child(2n-1) {
+          border-right: 1px solid #ccc;
+          border-left: 1px solid #ccc; }
+        .wrapbody .content .mainbody .product ul li input {
+          border: none; }
+        .wrapbody .content .mainbody .product ul li input[type|="radio"], .wrapbody .content .mainbody .product ul li input[type="checkbox"] {
+          width: 40px; }
+    .wrapbody .content .mainbody #teshuli span {
+      border: none; }
+    .wrapbody .content .mainbody #teshuli .sp2 span {
+      border: none;
+      margin: 0px 20px; }
+      .wrapbody .content .mainbody #teshuli .sp2 span .sp3 {
+        width: 100px;
+        text-align: center; }
+    .wrapbody .content .mainbody .wid15 {
+      display: inline-block;
+      width: 120px;
+      text-align: center; }
+    .wrapbody .content .mainbody .usertable {
+      margin-top: 20px; }
+      .wrapbody .content .mainbody .usertable table td, .wrapbody .content .mainbody .usertable table th {
+        text-align: center; }
+      .wrapbody .content .mainbody .usertable table td:nth-child(2) {
+        color: red; }
+    .wrapbody .content .mainbody .fenye {
+      width: 530px;
+      margin: 0 auto; }
+      .wrapbody .content .mainbody .fenye .prey {
+        display: inline-block;
+        background: url(/html/web/feedback/img/page_next.png);
+        height: 30px;
+        width: 30px;
+        margin-right: 20px;
+        margin-bottom: 25px; }
+      .wrapbody .content .mainbody .fenye .next2 {
+        display: inline-block;
+        background: url(/html/web/feedback/img/page_next2.png);
+        height: 30px;
+        width: 30px;
+        margin-left: 20px;
+        margin-bottom: 25px; }
+      .wrapbody .content .mainbody .fenye .pagination li a {
+        margin: 5px; }
+      .wrapbody .content .mainbody .fenye .text_go {
+        margin-top: 30px; }
+        .wrapbody .content .mainbody .fenye .text_go button {
+          width: 40px; }
+  .wrapbody .content .tijiao {
+    text-align: center;
+    width: 424px;
+    height: 250px; }
+    .wrapbody .content .tijiao h4 {
+      margin-top: 63px; }
+    .wrapbody .content .tijiao button {
+      width: 150px;
+      margin: 60px 25px; }
+.wrapbody #resetBtn {
+  margin-right: 20px; }
+
+/*# sourceMappingURL=feedback.css.map */

@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>Feedback</title>
+		<link rel="stylesheet" type="text/css" href="/html/web/js/lib/bootstrap/bootstrap.css"/>
+		<link rel="stylesheet" type="text/css" href="/html/web/feedback/css/feedback.css"/>
+		<link rel="shortcut icon" type="image/x-icon" href="/html/web/img/favicon.ico" media="screen" />
+		<script src="/html/web/js/lib/requirejs/require.js" defer async="true" data-main="js/main"></script>
+		
+	</head>
+	<body ng-app="myapp">
+		<header>
+			 <div class="notice">
+		    	<p>公告</p>
+		    </div>
+	    	<div class="logo">
+	    		<img src="/html/web/feedback/img/Feedback.png" class="pull-left"/>
+		    		<div class="search pull-right">
+		    		<input type="text" size="15" placeholder="输入关键字"/>
+		    		<span><a href="Javascript:;"class="btn btn-default">搜索</a></span>
+		    	</div>
+	    	</div>
+	    </header>
+	    
+	    <div ui-view class="wrapbody"></div>
+	</body>
+</html>

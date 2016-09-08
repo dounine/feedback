@@ -2,15 +2,16 @@
 <HTML xmlns="http://www.w3.org/1999/xhtml">
 	<head>
 		<title>feedback user</title>
-		<link rel="stylesheet" href="/login/lib/bootstrap/bootstrap.css">
-		<link rel="stylesheet" href="/login/app/css/sass/login.css">
-		<link rel="stylesheet" href="/login/lib/angular-loading-bar/loading-bar.css">
+		<link rel="stylesheet" href="/login/dist/lib/bootstrap/dist/css/bootstrap.min.css">
+		<link rel="stylesheet" href="/login/dist/lib/angular-loading-bar/build/loading-bar.min.css" type='text/css' media='all' >
+		<link rel="stylesheet" href="/login/dist/css/login.css">
+		<link rel="shortcut icon" href="/login/dist/img/form/favicon.ico" />
 	</head>
-	<body ng-app="app" class="container" ctx="/">
+	<body ng-app="app" ctx="/">
 		<div ui-view></div>
-		<script src="/login/lib/requirejs/require.js"></script>
+		<script src="/login/dist/lib/requirejs/require.js"></script>
 		<script>
-			require(['/login/main.js?______t='+new Date().getTime()]);
+			require(['/login/main.js?_t='+new Date().getTime()]);
 		</script>
 	</body>
 </html>
