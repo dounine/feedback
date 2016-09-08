@@ -18,6 +18,7 @@ public interface ISerFeedbackInfo extends IService<FeedbackInfo,FeedbackInfoDto>
     List<FeedbackInfo> findByUserId(String user_id)throws SerException;
     List<FeedbackInfo> findBySampleName(String SampleName) throws SerException;
 
-    List<Map<String, Object>> findAllByFeedbackStatus( String feedbackStatus,String username) throws SerException;
+    List<Map<String, Object>> findAllByFeedbackStatus( String feedbackStatus) throws SerException;
+    public FeedbackInfo getDealFeedbackInfo(FeedbackInfo feedbackInfo, String c_submitDate,String p_submitDate,String disposeType) throws Throwable;
 
-}
+    }

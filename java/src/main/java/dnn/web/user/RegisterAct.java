@@ -23,9 +23,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 /**
@@ -108,26 +106,25 @@ public class RegisterAct {
     public ModelAndView email_valid(String email) throws Throwable {
         String subject = "Feedback 注册验证";
         String content = null;
-        String errMsg = null;
         StrBuilder sb = new StrBuilder();
         ModelAndView modelAndView = null;
         Map<String, Object> map = new HashMap<>(1);
         map.put("details.email", email);
         if (null != serUser.findOne(map)) {
-            errMsg = "该邮箱已被注册!";
             modelAndView = new ModelAndView("user/login");
-            modelAndView.addObject("msg", errMsg);
+            modelAndView.addObject("msg", "该邮箱已被注册!");
             return modelAndView;
         } else {
-            Email em = new Email(email);
-            sb.append("请点击该链接或复制到浏览器进行注册验证:");
-            sb.append(PropertyUtil.getInstance().getProperty("domain.name")); //域名
+            sb.append("<a href='link_url'>请点击该链接</a>或复制以下链接到浏览器进行注册验证:<br/><br/>");
+            sb.append(PropertyUtil.getInstance().getProperty("realm.name")); //域名
             sb.append("/register/activate");
             sb.append("?code=");
+            Email em = new Email(email);
             sb.append(PasswordHash.createHash(email));
-            sb.append("?sid=");
+            sb.append("&sid=");
             sb.append(CryptUtil.encryptBASE64(LocalDateTime.now().toString() + "#" + email));
             content = sb.toString();
+            content = content.replace("link_url",content.substring(content.indexOf("http"),content.length()));
             em.initEmailInfo(subject, content);
             EmailUtil.SendMail(em);
             String host = email.split("@")[1];

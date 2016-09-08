@@ -24,6 +24,7 @@ public class FeedbackInfo extends BaseEntity {
     private PhysicalEnergy physicalEnergy; //物理电池
     private FeedbackStatus feedbackStatus ; //处理状态
 
+
     public String getUser_id() {
         return user_id;
     }

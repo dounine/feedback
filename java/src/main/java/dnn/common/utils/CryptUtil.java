@@ -1,14 +1,8 @@
 package dnn.common.utils;
-import sun.misc.BASE64Decoder;
-import sun.misc.BASE64Encoder;
 
-import java.security.Key;
-import java.security.NoSuchAlgorithmException;
-import java.security.SecureRandom;
-import javax.crypto.Cipher;
-import javax.crypto.KeyGenerator;
-import javax.crypto.SecretKey;
-import javax.crypto.spec.SecretKeySpec;
+
+import org.apache.commons.codec.binary.Base64;
+
 /**
  * Created by lgq on 16-9-7.
  */
@@ -21,7 +15,7 @@ public class CryptUtil {
      * @throws Exception
      */
     public static String decryptBASE64(String key) throws Exception {
-        return new String ((new BASE64Decoder()).decodeBuffer(key));
+        return  new String(Base64.decodeBase64(key.getBytes())) ;
     }
 
     /**
@@ -32,7 +26,7 @@ public class CryptUtil {
      * @throws Exception
      */
     public static String encryptBASE64(String key) throws Exception {
-        return (new BASE64Encoder()).encodeBuffer(key.getBytes());
+        return new String(Base64.encodeBase64(key.getBytes()));
     }
 
 

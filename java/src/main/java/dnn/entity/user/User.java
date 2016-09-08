@@ -30,6 +30,9 @@ public class User extends BaseEntity{
     private String[] tags;
     private Status status;
     private UserDetails details;
+    private Integer age;
+    private Double money;
+    private Float height;
 
     private LocalDateTime accessTime;
 
@@ -89,5 +92,29 @@ public class User extends BaseEntity{
 
     public void setDetails(UserDetails details) {
         this.details = details;
+    }
+
+    public Integer getAge() {
+        return age;
+    }
+
+    public void setAge(Integer age) {
+        this.age = age;
+    }
+
+    public Double getMoney() {
+        return money;
+    }
+
+    public void setMoney(Double money) {
+        this.money = money;
+    }
+
+    public Float getHeight() {
+        return height;
+    }
+
+    public void setHeight(Float height) {
+        this.height = height;
     }
 }
