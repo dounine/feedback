@@ -43,32 +43,6 @@ public class CustomAct {
         return text;
     }
 
-    @GetMapping("findcall")
-    public ResponseText findcall() throws Throwable {
-        FeedbackInfoDto fbkinfoDto =new FeedbackInfoDto();
-        System.out.println(fbkinfoDto.getLimit());
-        System.out.println(fbkinfoDto.getOffset());
-        System.out.println(fbkinfoDto.getPage());
-        fbkinfoDto.setLimit(2);
-        fbkinfoDto.setPage(2);
-        fbkinfoDto.setOffset(3);
-        SearchJson searchJson = new SearchJson();
-        searchJson.setSearchName(RestrictionType.EQ);
-        String[] condition ={"chemicalCell.sampleName","String","化学"};
-        searchJson.setSearchField(condition);
-        List<SearchJson> searchJsons = new ArrayList<>();
-        searchJsons.add(searchJson);
-        fbkinfoDto.setSearchJsons(searchJsons);
-
-        Map<String, Object> result = new HashMap<String, Object>();
-        String ll =(String)result.get("呼呼");
-
-//        ResponseText text = new ResponseText(iSerFeedbackInfo.findAll());
-        ResponseText text = new ResponseText(iSerFeedbackInfo.findByPage(fbkinfoDto));
-        text.setMsg(iSerFeedbackInfo.countByCis(null)+"哈萨达:"+iSerFeedbackInfo.count(fbkinfoDto));
-        return text;
-    }
-
 
 
 }
