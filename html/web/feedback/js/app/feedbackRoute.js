@@ -74,6 +74,22 @@ define(['app'],function (app) {
                 }
 
             })
+            .state('userinfo',{
+                url:'/userinfo',
+                views:{
+                    '':{
+                        templateUrl:'/html/web/feedback/tpls/wrapbody.html'
+                    },
+                    'menu@userinfo':{
+                        templateUrl:'/html/web/feedback/tpls/menu.html'
+                    },
+                    'content@userinfo':{
+                        templateUrl:'/html/web/feedback/tpls/userinfo.html'
+                    }
+
+                }
+
+            })
 
     })
 

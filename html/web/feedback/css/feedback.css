@@ -64,6 +64,8 @@ header {
       background: url(/html/web/feedback/img/sanjiao2.png) center no-repeat; }
     .wrapbody .menu ul li.li-root a .icon_bonton {
       background: url(/html/web/feedback/img/sanjiao1.png) center no-repeat; }
+  .wrapbody .menu ul li.li-root.active {
+    background: #29b8f4; }
   .wrapbody .menu ul li.li-sec {
     text-indent: 10px;
     background: #114960; }
@@ -106,6 +108,19 @@ header {
           border: none; }
         .wrapbody .content .mainbody .product ul li input[type|="radio"], .wrapbody .content .mainbody .product ul li input[type="checkbox"] {
           width: 40px; }
+    .wrapbody .content .mainbody .userinfo {
+      margin-top: 50px; }
+      .wrapbody .content .mainbody .userinfo label {
+        color: #666;
+        font-size: 16px; }
+        .wrapbody .content .mainbody .userinfo label span {
+          color: red; }
+      .wrapbody .content .mainbody .userinfo .form-success {
+        border: 1px solid green; }
+      .wrapbody .content .mainbody .userinfo .form-err {
+        border: 1px solid red; }
+      .wrapbody .content .mainbody .userinfo .form-iferr {
+        color: red; }
     .wrapbody .content .mainbody #teshuli span {
       border: none; }
     .wrapbody .content .mainbody #teshuli .sp2 span {
