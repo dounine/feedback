@@ -3,19 +3,14 @@ package dnn.web;
 import dnn.common.exception.SerException;
 import dnn.common.json.Callback;
 import dnn.common.json.ResponseText;
-import dnn.common.mails.Email;
-import dnn.common.mails.EmailUtil;
 import dnn.common.response.ResponseContext;
-import dnn.common.utils.CryptUtil;
-import dnn.common.utils.PasswordHash;
 import dnn.common.utils.RequestUtils;
 import dnn.common.validation.Add;
 import dnn.entity.user.User;
-import dnn.enums.Status;
+import dnn.entity.user.UserType;
 import dnn.service.user.ISerUser;
 import dnn.service.user.session.UserSession;
 import org.apache.commons.lang3.StringUtils;
-import org.apache.commons.lang3.text.StrBuilder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,10 +22,6 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.net.URLDecoder;
-import java.time.LocalDateTime;
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * Created by huanghuanlai on 16/3/29.
@@ -70,7 +61,6 @@ public class IndexAct {
         return new ModelAndView("redirect:/login");
     }
 
-    @PostMapping("login")
     public ModelAndView login(User user) throws Throwable {
         ModelAndView modelAndView = new ModelAndView("user/login");
         String token = null;
@@ -99,29 +89,30 @@ public class IndexAct {
         return modelAndView;
     }
 
-
+    @PostMapping("login")
     public ResponseText ssologin(@Validated(Add.class) User user, BindingResult result, @Callback String callback) throws Throwable {
         boolean callbackFun = StringUtils.isNotBlank(callback);
         ResponseText rt = null;
         String token = serUser.login(user);
         StringBuffer sb = new StringBuffer();
-        if (StringUtils.isNotBlank(token)) {
-            if (callbackFun) {
+        if(StringUtils.isNotBlank(token)){
+            UserType userType = UserSession.findByToken(token).getUserType();
+            if(callbackFun){
                 sb.append(callback);
-                sb.append(String.format("({token:\"%s\"})", token));
+                sb.append(String.format("({\"token\":\"%s\",\"userType\":\"%s\"})",token,userType.getValue()));
                 ResponseContext.writeData(sb);
-            } else {
+            }else{
                 rt = new ResponseText();
-                rt.setData(String.format("{token:\"%s\"}", token));
-                Cookie tokenCookie = new Cookie("token", token);
+                rt.setData(String.format("{\"token\":\"%s\",\"userType\":\"%s\"}",token,userType.getValue()));
+                Cookie tokenCookie = new Cookie("token",token);
                 ResponseContext.get().addCookie(tokenCookie);
             }
-        } else {
-            if (callbackFun) {
+        }else{
+            if(callbackFun){
                 sb.append(callback);
                 sb.append("({msg:\"LOGIN-0002\"})");
                 ResponseContext.writeData(sb);
-            } else {
+            }else{
                 rt = new ResponseText();
                 rt.setErrno(2);
                 rt.setMsg("LOGIN-0002");

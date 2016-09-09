@@ -1,6 +1,6 @@
 var request = require('request-promise');
 var path = require('path');
-var configKoa = require(path.resolve('public/ng/modules/login/dist/js/config-koa.js'));
+var configKoa = require(path.resolve('public/ng/modules/'+path.basename(__dirname)+'/dist/js/config-koa.js'));
 
 module.exports = function (argvs) {
     this.sso = function (argvs) {

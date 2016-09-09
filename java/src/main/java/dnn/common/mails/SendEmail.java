@@ -1,7 +1,5 @@
 package dnn.common.mails;
 
-import sun.security.provider.MD5;
-
 import java.util.*;
 
 /**

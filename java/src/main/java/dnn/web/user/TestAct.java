@@ -2,8 +2,10 @@ package dnn.web.user;
 
 import dnn.common.mails.Email;
 import dnn.common.mails.EmailUtil;
+import dnn.dto.SearchJson;
 import dnn.dto.user.UserDto;
 import dnn.entity.user.User;
+import dnn.enums.RestrictionType;
 import dnn.service.user.ISerUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -25,6 +27,11 @@ public class TestAct {
     protected ISerUser serUser;
 
 
+    /**
+     * 条件查询
+     * @return
+     * @throws Throwable
+     */
     @GetMapping("findByCondition")
     public List<User> findByCondition() throws Throwable {
         HashMap<String, Object> conditions = new HashMap<>();
@@ -32,6 +39,11 @@ public class TestAct {
         return serUser.findByCis(conditions);
     }
 
+    /**
+     * 模糊查询
+     * @return
+     * @throws Throwable
+     */
     @GetMapping("findByFuzzy")
     public List<User> findByFuzzy()throws Throwable {
         HashMap<String, Object> conditions = new HashMap<>();
@@ -39,19 +51,51 @@ public class TestAct {
         return serUser.findByFuzzy(conditions);
     }
 
+    /**
+     * 分页查询(带模糊搜索,排序)
+     * @return
+     * @throws Throwable
+     */
     @GetMapping("page")
     public List<User> Page() throws Throwable{
-        //构建接收人列表
-
-        //初始化发送人与接收人列表
-        Email email = new Email("liguiqin_aj@163.com"); //使用系统账户，不需要再设置用户登录名及密码
-        //设置邮件要发送的内容以及标题信息
-        email.initEmailInfo("你好,逗比  ", "请你明天来办公室开会！");
-        EmailUtil.SendMail(email);
         UserDto dto = new UserDto();
-        dto.setPage(2);
+        //dto.setOrder("asc");
+        //dto.setSort(); 排序字段
+       // dto. dto.setSearchJsons(); 搜索
         return serUser.findByPage(dto);
     }
+    /**
+        * 分页时搜索排序等测试查询(带模糊搜索,排序)
+     * @return
+             * @throws Throwable
+     */
+    @GetMapping("search")
+    public List<User> search() throws Throwable{
+        UserDto dto = new UserDto();
+
+        SearchJson searchJson = new SearchJson();
+        searchJson.setSearchName(RestrictionType.GT);
+        String[] field={"age","int","12"};
+        searchJson.setSearchField(field);
+        SearchJson searchJson2 = new SearchJson();
+        searchJson2.setSearchName(RestrictionType.BETWEEN);
+        String[] field2={"accessTime","dateTime","2016-09-08 14:48:21","2016-09-08 19:48:21"};
+        searchJson2.setSearchField(field2);
+
+        SearchJson searchJson3 = new SearchJson();
+        searchJson3.setSearchName(RestrictionType.LIKE);
+        String[] field3={"username","string","xin"};
+        searchJson3.setSearchField(field3);
+
+        List<SearchJson> searchJsons = new ArrayList<>();
+        searchJsons.add(searchJson);
+        searchJsons.add(searchJson2);
+        searchJsons.add(searchJson3);
+
+        dto.setSearchJsons(searchJsons);
+        return serUser.findByPage(dto);
+    }
+
 
     @GetMapping("count")
     public long count()throws Throwable {
@@ -73,11 +117,14 @@ public class TestAct {
     @GetMapping("add")
     public void add()throws Throwable {
         User user = new User();
-        user.setPassword("tags");
+        user.setPassword("aml");
         user.setAccessTime(LocalDateTime.now());
-        user.setUsername("tas");
+        user.setUsername("xinaml");
         String[] tags = {"aa","bb","cc"};
         user.setTags(tags);
+        user.setHeight(20.4f);
+        user.setAge(50);
+        user.setMoney(888.88);
         serUser.save(user);
     }
 
@@ -101,5 +148,9 @@ public class TestAct {
         user.setUsername("updateName");
         user.setAccessTime(LocalDateTime.now().plusDays(50));
         serUser.update(user);
+    }
+
+    public static void main(String[] args) {
+        System.out.println(LocalDateTime.now());
     }
 }
