@@ -1,0 +1,1 @@
+appconfig = {"lurl":"http://localhost:8888","rurl":"http://localhost:8080","rootFold":"app/"}

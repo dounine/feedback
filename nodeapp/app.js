@@ -6,8 +6,8 @@ var session = require('koa-session');//cookie
 var koaBody = require('koa-body');
 var json = require('koa-json');
 var cors = require('koa-cors');
-const routersPath = '/public/koa/routers/';
-var config = require(path.resolve('public/gulp-plugins/read-config.js'))();//读取开发与生产环境配置文件
+const routersPath = '/koa/routers/';
+var config = require(path.resolve('plugins/read-config.js'))();//读取开发与生产环境配置文件
 
 //============路由跳转=============
 app.use(cors());//跨域请求,用于与browser-sync调试
@@ -19,13 +19,13 @@ router.get('/',function *(next){//根路由
 	this.status = 301;
 });
 app.use(require(path.join(__dirname,routersPath,'login/index.js'))(config).routes());//登录路由
-app.use(require(path.join(__dirname,routersPath,'admin/index.js'))(config).routes());//后台路由
+//app.use(require(path.join(__dirname,routersPath,'admin/index.js'))(config).routes());//后台路由
 
 //============路由跳转=============
 
 
 //============静态文件资源===========
-app.use(serve({rootDir: 'public/ng/modules'}));
+app.use(serve({rootDir: 'ng/modules'}));
 //============静态文件资源===========
 
 
