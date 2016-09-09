@@ -1,5 +1,6 @@
 package dnn.service.feedbackInfo;
 
+import dnn.dto.SearchJson;
 import dnn.dto.feedbackInfo.FeedbackInfoDto;
 import dnn.common.exception.SerException;
 import dnn.entity.feedbackInfo.FeedbackInfo;
@@ -10,6 +11,7 @@ import dnn.entity.user.User;
 import dnn.entity.user.UserType;
 import dnn.enums.DisposeType;
 import dnn.enums.FeedbackStatus;
+import dnn.enums.RestrictionType;
 import dnn.service.ServiceImpl;
 import dnn.service.user.ISerUser;
 import dnn.service.user.session.Online;
@@ -82,11 +84,10 @@ public class FeedbackInfoSerImpl extends ServiceImpl<FeedbackInfo,FeedbackInfoDt
     }
 
     @Override
-    public List<Map<String, Object>> findAllByFeedbackStatus(String feedbackStatus) throws SerException {
-        List<FeedbackInfo> feedbackinfo=null;
+    public List<Map<String, Object>> findAllByFeedbackStatus(String feedbackStatus ,String page,String offset ,String searchCondition) throws SerException {
         List<Map<String, Object>> list=new ArrayList<Map<String, Object>>();
+        Map<String, Object> conditions = new HashMap<String, Object>();
         String status=null;
-        User userinfo = null;
 
         if(feedbackStatus.equals(FeedbackStatus.UNTREATED.name().toString())){
             status=feedbackStatus;
@@ -95,22 +96,65 @@ public class FeedbackInfoSerImpl extends ServiceImpl<FeedbackInfo,FeedbackInfoDt
         }else if(feedbackStatus.equals(FeedbackStatus.FINISH.name().toString())){
             status=feedbackStatus;
         }
-        Map<String, Object> conditions = new HashMap<String, Object>();
         String userType = "CUSTOM";//TODO 获取当前用户类型
-        conditions.put("feedbackStatus", status);
-        if (userType.equals(UserType.CUSTOM.name().toString())) {
-            conditions.put("user_id", "57cd507d3eb209a4f930552c");//TODO 修改
+        String user_id = "57cd507d3eb209a4f930552c";//TODO 修改
+
+        conditions.put("userType",userType);
+        conditions.put("user_id",user_id);
+        conditions.put("feedbackStatus",status);
+        conditions.put("page",page);
+        conditions.put("offset",offset);
+        conditions.put("searchCondition",searchCondition);
+
+        list =findFeedbackinfoByPage(conditions);
+        return list;
+    }
+
+    private  List<Map<String, Object>> findFeedbackinfoByPage(Map<String, Object> conditions) throws  SerException{
+        List<Map<String, Object>> list=new ArrayList<Map<String, Object>>();
+        List<FeedbackInfo> feedbackinfolist=null;
+        User userinfo = null;
+        FeedbackInfoDto fbkinfoDto =new FeedbackInfoDto();
+        List<SearchJson> searchJsons = new ArrayList<>();
+
+        SearchJson searchJsonid = new SearchJson();
+        if(conditions.get("userType").toString().equals(UserType.CUSTOM.name().toString())){
+            searchJsonid.setSearchName(RestrictionType.EQ);
+            String[] criteri ={"user_id","String",conditions.get("user_id").toString()};
+            searchJsonid.setSearchField(criteri);
+            searchJsons.add(searchJsonid);
         }
-        Long count = countByCis(conditions);
+
+        SearchJson searchJsonStatus = new SearchJson();
+        searchJsonStatus.setSearchName(RestrictionType.EQ);
+        String[] criteri ={"feedbackStatus","String",conditions.get("feedbackStatus").toString()};
+        searchJsonStatus.setSearchField(criteri);
+        searchJsons.add(searchJsonStatus);
+
+        fbkinfoDto.setSearchJsons(searchJsons);
+        if(conditions.get("page").toString()!="" && !conditions.get("page").toString().equals("null")){
+            fbkinfoDto.setPage((Integer) Integer.parseInt(conditions.get("page").toString()));
+        }
+        if(conditions.get("offset").toString()!="" && !conditions.get("offset").toString().equals("null")){
+            fbkinfoDto.setOffset((Integer) Integer.parseInt(conditions.get("offset").toString()));
+        }
+//        fbkinfoDto.setLimit(4);
+
+        //TODO 搜索条件不确定 暂时没做
+
+        Long count = count(fbkinfoDto);
         if (count > 0) {
-            feedbackinfo = findByCis(conditions);
-            for (FeedbackInfo fdinfo : feedbackinfo) {
+            feedbackinfolist = findByPage(fbkinfoDto);
+            for (FeedbackInfo fdinfo : feedbackinfolist) {
                 Map<String, Object> result = new HashMap<String, Object>();
                 userinfo = serUser.findById(fdinfo.getUser_id());
                 result.put("customerName", userinfo.getUsername());
                 result.put("feedbackinfo", fdinfo);
                 list.add(result);
             }
+            Map<String, Object> countResult = new HashMap<String, Object>();
+            countResult.put("count",count);
+            list.add(countResult);
         } else {
             list = null;
         }
