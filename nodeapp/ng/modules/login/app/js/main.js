@@ -9,7 +9,7 @@ require.config({
 		'directives': 'app/js/rev/directives',
 		'filters': 'app/js/rev/filters',
 		'services': 'app/js/rev/services',
-		'config': 'app/js/rev/config',
+		'config': 'app/js/rev/__config-ng',
 		'tetherWrapper': 'app/js/rev/require-wrapper/tetherWrapper',
 		'jquery': 'app/lib/jquery/dist/jquery.min',
 		'bootstrap': 'app/lib/bootstrap/dist/js/bootstrap.min',

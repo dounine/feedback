@@ -1,4 +1,5 @@
 var gulp = require('gulp');
+var gulpSequence = require('gulp-sequence').use(gulp);//顺序执行或并行
 var gutil = require('gulp-util');
 var minimist = require('minimist');
 var cache = require('gulp-cached');//可记录修改过的文件,利器
@@ -7,7 +8,6 @@ var browserSync = require("browser-sync").create();
 var rev = require('gulp-rev');
 var revCollector = require('gulp-rev-collector');//html内容版本号替换
 var config = require('../../../plugins/read-config.js');
-var gulpSequence = require('gulp-sequence').use(gulp);//顺序执行或并行
 var path = require('path');
 var cssmin = require('gulp-minify-css');
 
@@ -23,7 +23,7 @@ gulp.task('clean', function () {
         .pipe(plugins.clean());
 });
 
-//生成filename文件，存入string内容
+
 function string_src(filename, string) {
     var src = require('stream').Readable({
         objectMode: true
@@ -40,29 +40,6 @@ function string_src(filename, string) {
     }
     return src;
 }
-
-
-// gulp.task('config-koa', function () { //angularjs 配置
-//     var myConfig = config();
-//     var cons = "module.exports = function(){\n";
-//     for (var name in myConfig) {
-//         cons += ("this." + name + "=\"" + myConfig[name] + "\";");
-//     }
-//     cons += ("this.moduleName=");
-//     cons += ("\"" + path.basename(__dirname) + "\";");
-//     cons += "return this;}"
-//     return string_src("./__config-koa.js", cons)
-//         .pipe(gulp.dest('./app/js/rev/'));
-// });
-
-
-gulp.task('browser-sync', ['rev'], function () {
-    var myConfig = config();
-    browserSync.init({
-        proxy: myConfig['lurl']
-    });
-    return gulp.watch('**/*.js,**/*.css,**/*.html').on('change', browserSync.reload);
-});
 
 gulp.task('copy-css', function () {
     return gulp.src(['./app/css/**/*.css'])
@@ -177,25 +154,27 @@ gulp.task('version-html', function () {//生成html版本号
         .pipe(revCollector({
             replaceReved: true
         }))
-        .pipe(gulp.dest('app/tpls/rev/'));
+        .pipe(gulp.dest('app/tpls/rev/'))
+        .pipe(plugins.if('rev-manifest.json',plugins.clean()));
 });
 gulp.task('version-all',gulpSequence(['version-js','version-sass-css','version-css'],'version-html'));
 
 gulp.task('clean-rev', function () {//清除临时文件
     gulp.src(['app/css/rev/**/*.css', '!app/css/rev/**/*-*.css'])
         .pipe(plugins.clean());
-    gulp.src(['app/js/rev/**/*.css', '!app/js/rev/**/*-*.css'])
-        .pipe(plugins.clean());
+    //gulp.src(['app/js/rev/**/*.js', '!app/js/rev/**/*-*.js']).pipe(plugins.clean());//TODO 删除后存在main.js获取不到未添加版本号的js文件
     gulp.src(['app/sass/rev/**/*.+(sass|scss|less|css)', '!app/sass/rev/**/*-*.css'])
         .pipe(plugins.clean());
 });
-
-gulp.task('pro', gulpSequence('dev','compress-all', 'version-all','clean-rev'));
-gulp.task('dev', gulpSequence('clean', ['copy-module', 'copy-lib'], ['create-config-ng', 'build-css'],'create-config-ng'));
-gulp.task('default',function () {
-    if(isPro()){
-        gulp.start('pro');//生产环境
-    }else{
-        gulp.start('dev');//开发环境
-    }
+gulp.task('bs-start',function () {
+    return browserSync.init({
+        proxy: config()['lurl']
+    });
 });
+gulp.task('bs-watch',function () {
+    return gulp.watch('**/*.js,**/*.css,**/*.html').on('change', browserSync.reload);
+});
+gulp.task('bs',gulpSequence(isPro()?'pro':'dev','bs-start','bs-watch'));//启动浏览器并自动刷新，用于开发模式
+gulp.task('pro', gulpSequence('dev','compress-all', 'version-all','clean-rev'));//生产环境打包配置
+gulp.task('dev', gulpSequence('clean', ['copy-module', 'copy-lib'], ['create-config-ng', 'build-css'],'create-config-ng'));//开发环境打包配置
+gulp.task('default',[isPro()?'pro':'dev']);//默认会根据/config.json文件进行环境的打包
