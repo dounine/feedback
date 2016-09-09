@@ -28,12 +28,14 @@ import org.springframework.stereotype.Service;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletRequest;
 import javax.servlet.http.*;
+import java.text.SimpleDateFormat;
+import java.time.Instant;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
+import java.util.stream.Stream;
 
 /**
  * Created by lgq on 16-9-4.
@@ -43,6 +45,48 @@ public class FeedbackInfoSerImpl extends ServiceImpl<FeedbackInfo,FeedbackInfoDt
 
     @Autowired
     private ISerUser serUser;
+
+    @Override
+    public List<FeedbackInfo> findByPage(FeedbackInfoDto dto) throws SerException {
+        // admin
+        intoDto(dto);
+        List<FeedbackInfo> feedbackInfos = super.findByPage(dto);
+        initUser(feedbackInfos);
+        return feedbackInfos;
+    }
+
+    @Override
+    public Long count(FeedbackInfoDto dto) throws SerException {
+        intoDto(dto);
+        return super.count(dto);
+    }
+
+    private void initUser(  List<FeedbackInfo> feedbackInfos ) {
+        Stream<FeedbackInfo> stream= feedbackInfos.stream();
+        stream.forEach(model->{
+            try{
+                User user = serUser.findById(model.getUser_id());
+                model.setCustomerName(user.getUsername());
+            }catch (SerException e){
+                e.printStackTrace();
+            }
+        });
+    }
+
+    private  void  intoDto(FeedbackInfoDto dto){
+        List<Online>  userSession=UserSession.sessions();
+//        UserType userType= userSession.get(0).getUserType();
+//        String userId = userSession.get(0).getId();
+        User user = new User();
+
+        String userId ="57cfdf3179d23f8f570f49fd";
+        Map<String,Object> maps =dto.getConditions();
+        if(user.getUserType().equals(UserType.CUSTOM)){
+            maps.put("user_id",userId);
+            maps.put("feedbackStatus", dto.getStatus().name());
+        }
+    }
+
     /**
      * 订单信息提交
      * @param feedbackInfo
@@ -68,97 +112,6 @@ public class FeedbackInfoSerImpl extends ServiceImpl<FeedbackInfo,FeedbackInfoDt
         Map<String, Object> conditions = new HashMap<>();
         conditions.put("user_id",user_id);
         return findByCis(conditions);
-    }
-
-    /**
-     *
-     * @param SampleName 样品名
-     * @return
-     * @throws SerException
-     */
-    @Override
-    public List<FeedbackInfo> findBySampleName(String SampleName) throws SerException {
-        Map<String, Object> conditions = new HashMap<String, Object>();
-        conditions.put("chemicalCell.sampleName",SampleName);
-        return findByFuzzy(conditions);
-    }
-
-    @Override
-    public List<Map<String, Object>> findAllByFeedbackStatus(String feedbackStatus ,String page,String offset ,String searchCondition) throws SerException {
-        List<Map<String, Object>> list=new ArrayList<Map<String, Object>>();
-        Map<String, Object> conditions = new HashMap<String, Object>();
-        String status=null;
-
-        if(feedbackStatus.equals(FeedbackStatus.UNTREATED.name().toString())){
-            status=feedbackStatus;
-        }else if(feedbackStatus.equals(FeedbackStatus.INHAND.name().toString())){
-            status=feedbackStatus;
-        }else if(feedbackStatus.equals(FeedbackStatus.FINISH.name().toString())){
-            status=feedbackStatus;
-        }
-        String userType = "CUSTOM";//TODO 获取当前用户类型
-        String user_id = "57cd507d3eb209a4f930552c";//TODO 修改
-
-        conditions.put("userType",userType);
-        conditions.put("user_id",user_id);
-        conditions.put("feedbackStatus",status);
-        conditions.put("page",page);
-        conditions.put("offset",offset);
-        conditions.put("searchCondition",searchCondition);
-
-        list =findFeedbackinfoByPage(conditions);
-        return list;
-    }
-
-    private  List<Map<String, Object>> findFeedbackinfoByPage(Map<String, Object> conditions) throws  SerException{
-        List<Map<String, Object>> list=new ArrayList<Map<String, Object>>();
-        List<FeedbackInfo> feedbackinfolist=null;
-        User userinfo = null;
-        FeedbackInfoDto fbkinfoDto =new FeedbackInfoDto();
-        List<SearchJson> searchJsons = new ArrayList<>();
-
-        SearchJson searchJsonid = new SearchJson();
-        if(conditions.get("userType").toString().equals(UserType.CUSTOM.name().toString())){
-            searchJsonid.setSearchName(RestrictionType.EQ);
-            String[] criteri ={"user_id","String",conditions.get("user_id").toString()};
-            searchJsonid.setSearchField(criteri);
-            searchJsons.add(searchJsonid);
-        }
-
-        SearchJson searchJsonStatus = new SearchJson();
-        searchJsonStatus.setSearchName(RestrictionType.EQ);
-        String[] criteri ={"feedbackStatus","String",conditions.get("feedbackStatus").toString()};
-        searchJsonStatus.setSearchField(criteri);
-        searchJsons.add(searchJsonStatus);
-
-        fbkinfoDto.setSearchJsons(searchJsons);
-        if(conditions.get("page").toString()!="" && !conditions.get("page").toString().equals("null")){
-            fbkinfoDto.setPage((Integer) Integer.parseInt(conditions.get("page").toString()));
-        }
-        if(conditions.get("offset").toString()!="" && !conditions.get("offset").toString().equals("null")){
-            fbkinfoDto.setOffset((Integer) Integer.parseInt(conditions.get("offset").toString()));
-        }
-//        fbkinfoDto.setLimit(4);
-
-        //TODO 搜索条件不确定 暂时没做
-
-        Long count = count(fbkinfoDto);
-        if (count > 0) {
-            feedbackinfolist = findByPage(fbkinfoDto);
-            for (FeedbackInfo fdinfo : feedbackinfolist) {
-                Map<String, Object> result = new HashMap<String, Object>();
-                userinfo = serUser.findById(fdinfo.getUser_id());
-                result.put("customerName", userinfo.getUsername());
-                result.put("feedbackinfo", fdinfo);
-                list.add(result);
-            }
-            Map<String, Object> countResult = new HashMap<String, Object>();
-            countResult.put("count",count);
-            list.add(countResult);
-        } else {
-            list = null;
-        }
-        return list;
     }
 
     @Override

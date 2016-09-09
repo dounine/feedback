@@ -129,6 +129,7 @@ public interface IDao<Entity extends BaseEntity, Dto extends BaseDto> {
      */
     public List<Entity> findByCis(Map<String, Object> conditions);
 
+
     /**
      * 根据字段条件查询对象列表数量
      *

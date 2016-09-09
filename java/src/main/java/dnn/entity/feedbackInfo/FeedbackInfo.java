@@ -23,6 +23,7 @@ public class FeedbackInfo extends BaseEntity {
     private ChemicalCell chemicalCell; //化学电池
     private PhysicalEnergy physicalEnergy; //物理电池
     private FeedbackStatus feedbackStatus ; //处理状态
+    private String customerName ;//用户名
 
 
     public String getUser_id() {
@@ -79,5 +80,13 @@ public class FeedbackInfo extends BaseEntity {
 
     public void setFeedbackStatus(FeedbackStatus feedbackStatus) {
         this.feedbackStatus = feedbackStatus;
+    }
+
+    public String getCustomerName() {
+        return customerName;
+    }
+
+    public void setCustomerName(String customerName) {
+        this.customerName = customerName;
     }
 }

@@ -37,12 +37,4 @@ public class CustomAct {
         return new ModelAndView("custom/index");
     }
 
-    @GetMapping("findAllByFeedbackStatus")
-    public ResponseText findBySampleName(String feedbackStatus ,String page,String offset ,String searchCondition) throws Throwable {
-        ResponseText text = new ResponseText(iSerFeedbackInfo.findAllByFeedbackStatus(feedbackStatus,page,offset,searchCondition));
-        return text;
-    }
-
-
-
 }
