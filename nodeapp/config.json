@@ -1,12 +1,13 @@
 {
-  "development": {
+  "default":"dev",
+  "dev": {
     "lurl": "http://localhost:8888",
   	"rurl": "http://localhost:8080",
   	"rootFold":"app/"
   },
-  "production": {
+  "pro": {
     "lurl": "http://localhost:8888",
-  	"rurl": "http://localhost",
+  	"rurl": "http://localhost:8080",
   	"rootFold":"dist/"
   }
 }

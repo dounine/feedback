@@ -1,5 +1,7 @@
 package dnn.common.utils;
 
+import dnn.entity.user.User;
+
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 
@@ -13,7 +15,7 @@ public class RequestUtils {
         Cookie tokenCookie = null;
         if(null!=cookies){
             for(Cookie cookie : cookies){
-                if(cookie.getName().equals("token")){
+                if(cookie.getName().equals(User.TOKEN_NAME)){
                     tokenCookie = cookie;
                     break;
                 }

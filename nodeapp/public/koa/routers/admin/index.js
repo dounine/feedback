@@ -5,16 +5,15 @@ var path = require('path');
 var moduleName = path.basename(__dirname);
 var loginSer = require(path.resolve('public/koa/services/'+moduleName+'/index.js'));
 
-module.exports = function(env){
-
+module.exports = function(config){
 	var router = new Router();
 	router.get('/'+moduleName,function *() {
-		var stats = yield sendfile(this, path.resolve('public/ng/modules/'+moduleName+'/'+env+'/tpls')+'/index.html');
+		var stats = yield (sendfile(this, path.resolve('public/ng/modules/'+moduleName+'/'+config['rootFold']+'/tpls')+'/index.html'));
   		if (!this.status) this.throw(404)
 	}).post('/admin',function *() {
 		var user = this.request.body;
 		var $self = this;
-		yield loginSer().sso(user)
+		yield (loginSer().sso(user)
 			.then(function (parsedBody) {
 				var responseText =  JSON.parse(parsedBody);
 				if(responseText['errno']==0){
@@ -27,7 +26,7 @@ module.exports = function(env){
 				}
 
 			}).catch(function (err) {
-		});
+		}));
 
 	});
 
