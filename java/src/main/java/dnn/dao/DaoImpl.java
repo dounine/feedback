@@ -4,6 +4,7 @@ import dnn.common.exception.SerException;
 import dnn.dto.BaseDto;
 import dnn.common.utils.GenericsUtils;
 import dnn.entity.BaseEntity;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.mongodb.core.MongoTemplate;
@@ -177,4 +178,32 @@ public class DaoImpl<Entity extends BaseEntity, Dto extends BaseDto> implements 
         mongoTemplate.remove(query, clazz);
     }
 
+
+    @Override
+    public Entity findByMax(List<Object> fields) {
+        Sort.Direction sort = Sort.Direction.DESC;
+        Stream<Object> stream = fields.stream();
+        Query query = new Query();
+        for(Object field :fields){
+            String field1 =(String)field;
+            query.with(new Sort(sort,field1));
+        }
+
+
+        return mongoTemplate.findOne(query,clazz);
+    }
+
+    @Override
+    public Entity findByMin(List<Object> fields) {
+        Sort.Direction sort = Sort.Direction.ASC;
+        Stream<Object> stream = fields.stream();
+        Query query = new Query();
+        for(Object field :fields){
+            String field1 =(String)field;
+            query.with(new Sort(sort,field1));
+        }
+
+
+        return mongoTemplate.findOne(query,clazz);
+    }
 }

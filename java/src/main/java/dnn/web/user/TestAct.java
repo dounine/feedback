@@ -5,7 +5,10 @@ import dnn.common.mails.EmailUtil;
 import dnn.dto.SearchJson;
 import dnn.dto.user.UserDto;
 import dnn.entity.user.User;
+import dnn.entity.user.UserDetails;
+import dnn.entity.user.UserType;
 import dnn.enums.RestrictionType;
+import dnn.enums.Status;
 import dnn.service.user.ISerUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -62,6 +65,7 @@ public class TestAct {
         //dto.setOrder("asc");
         //dto.setSort(); 排序字段
        // dto. dto.setSearchJsons(); 搜索
+        System.out.println("哈哈:"+serUser.findByPage(dto));
         return serUser.findByPage(dto);
     }
     /**
@@ -117,14 +121,31 @@ public class TestAct {
     @GetMapping("add")
     public void add()throws Throwable {
         User user = new User();
+
+        user.setPassword("1234567890");
+        user.setAccessTime(LocalDateTime.now());
+        user.setUsername("刘霞");
+        user.setStatus(Status.THAW);
+        user.setUserType(UserType.CUSTOM);
+        UserDetails userDetails = new UserDetails();
+        userDetails.setCompany("艾佳");
+        userDetails.setAddress("冠达商务中心");
+        userDetails.setContact("程小姐");
+        userDetails.setPostcodes("56483");
+        userDetails.setTelephone("14543556577");
+        userDetails.setFax("0734-14543556577");
+        userDetails.setEmail("456466@qq.com");
+        user.setDetails(userDetails);
+        String[] tags = {"aa","bb","cc"};
+
         user.setPassword("aml");
         user.setAccessTime(LocalDateTime.now());
         user.setUsername("xinaml");
-        String[] tags = {"aa","bb","cc"};
         user.setTags(tags);
         user.setHeight(20.4f);
         user.setAge(50);
         user.setMoney(888.88);
+
         serUser.save(user);
     }
 

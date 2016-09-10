@@ -42,6 +42,11 @@ public class ServiceImpl<Entity extends BaseEntity, Dto extends BaseDto> extends
         Query query = new Query();
         query = init_sort(query, dto);
         query = init_search(query, dto);
+        if(null!=dto.getConditions() && dto.getConditions().size()>0){
+            for(Map.Entry<String,Object> entry : dto.getConditions().entrySet()){
+                query.addCriteria(Criteria.where(entry.getKey()).is(entry.getValue()));
+            }
+        }
         query.skip(dto.getSkip());
         query.limit(dto.getLimit());
         return dao.findByPage(query);
@@ -61,6 +66,11 @@ public class ServiceImpl<Entity extends BaseEntity, Dto extends BaseDto> extends
     public Long count(Dto dto) throws SerException {
         Query query = new Query();
         query = init_search(query, dto);
+        if(null!=dto.getConditions() && dto.getConditions().size()>0){
+            for(Map.Entry<String,Object> entry : dto.getConditions().entrySet()){
+                query.addCriteria(Criteria.where(entry.getKey()).is(entry.getValue()));
+            }
+        }
         return dao.count(query);
     }
 
@@ -130,9 +140,21 @@ public class ServiceImpl<Entity extends BaseEntity, Dto extends BaseDto> extends
     }
 
     @Override
+    public Entity findByMax(List<Object> fields) throws SerException {
+        return dao.findByMax(fields);
+    }
+
+    @Override
+    public Entity findByMin(List<Object> fields) throws SerException {
+        return dao.findByMin(fields);
+    }
+
+    @Override
     public void removeByCis(Map<String, Object> conditions) throws SerException {
         dao.removeByCis(conditions);
     }
+
+
 
     private Query init_search(Query query, Dto dto) {
 
