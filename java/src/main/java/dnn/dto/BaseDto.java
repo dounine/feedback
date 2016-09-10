@@ -2,7 +2,9 @@ package dnn.dto;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by lgq on 16-9-2.
@@ -13,6 +15,7 @@ public class BaseDto extends PageDto implements Serializable {
     private String search; // 搜索字段
     private String order="desc"; //排序方式
     private List<SearchJson> searchJsons = new ArrayList<SearchJson>(0);// 类搜索条件
+    private Map<String,Object> conditions = new HashMap<>(0); //条件
 
     public List<String> getSort() {
         return sort;
@@ -44,5 +47,13 @@ public class BaseDto extends PageDto implements Serializable {
 
     public void setSearchJsons(List<SearchJson> searchJsons) {
         this.searchJsons = searchJsons;
+    }
+
+    public Map<String, Object> getConditions() {
+        return conditions;
+    }
+
+    public void setConditions(Map<String, Object> conditions) {
+        this.conditions = conditions;
     }
 }

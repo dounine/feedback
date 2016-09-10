@@ -104,6 +104,7 @@ public class IndexAct {
             }else{
                 rt = new ResponseText();
                 rt.setData(String.format("{\"token\":\"%s\",\"userType\":\"%s\"}",token,userType));
+
                 Cookie tokenCookie = new Cookie("token",token);
                 ResponseContext.get().addCookie(tokenCookie);
             }

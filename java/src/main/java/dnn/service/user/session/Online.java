@@ -13,7 +13,7 @@ public class Online {
     private String username;
     private LocalDateTime lastAccessTime;
     private LocalDateTime loginTime;
-    private UserType userType = UserType.MANAGER;
+    private UserType userType = UserType.CUSTOM;
     private String token;
 
     public String getId() {
