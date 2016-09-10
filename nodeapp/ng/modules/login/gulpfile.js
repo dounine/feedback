@@ -1,6 +1,7 @@
 var gulp = require('gulp');
 var gulpSequence = require('gulp-sequence').use(gulp);//顺序执行或并行
 var gutil = require('gulp-util');
+var bower = require('gulp-bower');
 var minimist = require('minimist');
 var cache = require('gulp-cached');//可记录修改过的文件,利器
 var plugins = require('gulp-load-plugins')();
@@ -174,7 +175,11 @@ gulp.task('bs-start',function () {
 gulp.task('bs-watch',function () {
     return gulp.watch('**/*.js,**/*.css,**/*.html').on('change', browserSync.reload);
 });
+gulp.task('bower', function() {
+    console.info("bower 第三方包下载中...");
+    return bower();
+});
 gulp.task('bs',gulpSequence(isPro()?'pro':'dev','bs-start','bs-watch'));//启动浏览器并自动刷新，用于开发模式
 gulp.task('pro', gulpSequence('dev','compress-all', 'version-all','clean-rev'));//生产环境打包配置
-gulp.task('dev', gulpSequence('clean', ['copy-module', 'copy-lib'], ['create-config-ng', 'build-css'],'create-config-ng'));//开发环境打包配置
+gulp.task('dev', gulpSequence('clean','bower', ['copy-module', 'copy-lib'], ['create-config-ng', 'build-css'],'create-config-ng'));//开发环境打包配置
 gulp.task('default',[isPro()?'pro':'dev']);//默认会根据/config.json文件进行环境的打包
