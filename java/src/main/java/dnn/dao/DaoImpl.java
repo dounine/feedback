@@ -12,6 +12,7 @@ import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.data.mongodb.core.query.Update;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Stream;
@@ -180,7 +181,7 @@ public class DaoImpl<Entity extends BaseEntity, Dto extends BaseDto> implements 
 
 
     @Override
-    public Entity findByMax(List<Object> fields) {
+    public Entity findByMax(List<Object> fields,Map<String,Object> conditions) {
         Sort.Direction sort = Sort.Direction.DESC;
         Stream<Object> stream = fields.stream();
         Query query = new Query();
@@ -188,13 +189,17 @@ public class DaoImpl<Entity extends BaseEntity, Dto extends BaseDto> implements 
             String field1 =(String)field;
             query.with(new Sort(sort,field1));
         }
-
+        if (null != conditions && conditions.size() > 0) {
+            for (Map.Entry<String, Object> entry : conditions.entrySet()) {
+                query.addCriteria(Criteria.where(entry.getKey()).is(entry.getValue()));
+            }
+        }
 
         return mongoTemplate.findOne(query,clazz);
     }
 
     @Override
-    public Entity findByMin(List<Object> fields) {
+    public Entity findByMin(List<Object> fields,Map<String,Object> conditions) {
         Sort.Direction sort = Sort.Direction.ASC;
         Stream<Object> stream = fields.stream();
         Query query = new Query();
@@ -202,7 +207,11 @@ public class DaoImpl<Entity extends BaseEntity, Dto extends BaseDto> implements 
             String field1 =(String)field;
             query.with(new Sort(sort,field1));
         }
-
+        if (null != conditions && conditions.size() > 0) {
+            for (Map.Entry<String, Object> entry : conditions.entrySet()) {
+                query.addCriteria(Criteria.where(entry.getKey()).is(entry.getValue()));
+            }
+        }
 
         return mongoTemplate.findOne(query,clazz);
     }

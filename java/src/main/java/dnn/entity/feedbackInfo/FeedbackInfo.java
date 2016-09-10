@@ -30,7 +30,7 @@ public class FeedbackInfo extends BaseEntity {
     private String detectionNum;//编号: 年份ST(001`以上)
     private Long detectionNo;//(001--)
     private OperatorStatus operatorStatus;//用户操作状态
-    private Long copyNum;//
+    private Long copyNum;//版本号
     @Transient
     private String customerName ;//用户名
 

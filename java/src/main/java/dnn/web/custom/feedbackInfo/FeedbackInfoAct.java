@@ -47,7 +47,13 @@ public class FeedbackInfoAct {
         return text;
     }
 
-
+    /**
+     * 查看所有工单
+     * 或根据参数feedbackstatus  或  工单号  查看
+     * @param dto
+     * @return
+     * @throws Throwable
+     */
     @GetMapping("maps")
     public ResponseText maps(FeedbackInfoDto dto) throws Throwable {
         Map<String,Object> maps = new HashMap<>();
@@ -69,25 +75,13 @@ public class FeedbackInfoAct {
         field.add("chemicalCell.chemicalCellSubmitDate");
         String userId="57cea14279d26cd0708e9d18";
         field.add(userId);
-        FeedbackInfo s=iSerFeedbackInfo.findByMax(field);
+        FeedbackInfo s=iSerFeedbackInfo.findByMax(field,null);
 
-        ClassLoader savePath = this.getClass().getClassLoader();
-        String rootPath=getClass().getResource("/").getFile().toString();
-        String rootPath1=getClass().getResource("../").getFile().toString();
-        String rootPath2=getClass().getResource("../../../../../").getFile().toString();
-
-        //保存文件的路径
-//        savePath = savePath + "/upload/";
-//        File f1 = new File(savePath);
-        System.out.println("哈哈:"+savePath);
-        System.out.println("哈:"+rootPath);
-        System.out.println("哈:"+rootPath1);
-        System.out.println("哈:"+rootPath2);
         return new ResponseText<>(s);
     }
 
     /**
-     *通过用户id和工单号查看
+     *通过用户id和工单号查看 最新的一个
      * @param feedbackInfo
      * @return  返回最新的版本
      * @throws Throwable
@@ -120,13 +114,6 @@ public class FeedbackInfoAct {
     @GetMapping("confirmFeedback")
     public ResponseText confirmFeedback(FeedbackInfo feedbackInfo) throws Throwable {
         iSerFeedbackInfo.confirmFeedback(feedbackInfo);
-        ResponseText text = new ResponseText();
-        return text;
-    }
-
-    @GetMapping("uploadChargeFile")
-    public ResponseText uploadChargeFile(HttpServletRequest request) throws Throwable {
-        iSerFeedbackInfo.uploadChargeFile(request);
         ResponseText text = new ResponseText();
         return text;
     }
