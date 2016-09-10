@@ -1,5 +1,6 @@
 package dnn.common.utils;
 
+import dnn.common.request.RequestContext;
 import dnn.entity.user.User;
 
 import javax.servlet.http.Cookie;
@@ -10,7 +11,11 @@ import javax.servlet.http.HttpServletRequest;
  */
 public class RequestUtils {
 
-    public static Cookie getUserTokenCookie(HttpServletRequest request){
+    public static Cookie getUserTokenCookie(){
+        return getUserTokenCookie(RequestContext.get());
+    }
+
+    public static final Cookie getUserTokenCookie(HttpServletRequest request){
         Cookie[] cookies = request.getCookies();
         Cookie tokenCookie = null;
         if(null!=cookies){
