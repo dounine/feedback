@@ -169,11 +169,15 @@ gulp.task('clean-rev', function () {//清除临时文件
 });
 gulp.task('bs-start',function () {
     return browserSync.init({
-        proxy: config()['lurl']
+        proxy: config()['lurl'],
+        port: 3000,
+        open: false,//自动打开浏览器
+        notify: true,//通知
+        reloadDelay: 10 // 延迟刷新
     });
 });
 gulp.task('bs-watch',function () {
-    return gulp.watch('**/*.js,**/*.css,**/*.html').on('change', browserSync.reload);
+    return gulp.watch(['./app/tpls/**/*.html','./app/**/*.css','./app/js/**/*.js']).on('change',browserSync.reload);
 });
 gulp.task('bower', function() {
     console.info("bower 第三方包下载中...");
