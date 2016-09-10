@@ -24,3 +24,10 @@ java/src/main/resources/rebel.xml
 **/.idea/
 .idea/
 design/psd/
+#nodeapp
+**/app/css/rev/
+**/app/img/rev/
+**/app/js/rev/
+**/app/lib/
+**/app/sass/rev/
+**/app/tpls/rev/
