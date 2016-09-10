@@ -12,7 +12,12 @@ repositories {
 }
 
 dependencies {
+    compile "org.apache.httpcomponents:httpclient:$httpclient_version"
+    compile "org.apache.httpcomponents:httpmime:$httpclient_version"
     compile "com.dounine:clouddisk:$clouddisk_version"
+    compile "org.powermock:powermock-module-junit4:$powermock_version"
+    compile "org.powermock:powermock-api-mockito:$powermock_version"
+    compile "org.powermock:powermock-api-easymock:$powermock_version"
     compile "org.springframework:spring-webmvc:$spring_version"
     compile "org.springframework.data:spring-data-mongodb:$spring_data_mongodb_version"
     compile "org.hibernate:hibernate-validator:$hibernate_validator_version"
