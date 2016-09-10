@@ -1,0 +1,17 @@
+<!DOCTYPE HTML>
+<HTML xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<title>feedback user</title>
+		<link rel="stylesheet" href="/login/app/lib/bootstrap/dist/css/bootstrap.min.css">
+		<link rel="stylesheet" href="/login/app/lib/angular-loading-bar/build/loading-bar.min.css" type='text/css' media='all' >
+		<link rel="stylesheet" href="/login/app/sass/rev/login.css">
+		<link rel="shortcut icon" href="/login/app/res/img/form/favicon.ico" />
+	</head>
+	<body ng-app="app" ctx="/">
+		<div ui-view></div>
+		<script src="/login/app/lib/requirejs/require.js"></script>
+		<script>
+			require(['/login/app/js/rev/main.js?_t='+new Date().getTime()]);
+		</script>
+	</body>
+</html>
