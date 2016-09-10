@@ -6,7 +6,11 @@ import dnn.entity.feedbackInfo.detection.DetectionInfo;
 import dnn.entity.feedbackInfo.specimen.ChemicalCell;
 import dnn.entity.feedbackInfo.specimen.PhysicalEnergy;
 import dnn.enums.FeedbackStatus;
+import dnn.enums.OperatorStatus;
+import org.springframework.data.annotation.Transient;
+import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.expression.spel.ast.Operator;
 
 import java.time.LocalDateTime;
 
@@ -16,20 +20,28 @@ import java.time.LocalDateTime;
  */
 @Document
 public class FeedbackInfo extends BaseEntity {
-    private String user_id;
+    private String userId;//只设客户id,管理员不用
     private LocalDateTime createTime = LocalDateTime.now();
     private DetectionInfo detectionInfo ; //检测信息
     private InvoiceInfo invoiceInfo; //发票信息
     private ChemicalCell chemicalCell; //化学电池
     private PhysicalEnergy physicalEnergy; //物理电池
     private FeedbackStatus feedbackStatus ; //处理状态
+    private String detectionNum;//编号: 年份ST(001`以上)
+    private Long detectionNo;//(001--)
+    private OperatorStatus operatorStatus;//用户操作状态
+    private Long copyNum;//
+    @Transient
+    private String customerName ;//用户名
 
-    public String getUser_id() {
-        return user_id;
+
+
+    public String getUserId() {
+        return userId;
     }
 
-    public void setUser_id(String user_id) {
-        this.user_id = user_id;
+    public void setUserId(String userId) {
+        this.userId = userId;
     }
 
     public LocalDateTime getCreateTime() {
@@ -78,5 +90,45 @@ public class FeedbackInfo extends BaseEntity {
 
     public void setFeedbackStatus(FeedbackStatus feedbackStatus) {
         this.feedbackStatus = feedbackStatus;
+    }
+
+    public String getCustomerName() {
+        return customerName;
+    }
+
+    public void setCustomerName(String customerName) {
+        this.customerName = customerName;
+    }
+
+    public String getDetectionNum() {
+        return detectionNum;
+    }
+
+    public void setDetectionNum(String detectionNum) {
+        this.detectionNum = detectionNum;
+    }
+
+    public Long getDetectionNo() {
+        return detectionNo;
+    }
+
+    public void setDetectionNo(Long detectionNo) {
+        this.detectionNo = detectionNo;
+    }
+
+    public OperatorStatus getOperatorStatus() {
+        return operatorStatus;
+    }
+
+    public void setOperatorStatus(OperatorStatus operatorStatus) {
+        this.operatorStatus = operatorStatus;
+    }
+
+    public Long getCopyNum() {
+        return copyNum;
+    }
+
+    public void setCopyNum(Long copyNum) {
+        this.copyNum = copyNum;
     }
 }

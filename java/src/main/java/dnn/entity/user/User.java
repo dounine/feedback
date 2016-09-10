@@ -37,7 +37,7 @@ public class User extends BaseEntity{
 
     private LocalDateTime accessTime;
 
-    private UserType userType=UserType.MANAGER;
+    private UserType userType=UserType.CUSTOM;
 
     public LocalDateTime getAccessTime() {
         return accessTime;

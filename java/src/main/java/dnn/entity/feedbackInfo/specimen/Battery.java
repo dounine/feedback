@@ -2,7 +2,10 @@ package dnn.entity.feedbackInfo.specimen;
 
 import dnn.entity.BaseEntity;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -14,9 +17,8 @@ public class Battery extends BaseEntity{
     private String ts ; //型号规格
     private String trademark;//注册商标
     private String amount ;// 样品数量
-    private LocalDateTime submitDate; //送样日期
     private String size; //外形尺寸
-    private List<String> packTypes;//包装类型
+    private String packTypes;//包装类型
     private Boolean damage ; //是否损坏
     private String weight; // 重量
 
@@ -53,14 +55,6 @@ public class Battery extends BaseEntity{
         this.amount = amount;
     }
 
-    public LocalDateTime getSubmitDate() {
-        return submitDate;
-    }
-
-    public void setSubmitDate(LocalDateTime submitDate) {
-        this.submitDate = submitDate;
-    }
-
     public String getSize() {
         return size;
     }
@@ -69,11 +63,11 @@ public class Battery extends BaseEntity{
         this.size = size;
     }
 
-    public List<String> getPackTypes() {
+    public String getPackTypes() {
         return packTypes;
     }
 
-    public void setPackTypes(List<String> packTypes) {
+    public void setPackTypes(String packTypes) {
         this.packTypes = packTypes;
     }
 

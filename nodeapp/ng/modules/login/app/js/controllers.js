@@ -7,7 +7,11 @@ define(['angular','services'], function(angular,config) {
             "app.services.login"
         ]);
 
+<<<<<<< HEAD:nodeapp/public/ng/modules/login/app/js/controllers.js
+    app.controller("login", ctl);
+=======
     app.controller('login',['$scope','$rootScope','config','$http','$location',ctl]);
+>>>>>>> upstream/master:nodeapp/ng/modules/login/app/js/controllers.js
 
     function ctl($scope, $rootScope,config,$http,$location) {
         var vm = $scope;

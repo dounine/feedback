@@ -129,6 +129,7 @@ public interface IDao<Entity extends BaseEntity, Dto extends BaseDto> {
      */
     public List<Entity> findByCis(Map<String, Object> conditions);
 
+
     /**
      * 根据字段条件查询对象列表数量
      *
@@ -156,6 +157,18 @@ public interface IDao<Entity extends BaseEntity, Dto extends BaseDto> {
      * @param conditions
      */
     void removeByCis(Map<String, Object> conditions);
+
+    /**
+     * 根据列查找最大值对象
+     * @param fields
+     */
+    Entity findByMax(List<Object> fields);
+
+    /**
+     * 根据列查找最大值对象
+     * @param fields
+     */
+    Entity findByMin(List<Object> fields);
 
 
 }

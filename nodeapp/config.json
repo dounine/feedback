@@ -6,6 +6,11 @@
   },
   "pro": {
     "lurl": "http://localhost:8888",
+<<<<<<< HEAD
+  	"rurl": "http://localhost:8080",
+  	"rootFold":"dist/"
+=======
   	"rurl": "http://localhost:8080"
+>>>>>>> upstream/master
   }
 }
