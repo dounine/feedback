@@ -7,6 +7,7 @@ module.exports = function (argvs) {
         var rep = null;
         var options = {
             method: 'POST',
+            timeout:3000,
             uri: config()['rurl']+'/login',
             form: argvs,
             headers: {
