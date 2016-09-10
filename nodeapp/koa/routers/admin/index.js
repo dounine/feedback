@@ -8,10 +8,6 @@ var loginSer = require(path.resolve('public/koa/services/'+moduleName+'/index.js
 module.exports = function(config){
 	var router = new Router();
 	router.get('/'+moduleName,function *() {
-<<<<<<< HEAD:nodeapp/public/koa/routers/admin/index.js
-=======
-		console.info(path.resolve('public/ng/modules/'+moduleName+'/'+config['rootFold']+'/tpls')+'/index.html');
->>>>>>> upstream/master:nodeapp/koa/routers/admin/index.js
 		var stats = yield (sendfile(this, path.resolve('public/ng/modules/'+moduleName+'/'+config['rootFold']+'/tpls')+'/index.html'));
   		if (!this.status) this.throw(404)
 	}).post('/admin',function *() {

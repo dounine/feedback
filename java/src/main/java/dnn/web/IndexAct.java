@@ -44,7 +44,6 @@ public class IndexAct {
         return new ModelAndView("redirect:/login");
     }
 
-
     @GetMapping("login")
     public ModelAndView loginContext() {
         return new ModelAndView("user/login");

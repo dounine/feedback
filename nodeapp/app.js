@@ -7,7 +7,6 @@ var koaBody = require('koa-body');
 var json = require('koa-json');
 var cors = require('koa-cors');
 const routersPath = '/koa/routers/';
-var config = require(path.resolve('public/gulp-plugins/read-config.js'))();//读取开发与生产环境配置文件
 var config = require(path.resolve('plugins/read-config.js'))();//读取开发与生产环境配置文件
 
 //============路由跳转=============
