@@ -67,6 +67,9 @@ header{
                     .icon_bonton{background: url(/html/web/feedback/img/sanjiao1.png) center no-repeat;}
                      
                 }
+                &.active{
+                    background: #29b8f4 ;
+                }
             }
             &.li-sec{
                 text-indent: 10px;
@@ -128,6 +131,17 @@ header{
                     }
                 }
           
+            }
+            .userinfo{
+                margin-top: 50px;
+                label{
+                    color: #666;
+                    font-size: 16px;
+                    span{color: red;}
+                }
+            .form-success{border: 1px solid green;}
+            .form-err{border: 1px solid red;}
+            .form-iferr{color: red;}   
             }
             
             #teshuli{

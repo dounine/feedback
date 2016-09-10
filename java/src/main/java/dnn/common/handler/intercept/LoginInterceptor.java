@@ -54,10 +54,12 @@ public class LoginInterceptor implements HandlerInterceptor {
                 if(UserSession.verify(tokenCookie.getValue())){//验证令牌的正确性
                     UserSession.update(tokenCookie.getValue());//更新会话
                     UserType userType = UserSession.findByToken(tokenCookie.getValue()).getUserType();
-                    if(UserType.CUSTOM.equals(userType)){
-                        response.sendRedirect("/custom");
-                    }else{
-                        response.sendRedirect("/admin");
+                    if(!"/login".equals(url)){//除登录请求,其余请求全部拦截
+                        if(UserType.CUSTOM.equals(userType)){
+                            response.sendRedirect("/custom");
+                        }else{
+                            response.sendRedirect("/admin");
+                        }
                     }
                 }else{
                     tokenCookie.setMaxAge(0);//清除验证失败cookie

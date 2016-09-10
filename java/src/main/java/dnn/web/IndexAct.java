@@ -99,11 +99,12 @@ public class IndexAct {
             UserType userType = UserSession.findByToken(token).getUserType();
             if(callbackFun){
                 sb.append(callback);
-                sb.append(String.format("({\"token\":\"%s\",\"userType\":\"%s\"})",token,userType.getValue()));
+                sb.append(String.format("({\"token\":\"%s\",\"userType\":\"%s\"})",token,userType));
                 ResponseContext.writeData(sb);
             }else{
                 rt = new ResponseText();
-                rt.setData(String.format("{\"token\":\"%s\",\"userType\":\"%s\"}",token,userType.getValue()));
+                rt.setData(String.format("{\"token\":\"%s\",\"userType\":\"%s\"}",token,userType));
+
                 Cookie tokenCookie = new Cookie("token",token);
                 ResponseContext.get().addCookie(tokenCookie);
             }
