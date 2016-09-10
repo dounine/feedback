@@ -156,15 +156,15 @@ public interface IService<Entity extends BaseEntity, Dto extends BaseDto> {
     void removeByCis(Map<String, Object> conditions)throws SerException ;
 
     /**
-     * 根据列查找最大值对象
+     * 根据列 和条件查找最大值对象
      * @param fields
      */
-    Entity findByMax(List<Object> fields)throws SerException ;
+    Entity findByMax(List<Object> fields,Map<String,Object> conditions)throws SerException ;
 
     /**
-     * 根据列查找最大值对象
+     * 根据列和条件查找最大值对象
      * @param fields
      */
-    Entity findByMin(List<Object> fields)throws SerException ;
+    Entity findByMin(List<Object> fields,Map<String,Object> conditions)throws SerException ;
 
 }

@@ -90,12 +90,19 @@ public class FeedbackInfoSerImpl extends ServiceImpl<FeedbackInfo,FeedbackInfoDt
 //            maps.put("detectionNum", dto.getSearchCondition());
         }*/
 
+
         User user = new User();
+        user.setUserType(UserType.MANAGER);
         String userId ="57cfdf3179d23f8f570f49fd";
         Map<String,Object> maps =dto.getConditions();
         if(user.getUserType().equals(UserType.CUSTOM)){
             maps.put("userId",userId);
+        }
+
+        if(dto.getStatus()!=null){
             maps.put("feedbackStatus", dto.getStatus().name());
+        }
+        if(dto.getSearchCondition()!=null){
             maps.put("detectionNum", dto.getSearchCondition());//根据工单号查询
         }
     }
@@ -133,18 +140,19 @@ public class FeedbackInfoSerImpl extends ServiceImpl<FeedbackInfo,FeedbackInfoDt
 
     @Override
     public FeedbackInfo findOneInfo(FeedbackInfo feedbackInfo) throws SerException {
-        Map<String, Object> conditions = new HashMap<>();
+        Map<String, Object> conditions = new HashMap<>(0);
+        Map<String, Object> criteria = new HashMap<>(1);
         //得捣最新的版本
         List<Object> field=new ArrayList<>(0);
         field.add("copyNum");
-        FeedbackInfo maxByCopyNum = findByMax(field);
+        criteria.put("userId",feedbackInfo.getUserId());
+        criteria.put("detectionNum",feedbackInfo.getDetectionNum());
+        FeedbackInfo maxByCopyNum = findByMax(field,criteria);
 
-        conditions.put("detectionNum",feedbackInfo.getDetectionNum());
-        conditions.put("copyNum",maxByCopyNum.getCopyNum());
-        conditions.put("userId",feedbackInfo.getUserId());
+        User user = serUser.findById(feedbackInfo.getUserId());
+        maxByCopyNum.setCustomerName(user.getUsername());
 
-//        FeedbackInfo feedbackInfo1 =findOne(conditions);
-        return findOne(conditions);
+        return maxByCopyNum;
     }
 
     @Override
@@ -179,8 +187,11 @@ public class FeedbackInfoSerImpl extends ServiceImpl<FeedbackInfo,FeedbackInfoDt
 
         //得捣最新的版本
         List<Object> field=new ArrayList<>(0);
+        Map<String,Object> map =new HashMap<>(0);
         field.add("copyNum");
-        FeedbackInfo maxByCopyNum = findByMax(field);
+        map.put("detectionNum",feedbackInfo.getDetectionNum());
+        map.put("userId",feedbackInfo.getUserId());
+        FeedbackInfo maxByCopyNum = findByMax(field,map);
         feedbackInfo.setCopyNum(maxByCopyNum.getCopyNum()+001L);
 
         super.save(feedbackInfo);
@@ -201,78 +212,26 @@ public class FeedbackInfoSerImpl extends ServiceImpl<FeedbackInfo,FeedbackInfoDt
 
         //得捣最新的版本
         List<Object> field=new ArrayList<>(0);
+        Map<String,Object> map =new HashMap<>(0);
         field.add("copyNum");
-        FeedbackInfo maxByCopyNum = findByMax(field);
+        map.put("userId",feedbackInfo.getUserId());
+        map.put("detectionNum",feedbackInfo.getDetectionNum());
+        FeedbackInfo maxByCopyNum = findByMax(field,map);
         feedbackInfo.setCopyNum(maxByCopyNum.getCopyNum()+001L);
         feedbackInfo.setOperatorStatus(OperatorStatus.HANDLECONFIRM);
         super.save(feedbackInfo);
     }
 
-    @Override
-    public void uploadChargeFile(HttpServletRequest request) {
-        UploadContext upload = new UploadContext() {
-            @Override
-            public long contentLength() {
-                return 0;
-            }
-
-            @Override
-            public String getCharacterEncoding() {
-                return null;
-            }
-
-            @Override
-            public String getContentType() {
-                return null;
-            }
-
-            @Override
-            public int getContentLength() {
-                return 0;
-            }
-
-            @Override
-            public InputStream getInputStream() throws IOException {
-                return null;
-            }
-        };
-
-        String rootPath2=getClass().getResource("../../../../../").getFile().toString();
-        rootPath2 = rootPath2+"/doc";
-        File templeFile =new File(rootPath2);
-        try {
-            DiskFileItemFactory factory = new DiskFileItemFactory();
-            factory.setSizeThreshold(1024*1024*5); // 设置缓冲区大小，这里是5M
-            factory.setRepository(templeFile);// 设置缓冲区目录
-            ServletFileUpload uploadfile = new ServletFileUpload(factory);
-
-            uploadfile.setSizeMax(4194304); // 设置最大文件尺寸，这里是4MB
-
-            List<FileItem> items = uploadfile.parseRequest(request);// 得到所有的文件
-            Iterator<FileItem> i = items.iterator();
-            while (i.hasNext()) {
-                FileItem fi = (FileItem) i.next();
-                String fileName = fi.getName();
-                if (fileName != null) {
-                    File fullFile = new File(new String(fi.getName().getBytes(), "utf-8")); // 解决文件名乱码问题
-                    File savedFile = new File(rootPath2, fullFile.getName());
-                    fi.write(savedFile);
-                }
-            }
-            System.out.print("upload succeed");
-        } catch (Exception e) {
-
-        }
-    }
-
     public FeedbackInfo getDealFeedbackInfo(FeedbackInfo feedbackInfo) {
 
-        List<Online>  userSession=UserSession.sessions();
+       /* List<Online>  userSession=UserSession.sessions();
         UserType userType= userSession.get(0).getUserType();
-        String userId = userSession.get(0).getId();
-        if(userType.equals(UserType.CUSTOM)){
+        String userId = userSession.get(0).getId();*/
+       User user =new User();
+        user.setUserType(UserType.CUSTOM);
+        String userId="57cfdf3179d23f8f570f49fd";
+        if(user.getUserType().equals(UserType.CUSTOM)){
             feedbackInfo.setUserId(userId);//设置当前用户的user_id
-//            feedbackInfo.setUserId("57cea14279d26cd0708e9d18");//设置当前用户的user_id
             //设置工单号
             makeDetectionNum(feedbackInfo,userId);
         }
@@ -284,6 +243,7 @@ public class FeedbackInfoSerImpl extends ServiceImpl<FeedbackInfo,FeedbackInfoDt
         Long detectionNo=001L;
         Date date = new Date();
 
+        Map<String,Object> map =new HashMap<>(0);
         List<Object> field = new ArrayList<>(1);
         if(feedbackInfo.getChemicalCell()!=null){
             field.add("chemicalCell.chemicalCellSubmitDate");
@@ -292,17 +252,21 @@ public class FeedbackInfoSerImpl extends ServiceImpl<FeedbackInfo,FeedbackInfoDt
         }
 
         field.add(userId);
+        map.put("userId",userId);
         FeedbackInfo feedbackInfos=null;
         try {
-            feedbackInfos = findByMax(field);
+            feedbackInfos = findByMax(field,map);
         }catch (SerException e){
             e.printStackTrace();
         }
-        if(feedbackInfos.getDetectionNo() !=0){
-            detectionNo = feedbackInfos.getDetectionNo()+001L;
-        }else{
-            detectionNo = 001L;
+        if(feedbackInfos != null){
+            if(feedbackInfos.getDetectionNo() !=0){
+                detectionNo = feedbackInfos.getDetectionNo()+001L;
+            }else{
+                detectionNo = 001L;
+            }
         }
+
         detectionNum = date.getYear()+"ST"+detectionNo;
         feedbackInfo.setDetectionNo(detectionNo);
         feedbackInfo.setDetectionNum(detectionNum);

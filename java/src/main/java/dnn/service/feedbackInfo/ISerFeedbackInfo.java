@@ -19,9 +19,5 @@ public interface ISerFeedbackInfo extends IService<FeedbackInfo,FeedbackInfoDto>
     FeedbackInfo findOneInfo(FeedbackInfo feedbackInfo)throws SerException;
     void updateOneInfo(FeedbackInfo feedbackInfo)throws SerException;
     void confirmFeedback(FeedbackInfo feedbackInfo)throws SerException;
-    void uploadChargeFile(HttpServletRequest request);
-
-//    List<Map<String, Object>> findAllByFeedbackStatus( String feedbackStatus ,String searchCondition) throws SerException;
-//    public FeedbackInfo getDealFeedbackInfo(FeedbackInfo feedbackInfo) throws Throwable;
 
     }
