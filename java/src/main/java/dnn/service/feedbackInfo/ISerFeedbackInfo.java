@@ -15,9 +15,13 @@ import java.util.Map;
  */
 public interface ISerFeedbackInfo extends IService<FeedbackInfo,FeedbackInfoDto> {
 
-    List<FeedbackInfo> findByUserId(String user_id)throws SerException;
+    List<FeedbackInfo> findByUserId(String userId)throws SerException;
+    FeedbackInfo findOneInfo(FeedbackInfo feedbackInfo)throws SerException;
+    void updateOneInfo(FeedbackInfo feedbackInfo)throws SerException;
+    void confirmFeedback(FeedbackInfo feedbackInfo)throws SerException;
+    void uploadChargeFile(HttpServletRequest request);
 
 //    List<Map<String, Object>> findAllByFeedbackStatus( String feedbackStatus ,String searchCondition) throws SerException;
-    public FeedbackInfo getDealFeedbackInfo(FeedbackInfo feedbackInfo, String CustomerSubmitDate,String p_submitDate,String disposeType) throws Throwable;
+//    public FeedbackInfo getDealFeedbackInfo(FeedbackInfo feedbackInfo) throws Throwable;
 
     }

@@ -1,5 +1,7 @@
 package dnn.entity.feedbackInfo.specimen;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 /**
@@ -10,6 +12,7 @@ public class PhysicalEnergy extends Battery {
 
     private String serialNumber; //样品序列号
     private String materialTypes; //单体电池材料类型
+    private LocalDateTime physicalEnergySubmitDate; //送样日期
 
 
     //单体相关参数
@@ -129,5 +132,13 @@ public class PhysicalEnergy extends Battery {
 
     public void setVoltage(String voltage) {
         this.voltage = voltage;
+    }
+
+    public LocalDateTime getPhysicalEnergySubmitDate() {
+        return physicalEnergySubmitDate;
+    }
+
+    public void setPhysicalEnergySubmitDate(LocalDateTime physicalEnergySubmitDate) {
+        this.physicalEnergySubmitDate = physicalEnergySubmitDate;
     }
 }

@@ -17,8 +17,6 @@ public class Battery extends BaseEntity{
     private String ts ; //型号规格
     private String trademark;//注册商标
     private String amount ;// 样品数量
-    private LocalDate submitDate; //送样日期
-    private Date sudate;
     private String size; //外形尺寸
     private String packTypes;//包装类型
     private Boolean damage ; //是否损坏
@@ -55,14 +53,6 @@ public class Battery extends BaseEntity{
 
     public void setAmount(String amount) {
         this.amount = amount;
-    }
-
-    public LocalDate getSubmitDate() {
-        return submitDate;
-    }
-
-    public void setSubmitDate(LocalDate submitDate) {
-        this.submitDate = submitDate;
     }
 
     public String getSize() {

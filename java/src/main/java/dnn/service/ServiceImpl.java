@@ -140,9 +140,21 @@ public class ServiceImpl<Entity extends BaseEntity, Dto extends BaseDto> extends
     }
 
     @Override
+    public Entity findByMax(List<Object> fields) throws SerException {
+        return dao.findByMax(fields);
+    }
+
+    @Override
+    public Entity findByMin(List<Object> fields) throws SerException {
+        return dao.findByMin(fields);
+    }
+
+    @Override
     public void removeByCis(Map<String, Object> conditions) throws SerException {
         dao.removeByCis(conditions);
     }
+
+
 
     private Query init_search(Query query, Dto dto) {
 

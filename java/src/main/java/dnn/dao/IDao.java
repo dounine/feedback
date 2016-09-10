@@ -158,5 +158,17 @@ public interface IDao<Entity extends BaseEntity, Dto extends BaseDto> {
      */
     void removeByCis(Map<String, Object> conditions);
 
+    /**
+     * 根据列查找最大值对象
+     * @param fields
+     */
+    Entity findByMax(List<Object> fields);
+
+    /**
+     * 根据列查找最大值对象
+     * @param fields
+     */
+    Entity findByMin(List<Object> fields);
+
 
 }
