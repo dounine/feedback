@@ -3,6 +3,7 @@ package dnn.service;
 import dnn.dto.BaseDto;
 import dnn.common.exception.SerException;
 import dnn.entity.BaseEntity;
+import org.springframework.data.mongodb.core.mapreduce.GroupByResults;
 import org.springframework.data.mongodb.core.query.Criteria;
 
 import java.util.List;
@@ -166,5 +167,7 @@ public interface IService<Entity extends BaseEntity, Dto extends BaseDto> {
      * @param fields
      */
     Entity findByMin(List<Object> fields,Map<String,Object> conditions)throws SerException ;
+
+    void UpdateByCis2(Entity entities, String key ,Object value)throws SerException ;
 
 }

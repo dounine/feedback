@@ -9,7 +9,7 @@ import java.time.LocalDateTime;
  */
 public class ChemicalCell extends Battery{
     private String parameter; //冲放电参数
-    private LocalDateTime chemicalCellSubmitDate  =LocalDateTime.now() ; //送样日期
+    private LocalDateTime chemicalCellSubmitDate  ; //送样日期
     public String getParameter() {
         return parameter;
     }

@@ -12,6 +12,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
+import org.springframework.data.mongodb.core.mapreduce.GroupByResults;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import java.time.LocalDate;
@@ -113,7 +114,10 @@ public class ServiceImpl<Entity extends BaseEntity, Dto extends BaseDto> extends
     public void update(Entity entity) throws SerException {
         dao.update(entity);
     }
-
+    @Override
+    public void UpdateByCis2(Entity entities, String key ,Object value)throws SerException {
+        dao.UpdateByCis2(entities,key,value);
+    }
     @Override
     public void update(List<Entity> entities) {
         dao.update(entities);

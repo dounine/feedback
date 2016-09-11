@@ -8,6 +8,9 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.mongodb.core.MongoTemplate;
+import org.springframework.data.mongodb.core.aggregation.Aggregation;
+import org.springframework.data.mongodb.core.mapreduce.GroupBy;
+import org.springframework.data.mongodb.core.mapreduce.GroupByResults;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.data.mongodb.core.query.Update;
@@ -168,6 +171,12 @@ public class DaoImpl<Entity extends BaseEntity, Dto extends BaseDto> implements 
     }
 
     @Override
+    public void UpdateByCis2(Entity entities, String key ,Object value) {
+        mongoTemplate.updateFirst(new Query(Criteria.where("id").is(entities.getId())),
+                    Update.update(key,value), clazz);
+    }
+
+    @Override
     public void removeByCis(Map<String, Object> conditions) {
 
         Query query = new Query();
@@ -215,4 +224,5 @@ public class DaoImpl<Entity extends BaseEntity, Dto extends BaseDto> implements 
 
         return mongoTemplate.findOne(query,clazz);
     }
+
 }

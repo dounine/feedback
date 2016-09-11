@@ -31,6 +31,7 @@ public class FeedbackInfo extends BaseEntity {
     private Long detectionNo;//(001--)
     private OperatorStatus operatorStatus;//用户操作状态
     private Long copyNum;//版本号
+    private Long finalCopyField;//最终版本字段
     @Transient
     private String customerName ;//用户名
 
@@ -130,5 +131,13 @@ public class FeedbackInfo extends BaseEntity {
 
     public void setCopyNum(Long copyNum) {
         this.copyNum = copyNum;
+    }
+
+    public Long getFinalCopyField() {
+        return finalCopyField;
+    }
+
+    public void setFinalCopyField(Long finalCopyField) {
+        this.finalCopyField = finalCopyField;
     }
 }
