@@ -19,5 +19,6 @@ public interface ISerFeedbackInfo extends IService<FeedbackInfo,FeedbackInfoDto>
     FeedbackInfo findOneInfo(FeedbackInfo feedbackInfo)throws SerException;
     void updateOneInfo(FeedbackInfo feedbackInfo)throws SerException;
     void confirmFeedback(FeedbackInfo feedbackInfo)throws SerException;
+    void deleteFeedback(FeedbackInfo feedbackInfo)throws SerException;
 
     }

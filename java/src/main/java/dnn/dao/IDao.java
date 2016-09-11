@@ -3,6 +3,7 @@ package dnn.dao;
 import dnn.common.exception.SerException;
 import dnn.dto.BaseDto;
 import dnn.entity.BaseEntity;
+import org.springframework.data.mongodb.core.mapreduce.GroupByResults;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 
@@ -123,6 +124,14 @@ public interface IDao<Entity extends BaseEntity, Dto extends BaseDto> {
     void update(List<Entity> entities);
 
     /**
+     * 更新某个特定字段
+     * @param entities
+     * @param key
+     * @param value
+     */
+    void UpdateByCis2(Entity entities, String key ,Object value) ;
+
+    /**
      * 根据字段条件查询对象列表
      *
      * @param conditions
@@ -169,6 +178,5 @@ public interface IDao<Entity extends BaseEntity, Dto extends BaseDto> {
      * @param fields
      */
     Entity findByMin(List<Object> fields,Map<String,Object> conditions);
-
 
 }

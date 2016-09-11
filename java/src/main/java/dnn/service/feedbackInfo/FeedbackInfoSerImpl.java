@@ -79,20 +79,8 @@ public class FeedbackInfoSerImpl extends ServiceImpl<FeedbackInfo,FeedbackInfoDt
     }
 
     private  void  intoDto(FeedbackInfoDto dto){
-        /*List<Online>  userSession=UserSession.sessions();
-        UserType userType= userSession.get(0).getUserType();
-        String userId = userSession.get(0).getId();
-
-        Map<String,Object> maps =dto.getConditions();
-        if(userType.equals(UserType.CUSTOM)){
-            maps.put("userId",userId);
-            maps.put("feedbackStatus", dto.getStatus().name());
-//            maps.put("detectionNum", dto.getSearchCondition());
-        }*/
-
-
         User user = new User();
-        user.setUserType(UserType.MANAGER);
+        user.setUserType(UserType.MANAGER);//TODO 从当前登录的用户获取
         String userId ="57cfdf3179d23f8f570f49fd";
         Map<String,Object> maps =dto.getConditions();
         if(user.getUserType().equals(UserType.CUSTOM)){
@@ -105,6 +93,9 @@ public class FeedbackInfoSerImpl extends ServiceImpl<FeedbackInfo,FeedbackInfoDt
         if(dto.getSearchCondition()!=null){
             maps.put("detectionNum", dto.getSearchCondition());//根据工单号查询
         }
+        maps.put("finalCopyField",1);
+
+
     }
 
     /**
@@ -127,6 +118,7 @@ public class FeedbackInfoSerImpl extends ServiceImpl<FeedbackInfo,FeedbackInfoDt
         feedbackInfo= getDealFeedbackInfo(feedbackInfo);
         feedbackInfo.setOperatorStatus(OperatorStatus.INIT);
         feedbackInfo.setCopyNum(1L);
+        feedbackInfo.setFinalCopyField(1L);
 
         super.save(feedbackInfo);
     }
@@ -142,7 +134,7 @@ public class FeedbackInfoSerImpl extends ServiceImpl<FeedbackInfo,FeedbackInfoDt
     public FeedbackInfo findOneInfo(FeedbackInfo feedbackInfo) throws SerException {
         Map<String, Object> conditions = new HashMap<>(0);
         Map<String, Object> criteria = new HashMap<>(1);
-        //得捣最新的版本
+        //得到最新的版本
         List<Object> field=new ArrayList<>(0);
         field.add("copyNum");
         criteria.put("userId",feedbackInfo.getUserId());
@@ -167,34 +159,50 @@ public class FeedbackInfoSerImpl extends ServiceImpl<FeedbackInfo,FeedbackInfoDt
         }else{
             feedbackInfo.setPhysicalEnergy(null);
         }
-        List<Online>  userSession=UserSession.sessions();
-        UserType userType= userSession.get(0).getUserType();
-
-        FeedbackInfo copyInfo = findById(feedbackInfo.getId());
-        if(copyInfo.getOperatorStatus().equals(OperatorStatus.INIT) && userType.equals(UserType.CUSTOM)){
-            feedbackInfo.setOperatorStatus(OperatorStatus.INIT);
-        }else if(copyInfo.getOperatorStatus().equals(OperatorStatus.INIT) && userType.equals(UserType.MANAGER)){
-            feedbackInfo.setOperatorStatus(OperatorStatus.MANAGERCONFIRM);
-        }else if(copyInfo.getOperatorStatus().equals(OperatorStatus.MANAGERCONFIRM) && userType.equals(UserType.CUSTOM)){
-            feedbackInfo.setOperatorStatus(OperatorStatus.CUSTOMCONFIRM);
-        }else if(copyInfo.getOperatorStatus().equals(OperatorStatus.MANAGERCONFIRM) && userType.equals(UserType.MANAGER)){
-            feedbackInfo.setOperatorStatus(OperatorStatus.MANAGERCONFIRM);
-        }else if(copyInfo.getOperatorStatus().equals(OperatorStatus.CUSTOMCONFIRM) && userType.equals(UserType.CUSTOM)){
-            feedbackInfo.setOperatorStatus(OperatorStatus.CUSTOMFINALCONFIRM);
-        }else if(copyInfo.getOperatorStatus().equals(OperatorStatus.CUSTOMCONFIRM) && userType.equals(UserType.MANAGER)){
-            feedbackInfo.setOperatorStatus(OperatorStatus.MANAGERCONFIRM);
-        }
-
-        //得捣最新的版本
+        UserType userType= UserType.MANAGER;//TODO 从当前登录的用户获取
+        //得到最新的版本
         List<Object> field=new ArrayList<>(0);
         Map<String,Object> map =new HashMap<>(0);
+        Map<String,Object> updateMap =new HashMap<>(1);
         field.add("copyNum");
         map.put("detectionNum",feedbackInfo.getDetectionNum());
         map.put("userId",feedbackInfo.getUserId());
         FeedbackInfo maxByCopyNum = findByMax(field,map);
-        feedbackInfo.setCopyNum(maxByCopyNum.getCopyNum()+001L);
+        super.UpdateByCis2(maxByCopyNum,"finalCopyField",0L);
 
-        super.save(feedbackInfo);
+        String str1=maxByCopyNum.getOperatorStatus().name().toString();
+        String str2=null;
+        if(userType.equals(UserType.CUSTOM)){
+            switch (str1){
+                case  "INIT":
+                    feedbackInfo.setOperatorStatus(OperatorStatus.INIT);//客户自行修改还是init
+                case  "MANAGERCONFIRM":
+                    feedbackInfo.setOperatorStatus(OperatorStatus.CUSTOMCONFIRM);//客户确认
+                case  "CUSTOMCONFIRM":
+                    feedbackInfo.setOperatorStatus(OperatorStatus.CUSTOMFINALCONFIRM);//客户最终确认
+                case  "CHARGENOT":
+                    feedbackInfo.setOperatorStatus(OperatorStatus.CHARGECONFIRM);//客户最终确认
+            }
+        }else if(userType.equals(UserType.MANAGER)){
+            switch (str1){
+                case  "INIT":
+                    feedbackInfo.setOperatorStatus(OperatorStatus.MANAGERCONFIRM);//管理员在init状态修改后变为managerconfirm
+                case  "MANAGERCONFIRM":
+                    feedbackInfo.setOperatorStatus(OperatorStatus.MANAGERCONFIRM);//管理员确认
+            }
+        }
+
+
+        feedbackInfo.setCopyNum(maxByCopyNum.getCopyNum()+001L);
+        feedbackInfo.setDetectionNo(maxByCopyNum.getDetectionNo());
+        feedbackInfo.setFinalCopyField(1L);
+        if(feedbackInfo.getOperatorStatus()!=null){
+            super.save(feedbackInfo);
+        }else{
+           Exception e =new Exception();
+            e.printStackTrace();
+        }
+
     }
 
     @Override
@@ -213,27 +221,35 @@ public class FeedbackInfoSerImpl extends ServiceImpl<FeedbackInfo,FeedbackInfoDt
         //得捣最新的版本
         List<Object> field=new ArrayList<>(0);
         Map<String,Object> map =new HashMap<>(0);
+        UserType userType= UserType.MANAGER;//TODO 从当前登录的用户获取
         field.add("copyNum");
         map.put("userId",feedbackInfo.getUserId());
         map.put("detectionNum",feedbackInfo.getDetectionNum());
         FeedbackInfo maxByCopyNum = findByMax(field,map);
+
+        if(maxByCopyNum.getOperatorStatus().equals(OperatorStatus.CHARGECONFIRM) && userType.equals(UserType.MANAGER)){
+            feedbackInfo.setOperatorStatus(OperatorStatus.HANDLECONFIRM);//客户最终确认
+        }
         feedbackInfo.setCopyNum(maxByCopyNum.getCopyNum()+001L);
-        feedbackInfo.setOperatorStatus(OperatorStatus.HANDLECONFIRM);
         super.save(feedbackInfo);
     }
 
-    public FeedbackInfo getDealFeedbackInfo(FeedbackInfo feedbackInfo) {
+    @Override
+    public void deleteFeedback(FeedbackInfo feedbackInfo) throws SerException {
+        Map<String ,Object> map =new HashMap<>(1);
+        map.put("detectionNum",feedbackInfo.getDetectionNum());
+        map.put("userId",feedbackInfo.getUserId());
+        super.removeByCis(map);
+    }
 
-       /* List<Online>  userSession=UserSession.sessions();
-        UserType userType= userSession.get(0).getUserType();
-        String userId = userSession.get(0).getId();*/
-       User user =new User();
+    public FeedbackInfo getDealFeedbackInfo(FeedbackInfo feedbackInfo) {
+        User user = new User();
         user.setUserType(UserType.CUSTOM);
-        String userId="57cfdf3179d23f8f570f49fd";
-        if(user.getUserType().equals(UserType.CUSTOM)){
+        String userId = "57cfdf3179d23f8f570f49fd";//TODO 从当前登录的用户获取
+        if (user.getUserType().equals(UserType.CUSTOM)) {
             feedbackInfo.setUserId(userId);//设置当前用户的user_id
             //设置工单号
-            makeDetectionNum(feedbackInfo,userId);
+            makeDetectionNum(feedbackInfo, userId);
         }
         return feedbackInfo;
     }
@@ -245,12 +261,8 @@ public class FeedbackInfoSerImpl extends ServiceImpl<FeedbackInfo,FeedbackInfoDt
 
         Map<String,Object> map =new HashMap<>(0);
         List<Object> field = new ArrayList<>(1);
-        if(feedbackInfo.getChemicalCell()!=null){
-            field.add("chemicalCell.chemicalCellSubmitDate");
-        }else{
-            field.add("physicalEnergy.physicalEnergySubmitDate");
-        }
 
+        field.add("detectionNum");
         field.add(userId);
         map.put("userId",userId);
         FeedbackInfo feedbackInfos=null;
@@ -267,7 +279,7 @@ public class FeedbackInfoSerImpl extends ServiceImpl<FeedbackInfo,FeedbackInfoDt
             }
         }
 
-        detectionNum = date.getYear()+"ST"+detectionNo;
+        detectionNum = date.getYear()+1900+"ST"+detectionNo;
         feedbackInfo.setDetectionNo(detectionNo);
         feedbackInfo.setDetectionNum(detectionNum);
 
