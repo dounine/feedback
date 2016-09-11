@@ -162,13 +162,13 @@ public interface IDao<Entity extends BaseEntity, Dto extends BaseDto> {
      * 根据列查找最大值对象
      * @param fields
      */
-    Entity findByMax(List<Object> fields);
+    Entity findByMax(List<Object> fields,Map<String,Object> conditions);
 
     /**
      * 根据列查找最大值对象
      * @param fields
      */
-    Entity findByMin(List<Object> fields);
+    Entity findByMin(List<Object> fields,Map<String,Object> conditions);
 
 
 }

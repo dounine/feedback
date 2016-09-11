@@ -1,6 +1,6 @@
 /*jshint unused: vars */
 require.config({
-	baseUrl: '../../login/',
+	baseUrl: './login',
 	paths: {
 		'app': 'app/js/rev/app',
 		'routers': 'app/js/rev/routers',
