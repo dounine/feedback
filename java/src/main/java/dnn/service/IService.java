@@ -155,7 +155,7 @@ public interface IService<Entity extends BaseEntity, Dto extends BaseDto> {
      * 删除符合条件对象列表
      * @param conditions
      */
-    void removeByCis(Map<String, Object> conditions)throws SerException ;
+    int removeByCis(Map<String, Object> conditions)throws SerException ;
 
     /**
      * 根据列 和条件查找最大值对象

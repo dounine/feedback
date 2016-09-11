@@ -124,13 +124,7 @@ public interface IDao<Entity extends BaseEntity, Dto extends BaseDto> {
      */
     void update(List<Entity> entities);
 
-    /**
-     *  更新某个特定字段
-     * @param entities
-     * @param key
-     * @param value
-     * @return 更新的结果
-     */
+
     WriteResult UpdateByCis2(Entity entities, String key , Object value) ;
 
     /**
@@ -167,7 +161,7 @@ public interface IDao<Entity extends BaseEntity, Dto extends BaseDto> {
      * 删除符合条件对象列表
      * @param conditions
      */
-    void removeByCis(Map<String, Object> conditions);
+    int removeByCis(Map<String, Object> conditions);
 
     /**
      * 根据列查找最大值对象

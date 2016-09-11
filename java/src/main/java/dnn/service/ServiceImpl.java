@@ -155,8 +155,9 @@ public class ServiceImpl<Entity extends BaseEntity, Dto extends BaseDto> extends
     }
 
     @Override
-    public void removeByCis(Map<String, Object> conditions) throws SerException {
-        dao.removeByCis(conditions);
+    public int removeByCis(Map<String, Object> conditions) throws SerException {
+        int result = dao.removeByCis(conditions);
+        return  result;
     }
 
 
