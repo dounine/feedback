@@ -1,5 +1,6 @@
 package dnn.service.feedbackInfo;
 
+import dnn.common.utils.UserContext;
 import dnn.dto.SearchJson;
 import dnn.dto.feedbackInfo.FeedbackInfoDto;
 import dnn.common.exception.SerException;
@@ -79,6 +80,8 @@ public class FeedbackInfoSerImpl extends ServiceImpl<FeedbackInfo,FeedbackInfoDt
     }
 
     private  void  intoDto(FeedbackInfoDto dto){
+//        UserType userType =UserContext.currentUser().getUserType();
+//        String userId = UserContext.currentUser().getId();
         User user = new User();
         user.setUserType(UserType.MANAGER);//TODO 从当前登录的用户获取
         String userId ="57cfdf3179d23f8f570f49fd";
@@ -159,6 +162,7 @@ public class FeedbackInfoSerImpl extends ServiceImpl<FeedbackInfo,FeedbackInfoDt
         }else{
             feedbackInfo.setPhysicalEnergy(null);
         }
+//        UserType userType =UserContext.currentUser().getUserType();
         UserType userType= UserType.MANAGER;//TODO 从当前登录的用户获取
         //得到最新的版本
         List<Object> field=new ArrayList<>(0);
@@ -221,6 +225,7 @@ public class FeedbackInfoSerImpl extends ServiceImpl<FeedbackInfo,FeedbackInfoDt
         //得捣最新的版本
         List<Object> field=new ArrayList<>(0);
         Map<String,Object> map =new HashMap<>(0);
+//        UserType userType =UserContext.currentUser().getUserType();
         UserType userType= UserType.MANAGER;//TODO 从当前登录的用户获取
         field.add("copyNum");
         map.put("userId",feedbackInfo.getUserId());
@@ -243,6 +248,8 @@ public class FeedbackInfoSerImpl extends ServiceImpl<FeedbackInfo,FeedbackInfoDt
     }
 
     public FeedbackInfo getDealFeedbackInfo(FeedbackInfo feedbackInfo) {
+//        UserType userType =UserContext.currentUser().getUserType();
+//        String userId = UserContext.currentUser().getId();
         User user = new User();
         user.setUserType(UserType.CUSTOM);
         String userId = "57cfdf3179d23f8f570f49fd";//TODO 从当前登录的用户获取

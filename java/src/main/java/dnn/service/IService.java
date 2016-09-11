@@ -1,5 +1,6 @@
 package dnn.service;
 
+import com.mongodb.WriteResult;
 import dnn.dto.BaseDto;
 import dnn.common.exception.SerException;
 import dnn.entity.BaseEntity;
@@ -168,6 +169,14 @@ public interface IService<Entity extends BaseEntity, Dto extends BaseDto> {
      */
     Entity findByMin(List<Object> fields,Map<String,Object> conditions)throws SerException ;
 
-    void UpdateByCis2(Entity entities, String key ,Object value)throws SerException ;
+    /**
+     * 更新某个特定字段
+     * @param entities
+     * @param key  更新的键
+     * @param value 要更新的值
+     * @return
+     * @throws SerException
+     */
+    WriteResult UpdateByCis2(Entity entities, String key , Object value)throws SerException ;
 
 }

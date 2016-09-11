@@ -1,5 +1,6 @@
 package dnn.service;
 
+import com.mongodb.WriteResult;
 import dnn.common.constant.FinalCommons;
 import dnn.dto.BaseDto;
 import dnn.common.exception.SerException;
@@ -115,8 +116,8 @@ public class ServiceImpl<Entity extends BaseEntity, Dto extends BaseDto> extends
         dao.update(entity);
     }
     @Override
-    public void UpdateByCis2(Entity entities, String key ,Object value)throws SerException {
-        dao.UpdateByCis2(entities,key,value);
+    public WriteResult UpdateByCis2(Entity entities, String key , Object value)throws SerException {
+        return dao.UpdateByCis2(entities,key,value);
     }
     @Override
     public void update(List<Entity> entities) {
