@@ -87,6 +87,17 @@
 	$(function () {
 		$('.fenye ul li').click(function () {
 			$(this).addClass('active').siblings('li').removeClass('active')
+		});
+		$('.fenye .next2').click(function(){
+			var i = $('.fenye .active').index()+1;
+			$('.fenye ul li').eq(i).addClass('active').siblings('li').removeClass('active')
+		})
+		$('.fenye .prey').click(function(){
+			var j = $('.fenye .active').index()-1;
+			if(j<0){
+				j=0;
+			}
+			$('.fenye ul li').eq(j).addClass('active').siblings('li').removeClass('active');
 		})
 	})
 </script>

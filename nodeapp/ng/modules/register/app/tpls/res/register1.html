@@ -2,38 +2,43 @@
     <img src="/register/app/img/rev/form/reg1.png"/>
 
     <div class="reg1-con row">
-        <form role="form" class="col-sm-10 col-sm-offset-2" name="reg1" ng-submit="submitReg1()">
-            <fieldset class="form-group">
-                <label for="inputEmail3" class="col-sm-2 control-label text-right">邮箱：</label>
+        <form ng-init="s='has-success';e='has-error';" class="col-sm-10 col-sm-offset-2" name="reg1" ng-submit="submitReg1()">
+            <fieldset class="form-group
+                            {{reg1.email.$valid?s:e}}{{reg1.email.$dirty?'':'-'}}
+                        ">
+                <label for="inputEmail3" class="col-sm-2 control-label text-right">姓名：</label>
                 <div class="col-sm-5">
-                    <input type="email" class="form-control" id="inputEmail3" ng-model="user.email" ng-class="{'form-err':reg1.email.$invalid && reg1.email.$touched ,'form-success':reg1.email.$valid}" name="email" required ng-minlength="7" ng-maxlength="20">
+                    <input type="email" autofocus required class="form-control form-control-success form-control-error" placeholder="请输入邮件" ng-model="email" name="email"  ng-minlength="4">
+                </div>
+            </fieldset>
+            <fieldset class="form-group
+                            {{reg1.password.$valid?s:e}}{{reg1.password.$dirty?'':'-'}}
+                        ">
+                <label for="inputEmail3" class="col-sm-2 control-label text-right">密码：</label>
+                <div class="col-sm-5">
+                    <input type="password" autofocus required class="form-control form-control-success form-control-error" placeholder="请输入密码" ng-model="password" name="password" ng-minlength="6" ng-maxlength="18">
+                </div>
+            </fieldset>
+            <fieldset class="form-group
+                            {{reg1.captcha.$valid?s:e}}{{reg1.captcha.$dirty?'':'-'}}
+                        ">
+                <label for="inputEmail3" class="col-sm-2 control-label text-right">验证码：</label>
+                <div class="col-sm-3">
+                    <input type="text" autofocus required class="form-control form-control-success form-control-error" placeholder="请输入验证码" ng-model="captcha" name="captcha" ng-minlength="4" ng-maxlength="18">
+                </div>
+                <div class="col-sm-1">
+                    <span style="height:38px;line-height:38px;padding:0 10px;border-radius:4px;background:#FFDDDD;border:1px solid #ccc;" class="pull-left">1234</span>
                 </div>
             </fieldset>
             <fieldset class="form-group">
-                <label for="inputPassword3" class="col-sm-2 control-label text-right">验证码：</label>
-                <div class="col-sm-4">
-                    <input type="password" class="form-control" id="inputPassword3" size="10"
-                            ng-class="{'form-err':reg1.veri.$invalid && reg1.veri.$touched ,'form-success':reg1.veri.$valid}"
-                    ng-model="user.veri" name="veri" required>
-                    <span style="width: 50px;height: 30px;background: #000;display: inline-block;position: relative;left: 110%;top: -30px;">1234</span>
+                <div class="col-sm-offset-2 col-sm-10 checkbox">
+                    <label><input type="checkbox" name="rememberMe" checked="checked"> 同意</label>
                 </div>
+                <p class="text-danger">{{msg}}</p>
             </fieldset>
-            <!--<fieldset class="form-group">-->
-                <!--<div class="col-sm-offset-2 col-sm-10" >-->
-                       <!--登录失败-->
-                <!--</div>-->
-            <!--</fieldset>-->
             <fieldset class="form-group">
                 <div class="col-sm-offset-2 col-sm-10">
-                    <div class="checkbox">
-                        <label> <input type="checkbox" class="agree" ng-model="agree"> 同意 </label>
-                    </div>
-                </div>
-            </fieldset>
-            <fieldset class="form-group">
-                <div class="col-sm-offset-2 col-sm-10">
-                <!--<button type="submit" class="btn btn-danger" ui-sref="register2" ng-disabled="!agree||reg1.email.$invalid">下一步</button>-->
-                <button type="submit" class="btn btn-danger">提交</button>
+                <button type="submit" ng-disabled="reg1.$invalid" class="btn btn-danger">提交</button>
             </div>
             </fieldset>
         </form>

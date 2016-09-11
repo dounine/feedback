@@ -8,6 +8,7 @@ define(['angular'], function(angular) {
             "ngCookies"
         ]);
     app.factory("service",['$http', service]);
+    app.factory("mailService",['$http', mailService]);
     // app.factory("cddCaptchaService", cddCaptchaService);
     // app.factory("cddFileService", cddFileService);
     // app.factory("cddCaptchaData", cddCaptchaData);
@@ -30,6 +31,22 @@ define(['angular'], function(angular) {
         function need_captcha(account) {
             var postDat = {"account": account};
             return $http.post("admin/clouddisk/captcha/needCaptcha", postDat);//用户是否需要验证码http请求
+        }
+    }
+
+    function mailService($http) {
+        var $self = this;
+        var service = {
+            getOpenUrl: getOpenUrl,
+            setOpenUrl: setOpenUrl
+        };
+        return service;
+
+        function getOpenUrl() {
+            return  $self.openUrl;
+        }
+        function setOpenUrl(openUrl) {
+            $self.openUrl = openUrl;
         }
     }
 
