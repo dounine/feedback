@@ -186,7 +186,7 @@ gulp.task('bs-start',function () {
         proxy: config()['lurl'],
         port: 3000,
         open: false,//自动打开浏览器
-        notify: true,//通知
+        notify: false,//通知
         reloadDelay: 10 // 延迟刷新
     });
 });
