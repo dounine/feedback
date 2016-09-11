@@ -16,7 +16,7 @@ import javax.servlet.http.HttpServletResponse;
  */
 public class LoginInterceptor implements HandlerInterceptor {
 
-    private static final String[] IGNORE_URI = {"/login"};
+    private static final String[] IGNORE_URI = {"/login","/register"};
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
