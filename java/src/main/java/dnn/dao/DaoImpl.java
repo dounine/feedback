@@ -1,5 +1,6 @@
 package dnn.dao;
 
+import com.mongodb.WriteResult;
 import dnn.common.exception.SerException;
 import dnn.dto.BaseDto;
 import dnn.common.utils.GenericsUtils;
@@ -171,9 +172,10 @@ public class DaoImpl<Entity extends BaseEntity, Dto extends BaseDto> implements 
     }
 
     @Override
-    public void UpdateByCis2(Entity entities, String key ,Object value) {
-        mongoTemplate.updateFirst(new Query(Criteria.where("id").is(entities.getId())),
+    public WriteResult UpdateByCis2(Entity entities, String key ,Object value) {
+        WriteResult writeResult=mongoTemplate.updateFirst(new Query(Criteria.where("id").is(entities.getId())),
                     Update.update(key,value), clazz);
+        return writeResult;
     }
 
     @Override

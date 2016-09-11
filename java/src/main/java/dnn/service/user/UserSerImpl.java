@@ -1,5 +1,6 @@
 package dnn.service.user;
 
+import com.mongodb.WriteResult;
 import dnn.common.beans.PropertiesLoader;
 import dnn.dto.user.UserDto;
 import dnn.common.exception.SerException;
@@ -99,6 +100,12 @@ public class UserSerImpl extends ServiceImpl<User,UserDto> implements ISerUser {
         online.put("total",UserSession.count());
         online.put("rows",UserSession.sessions());
         return online;
+    }
+
+    @Override
+    public WriteResult auditiingUser(User user) throws SerException {
+        WriteResult writeResult = userDao.UpdateByCis2(user,"status",Status.THAW);
+        return writeResult;
     }
 
     @Override

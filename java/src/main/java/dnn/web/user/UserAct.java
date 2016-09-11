@@ -1,5 +1,6 @@
 package dnn.web.user;
 
+import com.mongodb.WriteResult;
 import dnn.common.exception.SerException;
 import dnn.common.json.ResponseText;
 import dnn.common.utils.RequestUtils;
@@ -64,6 +65,19 @@ public class UserAct {
     @GetMapping("online")
     public Map<String, Object> online() {
         return serUser.listOnline();
+    }
+
+    /**
+     * 审核用户
+     * @param user
+     * @return
+     * @throws Throwable
+     */
+    @GetMapping("auditiingUser")
+    public ResponseText auditiingUser(User user) throws Throwable {
+        WriteResult writeResult = serUser.auditiingUser(user);
+        ResponseText text = new ResponseText(writeResult);
+        return text;
     }
 
 

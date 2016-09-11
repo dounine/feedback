@@ -1,5 +1,6 @@
 package dnn.dao;
 
+import com.mongodb.WriteResult;
 import dnn.common.exception.SerException;
 import dnn.dto.BaseDto;
 import dnn.entity.BaseEntity;
@@ -124,12 +125,13 @@ public interface IDao<Entity extends BaseEntity, Dto extends BaseDto> {
     void update(List<Entity> entities);
 
     /**
-     * 更新某个特定字段
+     *  更新某个特定字段
      * @param entities
      * @param key
      * @param value
+     * @return 更新的结果
      */
-    void UpdateByCis2(Entity entities, String key ,Object value) ;
+    WriteResult UpdateByCis2(Entity entities, String key , Object value) ;
 
     /**
      * 根据字段条件查询对象列表
