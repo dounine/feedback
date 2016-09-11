@@ -12,6 +12,8 @@ import dnn.entity.feedbackInfo.specimen.ChemicalCell;
 import dnn.entity.feedbackInfo.specimen.PhysicalEnergy;
 import dnn.entity.user.User;
 import dnn.enums.DisposeType;
+import dnn.enums.FeedbackStatus;
+import dnn.enums.OperatorStatus;
 import dnn.service.feedbackInfo.ISerFeedbackInfo;
 import dnn.service.user.ISerUser;
 import org.apache.commons.lang3.StringUtils;
@@ -109,8 +111,8 @@ public class FeedbackInfoAct {
      */
     @GetMapping("deleteFeedback")
     public ResponseText deleteFeedback(FeedbackInfo feedbackInfo) throws Throwable {
-        iSerFeedbackInfo.deleteFeedback(feedbackInfo);
-        ResponseText text = new ResponseText();
+        int result = iSerFeedbackInfo.deleteFeedback(feedbackInfo);
+        ResponseText text = new ResponseText(result);
         return text;
     }
 

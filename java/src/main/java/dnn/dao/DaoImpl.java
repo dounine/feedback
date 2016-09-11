@@ -173,13 +173,13 @@ public class DaoImpl<Entity extends BaseEntity, Dto extends BaseDto> implements 
 
     @Override
     public WriteResult UpdateByCis2(Entity entities, String key ,Object value) {
-        WriteResult writeResult=mongoTemplate.updateFirst(new Query(Criteria.where("id").is(entities.getId())),
+        WriteResult s=mongoTemplate.updateFirst(new Query(Criteria.where("id").is(entities.getId())),
                     Update.update(key,value), clazz);
-        return writeResult;
+        return s;
     }
 
     @Override
-    public void removeByCis(Map<String, Object> conditions) {
+    public int removeByCis(Map<String, Object> conditions) {
 
         Query query = new Query();
         if (null != conditions && conditions.size() > 0) {
@@ -187,7 +187,8 @@ public class DaoImpl<Entity extends BaseEntity, Dto extends BaseDto> implements 
                 query.addCriteria(Criteria.where(entry.getKey()).is(entry.getValue()));
             }
         }
-        mongoTemplate.remove(query, clazz);
+        int result =mongoTemplate.remove(query, clazz).getN();
+        return result;
     }
 
 

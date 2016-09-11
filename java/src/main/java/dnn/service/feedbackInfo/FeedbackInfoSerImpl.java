@@ -240,11 +240,12 @@ public class FeedbackInfoSerImpl extends ServiceImpl<FeedbackInfo,FeedbackInfoDt
     }
 
     @Override
-    public void deleteFeedback(FeedbackInfo feedbackInfo) throws SerException {
+    public int deleteFeedback(FeedbackInfo feedbackInfo) throws SerException {
         Map<String ,Object> map =new HashMap<>(1);
         map.put("detectionNum",feedbackInfo.getDetectionNum());
         map.put("userId",feedbackInfo.getUserId());
-        super.removeByCis(map);
+        int result = super.removeByCis(map);
+        return result;
     }
 
     public FeedbackInfo getDealFeedbackInfo(FeedbackInfo feedbackInfo) {
