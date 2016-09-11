@@ -1,0 +1,89 @@
+<div class="mainbody">
+	<div class="mainbody-top">
+		<h5 class="pull-left">用户信息</h5>
+	</div>
+	<div class="col-lg-12 userinfo ">
+		<form class="form-horizontal" role="form" name="userinfo ">
+		  <div class="form-group row">
+		    <label for="inputEmail3" class="col-sm-2 control-label text-right"><span>*</span> 姓名：</label>
+		    <div class="col-sm-3">
+		      <input type="text" class="form-control" id="inputEmail3" required name="username" ng-model="username"
+		      	ng-class="{'form-err':userinfo.username.$invalid && userinfo.username.$touched ,'form-success':userinfo.username.$valid}">
+		    </div>
+		    <div class="col-sm-2 form-iferr" ng-if="userinfo.username.$error.required && userinfo.username.$touched">
+		    	用户名不能为空
+		    </div>
+		  </div>
+		  <div class="form-group row">
+		    <label for="inputPassword3" class="col-sm-2 control-label text-right"><span>*</span> 通讯地址：</label>
+		    <div class="col-sm-3">
+		      <input type="text" class="form-control" required name="address" ng-model="address"
+		      	ng-class="{'form-err':userinfo.address.$invalid && userinfo.address.$touched ,'form-success':userinfo.address.$valid}">
+		    </div>
+		    <div class="col-sm-2 form-iferr" ng-if="userinfo.address.$error.required && userinfo.address.$touched">
+		    	通讯地址不能为空
+		    </div>
+		  </div>
+		<div class="form-group row">
+		    <label for="inputPassword3" class="col-sm-2 control-label text-right"><span>*</span> 电话：</label>
+		    <div class="col-sm-3">
+		      <input type="tel" class="form-control"  required name="tel" ng-model="tel"
+		      	ng-class="{'form-err':userinfo.tel.$invalid && userinfo.tel.$touched ,'form-success':userinfo.tel.$valid}">
+		    </div>
+		    <div class="col-sm-2 form-iferr" ng-if="userinfo.tel.$error.required && userinfo.tel.$touched">
+		    	电话不能为空
+		    </div>
+		  </div>
+		  <div class="form-group row">
+		    <label for="inputPassword3" class="col-sm-2 control-label text-right"><span>*</span> 邮箱：</label>
+		    <div class="col-sm-3">
+		      <input type="email" class="form-control"  required ng-model="email" name="email"
+		      	ng-class="{'form-err':userinfo.email.$invalid && userinfo.email.$touched ,'form-success':userinfo.email.$valid}">
+		    </div>
+		    <div class="col-sm-2 form-iferr" ng-if="userinfo.email.$error.required && userinfo.email.$touched">
+		    	邮箱不能为空
+		    </div>
+		  </div>
+		  <div class="form-group row">
+		    <label for="inputPassword3" class="col-sm-2 control-label text-right"><span>*</span> 单位名称：</label>
+		    <div class="col-sm-3">
+		      <input type="text" class="form-control"  required name="company" ng-model="company"
+		      	ng-class="{'form-err':userinfo.company.$invalid && userinfo.company.$touched ,'form-success':userinfo.company.$valid}">
+		    </div>
+		    <div class="col-sm-2 form-iferr" ng-if="userinfo.company.$error.required && userinfo.company.$touched">
+		    	单位名称不能为空
+		    </div>
+		  </div>
+		  <div class="form-group row">
+		    <label for="inputPassword3" class="col-sm-2 control-label text-right"><span>*</span> 邮编：</label>
+		    <div class="col-sm-3">
+		      <input type="tel" class="form-control"  required name="postcode" ng-model="postcode"
+		      	ng-class="{'form-err':userinfo.postcode.$invalid && userinfo.postcode.$touched ,'form-success':userinfo.postcode.$valid}">
+		    </div>
+		    <div class="col-sm-2 form-iferr" ng-if="userinfo.postcode.$error.required && userinfo.postcode.$touched">
+		    	邮编不能为空
+		    </div>
+		  </div>
+		  <div class="form-group row">
+		    <label for="inputPassword3" class="col-sm-2 control-label text-right"><span>*</span> 传真：</label>
+		    <div class="col-sm-3">
+		      <input type="tel" class="form-control"  required name="fax" ng-model="fax"
+		      	ng-class="{'form-err':userinfo.fax.$invalid && userinfo.fax.$touched ,'form-success':userinfo.fax.$valid}">
+		    </div>
+		    <div class="col-sm-2 form-iferr" ng-if="userinfo.fax.$error.required && userinfo.fax.$touched">
+		    	传真不能为空
+		    </div>
+		  </div>
+		  <div class="form-group row">
+		    <div class="col-sm-offset-2 col-sm-3">
+		      <button type="submit" class="btn btn-danger" ng-disabled="userinfo.username.$invalid||userinfo.address.$invalid||
+		      	userinfo.tel.$invalid ||userinfo.email.$invalid||userinfo.postcode.$invalid||userinfo.company.$invalid||
+		      	userinfo.fax.$invalid">确定修改</button>
+		    </div>
+		  </div>
+		</form>
+
+
+	</div>
+
+</div>
