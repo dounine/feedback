@@ -19,6 +19,7 @@ define(['angular','services'], function(angular,config) {
                 username:vm.username,
                 password:vm.password
             };
+
             vm.msg = null;//清空原错误信息
             $http.post(config.lurl+"/login",data).then(function successCallback(response) {
                 if(response.data){
