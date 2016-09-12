@@ -36,9 +36,15 @@ public class FeedbackInfoAct {
     @Autowired
     private ISerFeedbackInfo iSerFeedbackInfo;
 
+    /**
+     * 保存
+     *
+     * @param feedbackInfo
+     * @return
+     * @throws Throwable
+     */
     @PostMapping("save")
     public ResponseText save(FeedbackInfo feedbackInfo) throws Throwable {
-//        feedbackInfo.setUser_id("57cbe7581c3404d62ad95515"); //所属用户
         iSerFeedbackInfo.save(feedbackInfo);
         return new ResponseText<>();
     }
@@ -50,40 +56,42 @@ public class FeedbackInfoAct {
     }
 
     /**
-     * 查看所有工单
-     * 或根据参数feedbackstatus  或  工单号  查看
-     * @param dto
+     * 查看所有分页工单
+     *
+     * @param dto (feedbackstatus or detectionNum(编号))
      * @return
      * @throws Throwable
      */
     @GetMapping("maps")
     public ResponseText maps(FeedbackInfoDto dto) throws Throwable {
-        Map<String,Object> maps = new HashMap<>();
-        maps.put("rows",iSerFeedbackInfo.findByPage(dto));
-        maps.put("count",iSerFeedbackInfo.count(dto));
+        Map<String, Object> maps = new HashMap<>();
+        maps.put("rows", iSerFeedbackInfo.findByPage(dto));
+        maps.put("count", iSerFeedbackInfo.count(dto));
         return new ResponseText(maps);
     }
 
     /**
-     *通过用户id和工单号查看 最新的一个
-     * @param feedbackInfo
-     * @return  返回最新的版本
+     * 查看详细内容
+     *
+     * @param feedbackInfo (userId and detectionNum(编号))
+     * @return 返回最新的版本
      * @throws Throwable
      */
-    @GetMapping("findByFeedbackNum")
-    public ResponseText findByFeedbackNum(FeedbackInfo feedbackInfo) throws Throwable {
+    @GetMapping("feedbackDetail")
+    public ResponseText feedbackDetail(FeedbackInfo feedbackInfo) throws Throwable {
         ResponseText text = new ResponseText(iSerFeedbackInfo.findOneInfo(feedbackInfo));
         return text;
     }
 
     /**
-     * 注意:参数里面一定要包括该单的编号和userId
-     * @param feedbackInfo
+     * 工单流程状态修改
+     *
+     * @param feedbackInfo (userId and detectionNum(编号))
      * @return 修改的是副本
      * @throws Throwable
      */
-    @GetMapping("updateByFeedbackNum")
-    public ResponseText updateByFeedbackNum(FeedbackInfo feedbackInfo) throws Throwable {
+    @GetMapping("updateFeedbackOperateStatus")
+    public ResponseText updateFeedbackOperateStatus(FeedbackInfo feedbackInfo) throws Throwable {
         iSerFeedbackInfo.updateOneInfo(feedbackInfo);
         ResponseText text = new ResponseText();
         return text;
@@ -91,6 +99,7 @@ public class FeedbackInfoAct {
 
     /**
      * 管理员最后对工单受理确认
+     *
      * @param feedbackInfo
      * @return
      * @throws Throwable
@@ -104,8 +113,8 @@ public class FeedbackInfoAct {
 
     /**
      * 删除
-     * 传入参数必须有 工单编号 和 客户id
-     * @param feedbackInfo
+     *
+     * @param feedbackInfo (userId and detectionNum(编号))
      * @return
      * @throws Throwable
      */
