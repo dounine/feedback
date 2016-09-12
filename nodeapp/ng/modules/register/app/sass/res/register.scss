@@ -11,9 +11,9 @@ header{
 }
 //h4{margin-top: 100px;}
 
-.reg1, .reg2, .reg3, .reg4{
+.reg1,.reg2,.reg3,.reg4 {
   img{
-    margin:20px 0 70px 20px;
+    margin:20px 0 60px 20px;
   }
   .form-success{ border:1px solid green; }
   .form-err{ border:1px solid red; }
@@ -32,6 +32,9 @@ header{
 }
 .reg3{
   span{ color:red; }
+  img{
+    margin:20px 0 44px 20px;
+  }
   label{
     width:110px;
     height:38px;
@@ -76,3 +79,17 @@ footer{
     }
   }
 }
+.reg1 .captcha-box{
+  position: relative;
+  height:38px;
+  img.captcha{
+    margin: 0px 0px 0px 0px;
+    position: absolute;
+    left:0;
+    top:0;
+    cursor: pointer;
+    width: 100px;
+    height: 36px;
+  }
+}
+

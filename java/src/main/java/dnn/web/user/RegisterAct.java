@@ -14,6 +14,7 @@ import dnn.entity.user.User;
 import dnn.entity.user.UserType;
 import dnn.enums.Status;
 import dnn.service.user.ISerUser;
+import dnn.web.CaptchaAct;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.text.StrBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -103,7 +104,16 @@ public class RegisterAct {
      * 注册邮箱验证
      */
     @PostMapping("valid")
-    public ResponseText email_valid(String activePath, String email, String password, HttpServletRequest request) throws Throwable {
+    public ResponseText email_valid(String captchaKey,String captchaVal, String activePath, String email, String password, HttpServletRequest request) throws Throwable {
+        if(StringUtils.isBlank(captchaVal)){
+            throw new SerException("验证码不能为空!");
+        }
+        if(StringUtils.isBlank(captchaKey)){
+            throw new SerException("验证码key不能为空!");
+        }
+        if(!CaptchaAct.validCaptcha(captchaKey,captchaVal)){
+            throw new SerException("请输入正确的验证码!");
+        }
         if (StringUtils.isBlank(email)) {
             throw new SerException("邮箱地扯不能为空!");
         }
@@ -123,6 +133,11 @@ public class RegisterAct {
         if (null != user && user.getStatus() == Status.THAW) {
             ResponseText responseText = new ResponseText();
             responseText.setMsg("该邮箱已被注册!");
+            responseText.setErrno(2);
+            return responseText;
+        }else if (null != user && user.getStatus() == Status.UNREVIEW){
+            ResponseText responseText = new ResponseText();
+            responseText.setMsg("该邮箱已激活,请联系管理员进行审核使用!");
             responseText.setErrno(2);
             return responseText;
         } else {
@@ -145,9 +160,7 @@ public class RegisterAct {
             User _user = null;
             map = new HashMap<>(1);
             map.put("username", email);
-            if (null != user && user.getStatus().equals(Status.UNREVIEW)) {
-                _user = serUser.findOne(map);
-            } else if (null != user &&user.getStatus().equals(Status.NOACTIVE)) {
+            if (null != user &&user.getStatus().equals(Status.NOACTIVE)) {
                 _user = serUser.findOne(map);
             }else{
                 serUser.save(newUser);

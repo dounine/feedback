@@ -2,7 +2,11 @@ var Router = require('koa-router');
 var app = require('koa')();
 var sendfile = require('koa-sendfile');
 var path = require('path');
+var fs = require('fs');
+var stream = require('koa-stream');
 var loginSer = require(path.resolve('koa/services/' + path.basename(__dirname) + '/index.js'));
+var config = require(path.resolve('plugins/read-config.js'));
+var fetch = require('node-fetch');//url转发
 
 module.exports = function(config){
     var router = new Router();
@@ -11,10 +15,20 @@ module.exports = function(config){
         if(!this.status){
             this.throw(404);
         }
+    }).get('/captcha', function *(next){
+        var $self = this;
+        yield (fetch(config['rurl']+'/captcha?key='+($self.request.ip+$self.request.get("User-Agent")))
+            .then(function(res) {
+                return res.buffer();
+            }).then(function(buffer) {
+                $self.set('content-type','image/png');
+                $self.body = buffer;
+            }));
     }).post('/register/mailVerify', function *(next){//验证邮箱地扯
         var user = this.request.body;
         var $self = this;
         user.activePath = config['lurl']+"/register/reciveVerify";
+        user.captchaKey = this.request.ip+this.request.get("User-Agent");
         yield (loginSer().mverify(user)
             .then(function(parsedBody){
                 var responseText = JSON.parse(parsedBody);

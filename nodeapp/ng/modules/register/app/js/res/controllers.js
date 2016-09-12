@@ -17,7 +17,8 @@ define(['angular','services'], function(angular,config) {
         vm.submitReg1 = function () {
             var data = {
                 email:vm.email,
-                password:vm.password
+                password:vm.password,
+                captchaVal:vm.captchaVal
             };
             vm.msg = null;//清空原错误信息
             $http.post(config.lurl+"/register/mailVerify",data).then(function successCallback(response) {
@@ -27,14 +28,21 @@ define(['angular','services'], function(angular,config) {
                         openUrl:response.data['data']['openUrl']
                     });
                 }else{
-                    vm.msg = response.data.msg;
+                    vm.captchaVal = null;
+                    vm.change_captcha_url();
+                    vm.password = null;
+                    if(response.data.msg!='请输入正确的验证码!'){
+                        vm.msg = response.data.msg;
+                    }
                 }
             }, function errorCallback(response) {
                 vm.msg = response.data.msg;
             });
         }
 
-
+        vm.change_captcha_url = function () {
+            vm.captcha_url='/captcha?t='+(new Date().getTime());
+        }
 
         vm.submitReg3 = function(){
             var data ={

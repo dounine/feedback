@@ -16,18 +16,18 @@
                         ">
                 <label for="inputEmail3" class="col-sm-2 control-label text-right">密码：</label>
                 <div class="col-sm-7">
-                    <input type="password" autofocus required class="form-control form-control-success form-control-error" placeholder="请输入密码" ng-model="password" name="password" ng-minlength="8" ng-maxlength="20">
+                    <input type="password" required class="form-control form-control-success form-control-error" placeholder="请输入密码" ng-model="password" name="password" ng-minlength="8" ng-maxlength="20">
                 </div>
             </fieldset>
             <fieldset class="form-group
-                            {{reg1.captcha.$valid?s:e}}{{reg1.captcha.$dirty?'':'-'}}
+                            {{reg1.captchaVal.$valid?s:e}}{{reg1.captchaVal.$dirty?'':'-'}}
                         ">
                 <label for="inputEmail3" class="col-sm-2 control-label text-right">验证码：</label>
-                <div class="col-sm-5">
-                    <input type="text" autofocus required class="form-control form-control-success form-control-error" placeholder="请输入验证码" ng-model="captcha" name="captcha" ng-minlength="4" ng-maxlength="18">
+                <div class="col-sm-4">
+                    <input type="text" required class="form-control form-control-success form-control-error" placeholder="请输入验证码" ng-model="captchaVal" name="captchaVal" ng-minlength="4" ng-maxlength="4">
                 </div>
-                <div class="col-sm-1">
-                    <span style="height:38px;line-height:38px;padding:0 10px;border-radius:4px;background:#FFDDDD;border:1px solid #ccc;" class="pull-left">1234</span>
+                <div>
+                    <span class="captcha-box"><img ng-init="change_captcha_url()" class="captcha" src="/captcha" ng-src="{{captcha_url}}" ng-click="change_captcha_url()" /></span>
                 </div>
             </fieldset>
             <fieldset class="form-group">

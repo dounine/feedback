@@ -4,6 +4,17 @@ var config = require(path.resolve('plugins/read-config.js'));
 var form = require(path.resolve('plugins/form.js'));
 
 module.exports = function (argvs) {
+    this.captcha = function () {
+        var options = {
+            method: 'get',
+            timeout:3000,
+            uri: config()['rurl']+'/captcha',
+            headers: {
+                /* 'content-type': 'application/x-www-form-urlencoded' */ // Set automatically
+            }
+        };
+        return request(options);
+    }
     this.mverify = function (argvs) {
         var rep = null;
         var options = {
