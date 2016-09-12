@@ -93,8 +93,8 @@ public class FeedbackInfoSerImpl extends ServiceImpl<FeedbackInfo,FeedbackInfoDt
         if(dto.getStatus()!=null){
             maps.put("feedbackStatus", dto.getStatus().name());
         }
-        if(dto.getSearchCondition()!=null){
-            maps.put("detectionNum", dto.getSearchCondition());//根据工单号查询
+        if(dto.getDetectionNum()!=null){
+            maps.put("detectionNum", dto.getDetectionNum());//根据工单号查询
         }
         maps.put("finalCopyField",1);
 
@@ -108,22 +108,17 @@ public class FeedbackInfoSerImpl extends ServiceImpl<FeedbackInfo,FeedbackInfoDt
      */
     @Override
     public void save(FeedbackInfo feedbackInfo) throws SerException {
-        String chemicalCellSampleName = feedbackInfo.getChemicalCell().getSampleName();
-        String physicalEnergySampleName = feedbackInfo.getPhysicalEnergy().getSampleName();
-        if(StringUtils.isNotBlank(chemicalCellSampleName) && StringUtils.isNotBlank(physicalEnergySampleName)){
+        feedbackInfo =checkFeedback(feedbackInfo);
+        if(feedbackInfo == null){
             throw  new SerException("电池只能选填一项");
-        }
-        if(StringUtils.isBlank(chemicalCellSampleName)){
-            feedbackInfo.setChemicalCell(null);
-        }else{
-            feedbackInfo.setPhysicalEnergy(null);
-        }
-        feedbackInfo= getDealFeedbackInfo(feedbackInfo);
-        feedbackInfo.setOperatorStatus(OperatorStatus.INIT);
-        feedbackInfo.setCopyNum(1L);
-        feedbackInfo.setFinalCopyField(1L);
+        }else {
+            feedbackInfo = getDealFeedbackInfo(feedbackInfo);
+            feedbackInfo.setOperatorStatus(OperatorStatus.INIT);
+            feedbackInfo.setCopyNum(1L);
+            feedbackInfo.setFinalCopyField(1L);
 
-        super.save(feedbackInfo);
+            super.save(feedbackInfo);
+        }
     }
 
     @Override
@@ -152,15 +147,9 @@ public class FeedbackInfoSerImpl extends ServiceImpl<FeedbackInfo,FeedbackInfoDt
 
     @Override
     public void updateOneInfo(FeedbackInfo feedbackInfo) throws SerException {
-        String chemicalCellSampleName = feedbackInfo.getChemicalCell().getSampleName();
-        String physicalEnergySampleName = feedbackInfo.getPhysicalEnergy().getSampleName();
-        if(StringUtils.isNotBlank(chemicalCellSampleName) && StringUtils.isNotBlank(physicalEnergySampleName)){
-            throw  new SerException("电池只能选填一项");
-        }
-        if(StringUtils.isBlank(chemicalCellSampleName)){
-            feedbackInfo.setChemicalCell(null);
-        }else{
-            feedbackInfo.setPhysicalEnergy(null);
+        feedbackInfo =checkFeedback(feedbackInfo);
+        if(feedbackInfo ==null){
+           throw new SerException("电池只能选填一项");
         }
 //        UserType userType =UserContext.currentUser().getUserType();
         UserType userType= UserType.MANAGER;//TODO 从当前登录的用户获取
@@ -196,7 +185,6 @@ public class FeedbackInfoSerImpl extends ServiceImpl<FeedbackInfo,FeedbackInfoDt
             }
         }
 
-
         feedbackInfo.setCopyNum(maxByCopyNum.getCopyNum()+001L);
         feedbackInfo.setDetectionNo(maxByCopyNum.getDetectionNo());
         feedbackInfo.setFinalCopyField(1L);
@@ -211,15 +199,9 @@ public class FeedbackInfoSerImpl extends ServiceImpl<FeedbackInfo,FeedbackInfoDt
 
     @Override
     public void confirmFeedback(FeedbackInfo feedbackInfo) throws SerException {
-        String chemicalCellSampleName = feedbackInfo.getChemicalCell().getSampleName();
-        String physicalEnergySampleName = feedbackInfo.getPhysicalEnergy().getSampleName();
-        if(StringUtils.isNotBlank(chemicalCellSampleName) && StringUtils.isNotBlank(physicalEnergySampleName)){
-            throw  new SerException("电池只能选填一项");
-        }
-        if(StringUtils.isBlank(chemicalCellSampleName)){
-            feedbackInfo.setChemicalCell(null);
-        }else{
-            feedbackInfo.setPhysicalEnergy(null);
+        feedbackInfo =checkFeedback(feedbackInfo);
+        if(feedbackInfo ==null){
+            throw new SerException("电池只能选填一项");
         }
 
         //得捣最新的版本
@@ -265,7 +247,6 @@ public class FeedbackInfoSerImpl extends ServiceImpl<FeedbackInfo,FeedbackInfoDt
     private FeedbackInfo makeDetectionNum(FeedbackInfo feedbackInfo,String userId){
         String detectionNum=null;
         Long detectionNo=001L;
-        Date date = new Date();
 
         Map<String,Object> map =new HashMap<>(0);
         List<Object> field = new ArrayList<>(1);
@@ -278,19 +259,35 @@ public class FeedbackInfoSerImpl extends ServiceImpl<FeedbackInfo,FeedbackInfoDt
             feedbackInfos = findByMax(field,map);
         }catch (SerException e){
             e.printStackTrace();
-        }
-        if(feedbackInfos != null){
-            if(feedbackInfos.getDetectionNo() !=0){
-                detectionNo = feedbackInfos.getDetectionNo()+001L;
-            }else{
-                detectionNo = 001L;
+        }finally {
+            if(feedbackInfos != null){
+                if(feedbackInfos.getDetectionNo() !=0){
+                    detectionNo = feedbackInfos.getDetectionNo()+001L;
+                }else{
+                    detectionNo = 001L;
+                }
             }
+
+            detectionNum = LocalDateTime.now().getYear()+"ST"+detectionNo;
+            feedbackInfo.setDetectionNo(detectionNo);
+            feedbackInfo.setDetectionNum(detectionNum);
+
+            return feedbackInfo;
         }
 
-        detectionNum = date.getYear()+1900+"ST"+detectionNo;
-        feedbackInfo.setDetectionNo(detectionNo);
-        feedbackInfo.setDetectionNum(detectionNum);
+    }
 
+    private FeedbackInfo checkFeedback(FeedbackInfo feedbackInfo){
+        String chemicalCellSampleName = feedbackInfo.getChemicalCell().getSampleName();
+        String physicalEnergySampleName = feedbackInfo.getPhysicalEnergy().getSampleName();
+        if(StringUtils.isNotBlank(chemicalCellSampleName) && StringUtils.isNotBlank(physicalEnergySampleName)){
+            feedbackInfo =null;
+        }
+        if(StringUtils.isBlank(chemicalCellSampleName)){
+            feedbackInfo.setChemicalCell(null);
+        }else{
+            feedbackInfo.setPhysicalEnergy(null);
+        }
         return feedbackInfo;
     }
 }

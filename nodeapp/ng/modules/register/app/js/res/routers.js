@@ -20,24 +20,23 @@ define(["app"], function(app){
                 url : '/index',
                 views : {
                     '' : {
-                        templateUrl : "/register/app/tpls/rev/regindex.html"
-                    },
-                    'main@index' : {
-                        templateUrl : "/register/app/tpls/rev/register1.html"
+                        templateUrl : "/register/app/tpls/rev/register1.html",
+                        controller:'register'
                     }
                 }
             })
             .state('mailverify', {
                 url : '/mailverify',
-                templateUrl : '/register/app/tpls/rev/register2.html'
+                templateUrl : '/register/app/tpls/rev/register2.html',
+                controller:'mailverify'
 
             })
-            .state('register3', {
+            .state('accountInfo', {
                 url : '/accountInfo',
                 templateUrl : '/register/app/tpls/rev/register3.html',
                 controller:'register'
             })
-            .state('register4', {
+            .state('finish', {
                 url : '/finish',
                 templateUrl : '/register/app/tpls/rev/register4.html'
 
