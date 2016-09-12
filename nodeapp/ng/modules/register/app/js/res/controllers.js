@@ -4,13 +4,14 @@ define(['angular','services'], function(angular,config) {
     var app = angular.module(
         "app.controllers.register",//定义的模块名称
         [
-            "app.services.register"
+            "app.services.register",
+            "ngCookies"
         ]);
 
-    app.controller('register',['$scope','$rootScope','config','$http','$location','mailService',ctl]);
-    app.controller('mailverify',['$scope','$rootScope','config','$http','$location','mailService',mailverify]);
+    app.controller('register',['$scope','$rootScope','config','$http','$location','$cookies',ctl]);
+    app.controller('mailverify',['$scope','$rootScope','config','$http','$location','$cookies',sendMailInfo]);
 
-    function ctl($scope, $rootScope,config,$http,$location,mailService) {
+    function ctl($scope, $rootScope,config,$http,$location,$cookies) {
         var vm = $scope;
 
         vm.submitReg1 = function () {
@@ -19,10 +20,12 @@ define(['angular','services'], function(angular,config) {
                 password:vm.password
             };
             vm.msg = null;//清空原错误信息
-            $http.post(config.lurl+"/register/mverify",data).then(function successCallback(response) {
-                if(response.data){
-                    mailService.setOpenUrl(response.data['data']);
-                    $rootScope.$state.go("mailverify");
+            $http.post(config.lurl+"/register/mailVerify",data).then(function successCallback(response) {
+                if(response.data['errno']==0){
+                    $rootScope.$state.go("sendMailInfo",{
+                        emailName:response.data['data']['emailName'],
+                        openUrl:response.data['data']['openUrl']
+                    });
                 }else{
                     vm.msg = response.data.msg;
                 }
@@ -39,16 +42,15 @@ define(['angular','services'], function(angular,config) {
                     company:vm.company,
                     address:vm.address,
                     postcodes:vm.postcodes,
-                    contact:vm.username,
-                    telephone:vm.tel,
+                    contact:vm.contact,
+                    telephone:vm.telephone,
                     fax:vm.fax
-                }
+                },
+                id:$rootScope.$stateParams.uid
             }
-            console.info(data)
             vm.msg = null;//清空原错误信息
             $http.post(config.lurl+"/register/accountInfo",data).then(function successCallback(response){
-                if(response.data){
-                    vm.msg = null;
+                if(response.data['errno']==0){
                     $rootScope.$state.go("finish");
                 } else {
                     vm.msg = response.data.msg;
@@ -56,32 +58,14 @@ define(['angular','services'], function(angular,config) {
             },function errorCallback(response){
                 vm.msg = response.data.msg;
             })
-
         }
-
-
-        //vm.submitReg3 = function(){
-        //    var data = {
-        //        email:vm.email
-        //    };
-        //    $http.post(config.lurl+"/register/accountInfo",data).then(function successCallback(response) {
-        //        console.info(response.data);
-        //        $rootScope.$state.go("finish");
-        //        if(response.data){
-        //            vm.msg = null;
-        //        }else{
-        //            vm.msg = response.data.msg;
-        //        }
-        //    }, function errorCallback(response) {
-        //        vm.msg = response.data.msg;
-        //    });
-        //}
     }
 
-    function mailverify($scope, $rootScope,config,$http,$location,mailService){
+    function sendMailInfo($scope, $rootScope,config,$http,$location,$cookies){
         var vm = $scope;
+        vm.emailName = $rootScope.$stateParams.emailName;
         $scope.reciveMail = function(){
-            window.open(mailService.getOpenUrl());
+            window.open($rootScope.$stateParams.openUrl);
         }
     }
 

@@ -11,9 +11,6 @@ define(['angular','services'], function(angular,config) {
 
     function ctl($scope, $rootScope,config,$http,$location) {
         var vm = $scope;
-        //vm.sso = sso;
-        ///vm.verify = vm.signin.$invalid;
-        //$rootScope.$state.go("fileList", {path: "/"});
         vm.sso = function () {
             var data = {
                 username:vm.username,
@@ -22,11 +19,11 @@ define(['angular','services'], function(angular,config) {
 
             vm.msg = null;//清空原错误信息
             $http.post(config.lurl+"/login",data).then(function successCallback(response) {
-                if(response.data){
+                if(response.data['errno']==0){
                     vm.msg = null;
-                    window.location = "/admin";
                 }else{
                     vm.msg = response.data.msg;
+                    vm.password = null;
                 }
             }, function errorCallback(response) {
                 vm.msg = response.data.msg;

@@ -1,10 +1,10 @@
 var request = require('request-promise');
 var path = require('path');
 var config = require(path.resolve('plugins/read-config.js'));
+var form = require(path.resolve('plugins/form.js'));
 
 module.exports = function (argvs) {
     this.mverify = function (argvs) {
-        console.info(argvs);
         var rep = null;
         var options = {
             method: 'POST',
@@ -18,7 +18,6 @@ module.exports = function (argvs) {
         return request(options);
     }
     this.reciveVerify = function (argvs) {
-        var rep = null;
         var options = {
             method: 'POST',
             timeout:3000,
@@ -31,14 +30,16 @@ module.exports = function (argvs) {
         return request(options);
     }
     this.submitReg3 = function (argvs) {
-        var rep = null;
+        var data = argvs;
         var options = {
             method: 'POST',
             timeout:3000,
+            preambleCRLF: true,
+            postambleCRLF: true,
             uri: config()['rurl']+'/register/perfect',
-            data: argvs,
+            form: form(argvs),
             headers: {
-                //'content-type': 'application/x-www-form-urlencoded'
+                'content-type': 'application/x-www-form-urlencoded;charset=UTF-8'
             }
         };
         return request(options);

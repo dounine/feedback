@@ -1,16 +1,16 @@
 <div class="reg3">
     <img src="/register/app/img/rev/form/reg3.png"/>
 
-    <div class="reg3-con">ss
+    <div class="reg3-con">
         <h5><strong>填写账户信息</strong></h5>
-        <form ng-init="s='has-success';e='has-error';" role="form" name="register" ng-submit="submitReg3()" method="post">
+        <form ng-init="s='has-success';e='has-error';contact='adminadsf';telephone=13535032936;company='asdfasdf';address='asdfasdfadf';postcodes=540000;" role="form" name="register" ng-submit="submitReg3()" method="post">
             <div class="row">
                 <fieldset class="form-group col-sm-5
-                            {{register.username.$valid?s:e}}{{register.username.$dirty?'':'-'}}
+                            {{register.contact.$valid?s:e}}{{register.contact.$dirty?'':'-'}}
                         ">
                     <label for="inputEmail3" class="col-sm-1 control-label text-right">姓名：</label>
                     <div class="col-sm-8">
-                        <input type="text" autofocus required class="form-control form-control-success form-control-error" placeholder="请输入姓名" ng-model="username" name="username" ng-minlength="2">
+                        <input type="text" autofocus required class="form-control form-control-success form-control-error" placeholder="请输入姓名" ng-model="contact" name="contact" ng-minlength="2">
                     </div>
                 </fieldset>
                 <fieldset class="form-group col-sm-5
@@ -42,11 +42,11 @@
             </div>
             <div class="row">
                 <fieldset class="form-group col-sm-5
-                            {{register.tel.$valid?s:e}}{{register.tel.$dirty?'':'-'}}
+                            {{register.telephone.$valid?s:e}}{{register.telephone.$dirty?'':'-'}}
                         ">
                     <label for="inputEmail3" class="col-sm-1 control-label text-right">电话：</label>
                     <div class="col-sm-8">
-                        <input type="number" required class="form-control form-control-success form-control-error" placeholder="请输入电话" ng-model="tel" name="tel" ng-maxlength="11" ng-minlength="7">
+                        <input type="number" required class="form-control form-control-success form-control-error" placeholder="请输入电话" ng-model="telephone" name="telephone" ng-maxlength="11" ng-minlength="7">
                     </div>
                 </fieldset>
                 <fieldset class="form-group col-sm-5

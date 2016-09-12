@@ -3,24 +3,26 @@ var app = require('koa')();
 var sendfile = require('koa-sendfile');
 var path = require('path');
 var loginSer = require(path.resolve('koa/services/' + path.basename(__dirname) + '/index.js'));
-var config = require('../../../plugins/read-config.js');
 
 module.exports = function(config){
     var router = new Router();
-    router.get('/register', function *(){
+    router.get('/register', function *(next){//转到注册页面
         var stats = yield (sendfile(this, path.resolve('ng/modules/' + path.basename(__dirname) + '/app/tpls/rev') + '/index.html'));
         if(!this.status){
             this.throw(404);
         }
-    }).post('/register/mverify', function *(){
+    }).post('/register/mailVerify', function *(next){//验证邮箱地扯
         var user = this.request.body;
         var $self = this;
-        user.activePath = "http://192.168.0.115:8888/register/reciveVerify";
+        user.activePath = config['lurl']+"/register/reciveVerify";
         yield (loginSer().mverify(user)
             .then(function(parsedBody){
                 var responseText = JSON.parse(parsedBody);
                 if(responseText['errno'] == 0){
-                    $self.body = responseText;
+                    $self.body = {'data':{
+                        openUrl:responseText['data'],
+                        emailName:user.email
+                    },errno:0,};
                 } else {
                     $self.body = responseText;
                 }
@@ -31,30 +33,25 @@ module.exports = function(config){
                     $self.status = 408;
                 }
             }));
-
-
-    }).get('/register/reciveVerify', function *(){
+    }).get('/register/reciveVerify', function *(next){//接收从邮箱过来的注册链接地扯
         var $self = this;
         var query = this.request.query;
         yield (loginSer().reciveVerify(query)
             .then(function(parsedBody){
                 var responseText = JSON.parse(parsedBody);
                 if(responseText['errno'] == 0){
-                    $self.redirect('/register#/accountInfo');
-                    $self.cookies.set('uid',query.uid);
+                    $self.redirect('/register#/accountInfo?uid='+query.uid);
                     $self.status = 301;
                     $self.body = {errno : 0};
                 } else {
-                    $self.redirect('/register#/mailverify');
+                    $self.redirect('/register#/index');
                     $self.status = 301;
                     $self.body = {msg : 'active failed', errno : responseText['errno']};
                 }
-
             }));
-    }).post('/register/accountInfo', function *(){
+    }).post('/register/accountInfo', function *(next){//提交客户信息
         var user = this.request.body;
         var $self = this;
-        user.uid = $self.cookies.get('uid');
         yield (loginSer().submitReg3(user)
             .then(function(parsedBody){
                 var responseText = JSON.parse(parsedBody);
@@ -64,13 +61,13 @@ module.exports = function(config){
                 } else {
                     $self.body = responseText;
                 }
-
+            }).catch(function(error){
+                console.info(error);
+                if(error.error && error.error.code && error.error.code == 'ETIMEDOUT'){//登录超时
+                    $self.body = {'msg' : '注册超时,请尝试重新注册.', errno : 3};
+                    $self.status = 408;
+                }
             }));
-    }).post('/register/finish', function *(){
-        var stats = yield (sendfile(this, path.resolve('ng/modules/' + path.basename(__dirname) + '/app/tpls/rev') + '/register4.html'));
-        if(!this.status){
-            this.throw(404);
-        }
     })
 
     return router;

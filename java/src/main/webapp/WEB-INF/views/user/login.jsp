@@ -26,6 +26,7 @@ pageEncoding="UTF-8"%>
                                 ng-class="{'form-err':signUp.username.$invalid && signUp.username.$touched ,'form-success':signUp.username.$valid}"
                                 name="username" required ng-maxlength ="18" ng-minlength ="5"
                                 ng-model="userdata.username"/>
+                            <input type="text" name="user.name" value="nihao"/>
                     	</div>
                     
 
