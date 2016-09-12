@@ -1,6 +1,6 @@
 <div class="mainbody">
 	<div class="mainbody-top">
-		<h5 class="pull-left">处理完毕</h5>
+		<h5 class="pull-left">处理中信息</h5>
 		<button class="btn btn-info pull-right" ui-sref="index">创建委托书</button>
 		<button class="btn btn-default pull-right" style="margin-right: 20px;" clear>刷新</button>
 	</div>
@@ -16,7 +16,7 @@
 		 	</tr>
 		 	<tr>
 		 		<td>2016/09/06</td>
-		 		<td>处理完毕</td>
+		 		<td>处理中</td>
 		 		<td>黄焕来</td>
 		 		<td>物理电池</td>
 		 		<td>2016/09/03</td>
@@ -24,7 +24,7 @@
 		 	</tr>
 		 	<tr>
 		 		<td>2016/09/06</td>
-		 		<td>处理完毕</td>
+		 		<td>处理中</td>
 		 		<td>黄焕来</td>
 		 		<td>物理电池</td>
 		 		<td>2016/09/03</td>
@@ -32,7 +32,7 @@
 		 	</tr>
 		 	<tr>
 		 		<td>2016/09/06</td>
-		 		<td>处理完毕</td>
+		 		<td>处理中</td>
 		 		<td>黄焕来</td>
 		 		<td>物理电池</td>
 		 		<td>2016/09/03</td>
@@ -40,7 +40,7 @@
 		 	</tr>
 		 	<tr>
 		 		<td>2016/09/06</td>
-		 		<td>处理完毕</td>
+		 		<td>处理中</td>
 		 		<td>黄焕来</td>
 		 		<td>物理电池</td>
 		 		<td>2016/09/03</td>
@@ -48,7 +48,7 @@
 		 	</tr>
 		 	<tr>
 		 		<td>2016/09/06</td>
-		 		<td>处理完毕</td>
+		 		<td>处理中</td>
 		 		<td>黄焕来</td>
 		 		<td>物理电池</td>
 		 		<td>2016/09/03</td>
@@ -56,7 +56,7 @@
 		 	</tr>
 		 	<tr>
 		 		<td>2016/09/06</td>
-		 		<td>处理完毕</td>
+		 		<td>处理中</td>
 		 		<td>黄焕来</td>
 		 		<td>物理电池</td>
 		 		<td>2016/09/03</td>
@@ -76,17 +76,28 @@
 			</ul>
 			<a href="javascript:;" class="next2"></a>
 		</div>
-		
+
 		<span class="text_go pull-right">
 			跳转到：<input type="text" size="5"/> <button>GO</button>
 		</span>
-		
+
 	</div>
 </div>
 <script type="text/javascript">
 	$(function () {
 		$('.fenye ul li').click(function () {
 			$(this).addClass('active').siblings('li').removeClass('active')
+		});
+		$('.fenye .next2').click(function(){
+			var i = $('.fenye .active').index()+1;
+			$('.fenye ul li').eq(i).addClass('active').siblings('li').removeClass('active')
+		})
+		$('.fenye .prey').click(function(){
+			var j = $('.fenye .active').index()-1;
+			if(j<0){
+				j=0;
+			}
+			$('.fenye ul li').eq(j).addClass('active').siblings('li').removeClass('active');
 		})
 	})
 </script>

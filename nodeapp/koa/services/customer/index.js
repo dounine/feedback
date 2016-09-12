@@ -8,7 +8,7 @@ module.exports = function (argvs) {
         var options = {
             method: 'POST',
             timeout:3000,
-            uri: config()['rurl']+'/proxy',
+            uri: config()['rurl']+'/customer',
             form: argvs,
             headers: {
                 /* 'content-type': 'application/x-www-form-urlencoded' */ // Set automatically

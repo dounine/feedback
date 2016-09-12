@@ -1,5 +1,5 @@
 {
-  "name": "proxy",
+  "name": "customer",
   "version": "1.0.0",
   "description": "feedback for nodejs koa",
   "dependencies": {

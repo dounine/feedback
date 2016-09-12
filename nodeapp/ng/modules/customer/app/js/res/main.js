@@ -1,6 +1,6 @@
 /*jshint unused: vars */
 require.config({
-	baseUrl: './proxy',
+	baseUrl: './customer',
 	paths: {
 		'app': 'app/js/rev/app',
 		'routers': 'app/js/rev/routers',
@@ -21,7 +21,8 @@ require.config({
 		'angular-animate': 'app/lib/angular-animate/angular-animate.min',
 		'angular-file-upload': 'app/lib/angular-file-upload/dist/angular-file-upload.min',
 		'angular-loading-bar': 'app/lib/angular-loading-bar/build/loading-bar.min',
-		'angular-cookies': 'app/lib/angular-cookies/angular-cookies.min'
+		'angular-cookies': 'app/lib/angular-cookies/angular-cookies.min',
+		'tm.pagination':'app/js/rev/tm.pagination'
 	},
 	shim: {
 		'jquery': {
@@ -75,7 +76,8 @@ require([
 	'angular-ui-route',
 	'angular-cookies',
 	'angular-animate',
-	'angular-loading-bar'
+	'angular-loading-bar',
+	'tm.pagination'
 ], function(angular, app) {
 	'use strict';
 	/* jshint ignore:start */

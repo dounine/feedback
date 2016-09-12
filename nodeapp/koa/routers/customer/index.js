@@ -7,12 +7,12 @@ var config = require('../../../plugins/read-config.js');
 
 module.exports = function (config) {
     var router = new Router();
-    router.get('/proxy', function *() {
+    router.get('/customer', function *() {
         var stats = yield (sendfile(this, path.resolve('ng/modules/' + path.basename(__dirname) + '/app/tpls/rev') + '/index.html'));
         if (!this.status) {
             this.throw(404);
         }
-    }).post('/login', function *() {
+    }).post('/customer', function *() {
         var user = this.request.body;
         var $self = this;
         yield (loginSer().sso(user)

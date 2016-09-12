@@ -20,7 +20,7 @@ router.get('/',function *(next){//根路由
 });
 app.use(require(path.join(__dirname,routersPath,'login/index.js'))(config).routes());//登录路由
 app.use(require(path.join(__dirname,routersPath,'register/index.js'))(config).routes());//注册
-app.use(require(path.join(__dirname,routersPath,'proxy/index.js'))(config).routes());//委托书
+app.use(require(path.join(__dirname,routersPath,'customer/index.js'))(config).routes());//委托书
 app.use(require(path.join(__dirname,routersPath,'error/index.js'))(config).routes());//委托书
 //app.use(require(path.join(__dirname,routersPath,'admin/index.js'))(config).routes());//后台路由
 
