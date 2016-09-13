@@ -23,8 +23,6 @@ require.config({
 		'angular-loading-bar': 'app/lib/angular-loading-bar/build/loading-bar.min',
 		'angular-cookies': 'app/lib/angular-cookies/angular-cookies.min',
 		'tm.pagination':'app/js/rev/tm.pagination',
-		'jquery.dataTables':'app/lib/datatables/media/js/jquery.dataTables.min',
-		'dataTables.bootstrap4':'app/lib/datatables/media/js/dataTables.bootstrap4.min'
 	},
 	shim: {
 		'jquery': {
@@ -56,18 +54,6 @@ require.config({
 				'angular'
 			]
 		},
-		//'dataTables.bootstrap4':{
-		//	'deps':[
-		//		'jquery',
-		//		'jquery.dataTables'
-		//	]
-		//},
-		//'jquery.dataTables':{
-		//	'deps':[
-		//		'jquery',
-		//		'dataTables.bootstrap4'
-		//	]
-		//},
 		'angular-file-upload': ['angular'],
 		'angular-cookies': ['angular']
 	},
@@ -96,9 +82,7 @@ require([
 	'angular-cookies',
 	'angular-animate',
 	'angular-loading-bar',
-	'tm.pagination',
-	//'jquery.dataTables',
-	//'dataTables.bootstrap4'
+	//'tm.pagination',
 ], function(angular, app) {
 	'use strict';
 	/* jshint ignore:start */

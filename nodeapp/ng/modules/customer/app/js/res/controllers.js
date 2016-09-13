@@ -35,72 +35,85 @@ define(['angular','services'], function(angular,config) {
                 details: {
                     /****化学电池数据****/
                     chemistry:{
-                        hx_product : vm.hx_product,
-                        hx_spec : vm.hx_spec,
-                        hx_trademark:vm.hx_trademark,
-                        hx_number:vm.hx_number,
-                        hx_senddate:vm.hx_senddate,
-                        hx_size:vm.hx_size,
-                        hx_weight:vm.hx_weight,
-                        hx_parameter:vm.hx_parameter,
-                        hx_carton:vm.hx_carton,
-                        hx_wooden:vm.hx_wooden,
-                        hx_otherbox:vm.hx_otherbox,
-                        hx_complete:vm.hx_complete
+                        chemicalCell:{
+                            sampleName:vm.sampleName,
+                            ts:vm.ts,
+                            trademark:vm.trademark,
+                            amount:vm.amount,
+                            chemicalCellSubmitDate:vm.chemicalCellSubmitDate,
+                            size:vm.size,
+                            weight:vm.weight,
+                            parameter:vm.parameter,
+                            'packTypes.carton':'vm.packTypes.carton',
+                            'packTypes.wooden':'vm.packTypes.wooden',
+                            'packTypes.otherbox':'vm.packTypes.otherbox',
+                            damage:vm.damage
+                        }
+
                     },
 
                     physics:{
                     /*****物理电池数据****/
-                    wl_product:vm.wl_product,
-                    wl_spec:vm.wl_spec,
-                    wl_trademark:vm.wl_trademark,
-                    wl_number:vm.wl_number,
-                    wl_senddate:vm.wl_senddate,
-                    wl_size:vm.wl_size,
-                    wl_weight:vm.wl_weight,
-                    wl_serial:vm.wl_serial,
-                    a_silicon:vm.a_silicon,
-                    m_silicon:vm.m_silicon,
-                    n_silicon:vm.n_silicon,
-                    p_silicon:vm.p_silicon,
-                    other_silicon:vm.other_silicon,
-                    wl_monosize:vm.wl_monosize,
-                    wl_monothi:vm.wl_monothi,
-                    wl_monoarea:vm.wl_monoarea,
-                    wl_monopro:vm.wl_monopro,
-                    toughened:vm.toughened,
-                    notoughened:vm.notoughened,
-                    glaweight:vm.glaweight,
-                    series18:vm.series18,
-                    series36:vm.series36,
-                    series54:vm.series54,
-                    series72:vm.series72,
-                    parallel1:vm.parallel1,
-                    parallel2:vm.parallel2,
-                    parallel3:vm.parallel3,
-                    parallel4:vm.parallel4,
-                    parallel5:vm.parallel5,
-                    voltage:vm.voltage,
-                    cusappl:vm.cusappl,
-                    wl_cusmark:vm.wl_cusmark,
-                    wl_carton:vm.wl_carton,
-                    wl_wooden:vm.wl_wooden,
-                    wl_otherbox:vm.wl_otherbox,
-                    wl_complete:vm.wl_complete
+                    physicalEnergy:{
+                        sampleName:vm.sampleName,
+                        ts:vm.ts,
+                        trademark:vm.trademark,
+                        amount:vm.amount,
+                        physicalEnergySubmitDate:vm.physicalEnergySubmitDate,
+                        size:vm.size,
+                        weight:vm.weight,
+                        serialNumber:vm.serialNumber,
+
+                        'materialTypes.a':'vm.materialTypes.a',
+                        'materialTypes.m':'vm.materialTypes.m',
+                        'materialTypes.n':'vm.materialTypes.n',
+                        'materialTypes.p':'vm.materialTypes.p',
+                        'materialTypes.o':'vm.materialTypes.o',
+                        monomerSize:vm.monomerSize,
+                        monomerThickness:vm.monomerThickness,
+                        monomerAcreage:vm.monomerAcreage,
+                        monomerType:vm.monomerType,
+                        'tempered.yes':'vm.tempered.yes',
+                        'tempered.no':'vm.tempered.no',
+                        temperedThickness:vm.temperedThickness,
+                        'seriesBattery.18':'vm.seriesBattery.18',
+                        'seriesBattery.36':'vm.seriesBattery.36',
+                        'seriesBattery.54':'vm.seriesBattery.54',
+                        'seriesBattery.72':'vm.seriesBattery.72',
+                        'parallelBattery.1':'vm.parallelBattery.1',
+                        'parallelBattery.2':'vm.parallelBattery.2',
+                        'parallelBattery.3':'vm.parallelBattery.3',
+                        'parallelBattery.4':'vm.parallelBattery.4',
+                        'parallelBattery.5':'vm.parallelBattery.5',
+                        voltage:vm.voltage,
+                        parameter:vm.parameter,
+                        identifying:vm.identifying,
+                        'packTypes.carton':'vm.packTypes.carton',
+                        'packTypes.wooden':'vm.packTypes.wooden',
+                        'packTypes.otherbox':'vm.packTypes.otherbox',
+                        damage:vm.damage
+
+                    }
+
+
                 },
+                    invoiceInfo:{
+                        name:vm.name,
+                        identifyNumber:vm.identifyNumber,
+                        address:vm.address,
+                        telephone:vm.telephone,
+                        bank:vm.bank,
+                        card:vm.card
 
+                    },
 
-                    /**开票信息**/
-                    billingname:vm.billingname,
-                    identification:vm.identification,
-                    address:vm.address,
-                    account:vm.account,
+                    detectionInfo:{
+                        basis:vm.basis,
+                        testItem:vm.testItem,
+                        disposeType:vm.disposeType,
+                        remarks:vm.remarks
+                    }
 
-                    /***检测***/
-                    detectionbasis:vm.detectionbasis,
-                    detectionproject:vm.detectionproject,
-                    promana:vm.promana,
-                    remarks:vm.remarks
                 }
 
             }
@@ -128,7 +141,7 @@ define(['angular','services'], function(angular,config) {
 
             if(vm.tiji.yes=='继续添加信息'){
                 $('#confirm').modal('hide');
-                $('#')
+
             }
 
             vm.tiji = {
@@ -137,54 +150,8 @@ define(['angular','services'], function(angular,config) {
                 'no' : "查看状态",
             };
 
-            //$('#returnUnpro').click(function(){
-                //window.location.href="customer#/unpro"
-                //setTimeout(function(){
-                //    $rootScope.$state.go("unpro");
-                //},500)
-                //count ++
-            //})
         }
 
-    }
-
-    function page($scope, BusinessService){
-        //var GetAllEmployee = function () {
-        //
-        //    var postData = {
-        //        pageIndex: $scope.paginationConf.currentPage,
-        //        pageSize: $scope.paginationConf.itemsPerPage
-        //    }
-        //
-        //    BusinessService.list(postData).success(function (response) {
-        //        $scope.paginationConf.totalItems = response.count;
-        //        $scope.persons = response.items;
-        //    });
-        //
-        //}
-        //
-        ////配置分页基本参数
-        //$scope.paginationConf = {
-        //    currentPage: 1,
-        //    itemsPerPage: 5
-        //};
-        //
-        ///***************************************************************
-        // 当页码和页面记录数发生变化时监控后台查询
-        // 如果把currentPage和itemsPerPage分开监控的话则会触发两次后台事件。
-        // ***************************************************************/
-        //$scope.$watch('paginationConf.currentPage + paginationConf.itemsPerPage', GetAllEmployee);
-
-        $scope.paginationConf = {
-            currentPage: 1,
-            totalItems: 8000,
-            itemsPerPage: 15,
-            pagesLength: 15,
-            perPageOptions: [10, 20, 30, 40, 50],
-            onChange: function(){
-
-            }
-        };
     }
 
 });
