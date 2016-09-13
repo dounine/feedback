@@ -32,7 +32,7 @@ header{
     }
   }
 
-  .notice{ height:30px; line-height:30px; background:#feaa50;
+  .notice{ height:30px; line-height:30px; background:#29b8f4;
     p{ margin-left:250px; }
   }
 }
@@ -45,7 +45,7 @@ header{
     position:fixed;
     z-index:990;
     background:#063346;
-    top:100px;
+    top:70px;
     bottom:0;
 
     ul li{
@@ -82,7 +82,7 @@ header{
     }
   }
   .content{
-    margin-top:100px;
+    margin-top:70px;
     margin-left:230px;
     width:85%;
     .mainbody{
@@ -140,7 +140,7 @@ header{
           }
           input{
             text-indent:4px;
-            color:#7b8d9b;
+            color:#000;
             border:none;
             border-bottom:1px solid #cccccc;
             line-height:normal;
