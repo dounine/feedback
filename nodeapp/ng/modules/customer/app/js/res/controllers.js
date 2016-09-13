@@ -8,7 +8,7 @@ define(['angular','services'], function(angular,config) {
         ]);
 
     app.controller('customer',['$scope','$rootScope','config','$http','$location',ctl]);
-    app.controller('pagecontroller',['$scope','BusinessService',page]);
+    //app.controller('pagecontroller',['$scope','BusinessService',page]);
 
     function ctl($scope, $rootScope,config,$http,$location) {
         var vm = $scope;
@@ -26,10 +26,11 @@ define(['angular','services'], function(angular,config) {
             vm.infocla = !vm.infocla
         }
         vm.subForm = function(){
+
             var data = {
                 details: {
                     /****化学电池数据****/
-                0:{
+                    chemistry:{
                         hx_product : vm.hx_product,
                         hx_spec : vm.hx_spec,
                         hx_trademark:vm.hx_trademark,
@@ -44,7 +45,7 @@ define(['angular','services'], function(angular,config) {
                         hx_complete:vm.hx_complete
                     },
 
-                1:{
+                    physics:{
                     /*****物理电池数据****/
                     wl_product:vm.wl_product,
                     wl_spec:vm.wl_spec,
@@ -84,6 +85,7 @@ define(['angular','services'], function(angular,config) {
                     wl_complete:vm.wl_complete
                 },
 
+
                     /**开票信息**/
                     billingname:vm.billingname,
                     identification:vm.identification,
@@ -98,14 +100,20 @@ define(['angular','services'], function(angular,config) {
                 }
 
             }
-
-            console.info(data)
+            if(vm.powerType === 'chemistry'){
+                data.details.physics=null
+            }else if(vm.powerType==='physics'){
+                data.details.chemistry=null
+            }
+            //console.info(JSON.stringify(data))
+            console.info(data);
             vm.tiji = {
                 'title': "确定提交信息",
                 'yes' : "确定",
                 'no' : "取消，继续编辑"
             }
             vm.queding = function () {
+                var count = 0
                 vm.tiji = {
                     'title': "提交成功！",
                     'yes' : "继续添加信息",
@@ -114,9 +122,19 @@ define(['angular','services'], function(angular,config) {
 
 
                 $('#tijiBtn').click(function () {
-                    window.location.href="customer"
-                    count ++
+                    setTimeout(function(){
+                        $rootScope.$state.go("customer");
+                    },500)
+                    //count ++
                 });
+
+                $('#returnUnpro').click(function(){
+                    //window.location.href="customer#/unpro"
+                    setTimeout(function(){
+                        $rootScope.$state.go("unpro");
+                    },500)
+                    //count ++
+                })
             }
 
         }

@@ -1,5 +1,5 @@
 <div class="mainbody row ">
-    <form ng-submit="subForm()" name="customer">
+    <form ng-submit="subForm()" name="customer" id="contact_form">
         <div class="mainbody-top">
             <h5 class="pull-left">添加委托书</h5>
             <button type="submit" class="btn btn-danger pull-right" data-toggle="modal" data-target=".bs-example-modal-sm">提交</button>
@@ -10,47 +10,52 @@
         <div class=" col-lg-12">
             <div class="product">
                 <h5>样品信息{{powerType}}</h5>
-                <ul class="nav nav-tabs" role="tablist" style="border: none;" ng-init="powerType='0';">
+                <ul class="nav nav-tabs" role="tablist" style="border: none;" ng-init="powerType='chemistry';">
                     <li class="nav-item">
-                        <a class="nav-link active clearWuli" ng-click="powerType='0'" href="#huaxue" role="tab" data-toggle="tab" cleartab>化学电池(蓄电池)</a>
+                        <a class="nav-link active clearWuli" ng-click="powerType='chemistry'" href="#huaxue" role="tab" data-toggle="tab" cleartab>化学电池(蓄电池)</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link clearHuaxue" ng-click="powerType='1'" href="#wuli" role="tab" data-toggle="tab" cleartab>物理电源(太阳电池组件)</a>
+                        <a class="nav-link clearHuaxue" ng-click="powerType='physics'" href="#wuli" role="tab" data-toggle="tab" cleartab>物理电源(太阳电池组件)</a>
                     </li>
 
                 </ul>
 
 
-                <div id="myTabContent" class="tab-content ">
 
-                    <ul class="huaxue tab-pane fade in active" id="huaxue">
-                        <li>
-                            <span class="wid15">样品名称</span>
-                            <span><input type="text" size="70" ng-model="hx_product"/></span>
-                        </li>
-                        <li>
-                            <span class="wid15">型号规格</span>
-                            <span><input type="text" size="70" name="spec" ng-model="hx_spec"/></span>
-                        </li>
-                        <li>
-                            <span class="wid15">注册商标</span>
-                            <span class=""><input type="text" size="12" name="hx_trademark" ng-model="hx_trademark"/></span>
-                            <span class="wid15">样品数量</span> <span><input type="text" size="6" name="number" ng-model="hx_number" /></span>
-                            <span class="wid15">送样日期</span>
-                            <span class=""><input type="text" size="12" name="hx_senddate" ng-model="hx_senddate"/></span>
-                        </li>
-                        <li>
-                            <span class="wid15">外形尺寸</span>
-                            <span><input type="text" size="30" name="hx_size" ng-model="hx_size"/></span>
-                            <span class="wid15">重量</span>
-                            <span><input type="text" size="5" name="weight" ng-model="hx_weight"/></span>
-                        </li>
-                        <li>
-                            <span class="wid15">充放电参数</span>
-                            <span><input type="text" size="70" name="parameter" ng-model="hx_parameter"/></span>
-                        </li>
-                        <li>
-                            <span class="wid15">包装类别</span>
+            </div>
+        </div>
+
+    </form>
+    <div id="myTabContent" class="tab-content " form="contact_form">
+
+        <ul class="huaxue tab-pane fade in active" id="huaxue">
+            <li>
+                <span class="wid15">样品名称</span>
+                <span><input type="text" size="70" ng-model="hx_product"/></span>
+            </li>
+            <li>
+                <span class="wid15">型号规格</span>
+                <span><input type="text" size="70" name="spec" ng-model="hx_spec"/></span>
+            </li>
+            <li>
+                <span class="wid15">注册商标</span>
+                <span class=""><input type="text" size="12" name="hx_trademark" ng-model="hx_trademark"/></span>
+                <span class="wid15">样品数量</span> <span><input type="text" size="6" name="number" ng-model="hx_number" /></span>
+                <span class="wid15">送样日期</span>
+                <span class=""><input type="text" size="12" name="hx_senddate" ng-model="hx_senddate"/></span>
+            </li>
+            <li>
+                <span class="wid15">外形尺寸</span>
+                <span><input type="text" size="30" name="hx_size" ng-model="hx_size"/></span>
+                <span class="wid15">重量</span>
+                <span><input type="text" size="5" name="weight" ng-model="hx_weight"/></span>
+            </li>
+            <li>
+                <span class="wid15">充放电参数</span>
+                <span><input type="text" size="70" name="parameter" ng-model="hx_parameter"/></span>
+            </li>
+            <li>
+                <span class="wid15">包装类别</span>
 							<span>
 							<form action="">
                                 <input type="checkbox" name="carton" ng-model="hx_carton"/>纸箱
@@ -60,47 +65,47 @@
 
 							</span> <span style="margin-left: 40px;">样品状态（装箱前后）</span>
 							<span>
-								<form action="">
-                                    <input type="radio" name="complete" ng-model="hx_complete"/>完整
-                                    <input type="radio" name="complete" ng-model="hx_complete"/>破损
+								<form >
+                                    <input ng-init="hx_complete='hxcom';" id="com-id" ng-checked="true" type="radio" value="hxcom" name="hx_complete" ng-model="hx_complete"/><label for="com-id">完整</label>
+                                    <input id="bak-id" type="radio" value="hxbak" name="hx_complete" ng-model="hx_complete"/><label for="bak-id">破损</label>
                                 </form>
 
 
 							</span>
 
-                        </li>
-                    </ul>
+            </li>
+        </ul>
 
 
-                    <ul class="wuli tab-pane fade" id="wuli">
-                        <li>
-                            <span class="wid15">样品名称</span>
-                            <span><input type="text" size="70" ng-model="wl_product"/></span>
-                        </li>
-                        <li>
-                            <span class="wid15">型号规格</span>
-                            <span><input type="text" size="70" name="spec" ng-model="wl_spec"/></span>
-                        </li>
-                        <li>
-                            <span class="wid15">注册商标</span>
-                            <span class=""><input type="text" name="trademark" ng-model="wl_trademark"/></span>
-                            <span class="wid15">样品数量</span>
-                            <span><input type="text" size="4" name="number" ng-model="wl_number"/></span>
-                            <span class="wid15">送样日期</span>
-                            <span class=""><input type="text" size="10" name="senddate" ng-model="wl_senddate"/></span>
-                        </li>
-                        <li>
-                            <span class="wid15">外形尺寸</span>
-                            <span><input type="text" name="size" ng-model="wl_size"/></span>
-                            <span class="wid15">重量</span>
-                            <span><input type="text" size="10" name="weight" ng-model="wl_weight"/></span>
-                        </li>
-                        <li>
-                            <span class="wid15">样品序列号</span>
-                            <span><input type="text" size="70" name="serial" ng-model="wl_serial"/></span>
-                        </li>
-                        <li>
-                            <span class="wid15">单体电池材料</span>
+        <ul class="wuli tab-pane fade" id="wuli">
+            <li>
+                <span class="wid15">样品名称</span>
+                <span><input type="text" size="70" ng-model="wl_product"/></span>
+            </li>
+            <li>
+                <span class="wid15">型号规格</span>
+                <span><input type="text" size="70" name="spec" ng-model="wl_spec"/></span>
+            </li>
+            <li>
+                <span class="wid15">注册商标</span>
+                <span class=""><input type="text" name="trademark" ng-model="wl_trademark"/></span>
+                <span class="wid15">样品数量</span>
+                <span><input type="text" size="4" name="number" ng-model="wl_number"/></span>
+                <span class="wid15">送样日期</span>
+                <span class=""><input type="text" size="10" name="senddate" ng-model="wl_senddate"/></span>
+            </li>
+            <li>
+                <span class="wid15">外形尺寸</span>
+                <span><input type="text" name="size" ng-model="wl_size"/></span>
+                <span class="wid15">重量</span>
+                <span><input type="text" size="10" name="weight" ng-model="wl_weight"/></span>
+            </li>
+            <li>
+                <span class="wid15">样品序列号</span>
+                <span><input type="text" size="70" name="serial" ng-model="wl_serial"/></span>
+            </li>
+            <li>
+                <span class="wid15">单体电池材料</span>
 							<span>
 								<input type="checkbox" name="a_silicon" ng-model="a_silicon"/>单晶硅
 								<input type="checkbox" name="m_silicon" ng-model="m_silicon"/>多晶硅
@@ -108,26 +113,26 @@
 								<input type="checkbox" name="p_silicon" ng-model="p_silicon"/>P型
 								<input type="checkbox" name="other_silicon" ng-model="other_silicon"/>其他
 							</span>
-                        </li>
-                        <li>
-                            <span class="wid15">单体相关参数</span> <span style="width:7%;text-align: center;">尺寸</span>
-                            <span><input type="text" size="5" name="monosize" ng-model="wl_monosize"/></span>
-                            <span style="width:7%;text-align: center;">厚度</span>
-                            <span><input type="text" size="5" name="monothi" ng-model="wl_monothi"/></span>
-                            <span style="width:7%;text-align: center;">面积</span>
-                            <span><input type="text" size="5" name="monoarea" ng-model="wl_monoarea"/></span>
-                            <span>减反射膜类型</span>
-                            <span><input type="text" size="10" name="monopro" ng-model="wl_monopro"/></span>
-                        </li>
-                        <li>
-                            <span class="wid15">玻璃类型</span>
+            </li>
+            <li>
+                <span class="wid15">单体相关参数</span> <span style="width:7%;text-align: center;">尺寸</span>
+                <span><input type="text" size="5" name="monosize" ng-model="wl_monosize"/></span>
+                <span style="width:7%;text-align: center;">厚度</span>
+                <span><input type="text" size="5" name="monothi" ng-model="wl_monothi"/></span>
+                <span style="width:7%;text-align: center;">面积</span>
+                <span><input type="text" size="5" name="monoarea" ng-model="wl_monoarea"/></span>
+                <span>减反射膜类型</span>
+                <span><input type="text" size="10" name="monopro" ng-model="wl_monopro"/></span>
+            </li>
+            <li>
+                <span class="wid15">玻璃类型</span>
 							<span>
 								<input type="checkbox" name="toughened" ng-model="toughened"/>钢化
 								<input type="checkbox" name="notoughened" ng-model="notoughened"/>非钢化
 							</span> <span>玻璃厚度</span> <span><input type="text" name="glathi" ng-model="glaweight"/></span>
-                        </li>
-                        <li>
-                            <span class="wid15">串联电池数</span>
+            </li>
+            <li>
+                <span class="wid15">串联电池数</span>
 							<span>
 								<input type="checkbox" name="series18" ng-model="series18"/>18
 								<input type="checkbox" name="series36" ng-model="series36"/>36
@@ -142,108 +147,111 @@
 								<input type="checkbox" name="parallel4" ng-model="parallel4"/>4
 								<input type="checkbox" name="parallel5" ng-model="parallel5"/>5
 							</span>
-                        </li>
-                        <li>
-                            <span class="wid15">系统标称电压</span> <span><input type="text" size="70" ng-model="voltage"/></span>
-                        </li>
-                        <li id="teshuli">
-                            <span class="wid15 ">客户提供配件和资料</span><span style="height: 90px;border-left: 1px solid #ccc;position: relative;left: -1px;top: 2px;"></span>
+            </li>
+            <li>
+                <span class="wid15">系统标称电压</span> <span><input type="text" size="70" ng-model="voltage"/></span>
+            </li>
+            <li id="teshuli">
+                <span class="wid15 ">客户提供配件和资料</span><span style="height: 90px;border-left: 1px solid #ccc;position: relative;left: -1px;top: 2px;"></span>
 							<span style="margin-left: 10px;" class="sp2">
 									<div><span>①组件应有接线盒和引出线，并另附一套测试用转接线（必备）。</span></div>
 									<div>
-                                        <span>②电器原理图、二极管型号、参数</span><span class="sp3"><input type="radio" name="cusappl" ng-model="cusappl"/>有<input type="radio" name="cusappl" ng-model="cusappl"/>无</span>
+                                        <span>②电器原理图、二极管型号、参数</span>
+                                        <span class="sp3">
+                                            <input type="radio" ng-init="cusappl='cusappl_have'"; id="cusapplhave-id" ng-checked="true" value="cusappl_have" name="cusappl" ng-model="cusappl"/> <label for="cusapplhave-id">有</label>
+                                            <input type="radio" id="cusapplnone-id" value="cusappl_none" name="cusappl" ng-model="cusappl"/><label for="cusapplnone-id">无</label>
+                                        </span>
                                     </div>
 									<div>
                                         <span>③标识，包括：Voc、Isc、Vmp、Imp、Pmax等信息</span>
-                                        <span class="sp3"><input type="radio" name="cusmark" ng-model="wl_cusmark"/>有<input type="radio" name="cusmark" ng-model="wl_cusmark"/>无</span>
+                                        <span class="sp3">
+                                            <input id="wlcushave-id" type="radio" name="cusmark" ng-model="wl_cusmark" ng-checked="true" ng-init="wl_cusmark='wl_cusmarkhave'" value="wl_cusmarkhave"/><label for="wlcushave-id">有</label>
+                                            <input id="wlcusnone-id" type="radio" name="cusmark" ng-model="wl_cusmark" value="wl_cusmarknone" /><label for="wlcusnone-id">无</label>
+                                        </span>
                                     </div>
                             </span>
 
-                            </span>
-                        </li>
-                        <li>
-                            <span class="wid15">包装类别</span>
+                </span>
+            </li>
+            <li>
+                <span class="wid15">包装类别</span>
 							<span>
 								<input type="checkbox" name="carton" ng-model="wl_carton"/>纸箱
 								<input type="checkbox" name="wooden" ng-model="wl_wooden"/>木箱
 								<input type="checkbox" name="otherbox" ng-model="wl_otherbox"/>无包装
 							</span> <span style="margin-left: 60px;width: 20%;text-align: center;">样品状态前后</span>
 							<span>
-								<input type="radio" name="complete" ng-model="wl_complete"/>完整
-								<input type="radio" name="complete" ng-model="wl_complete"/>破损
+								<input ng-init="wl_complete='wlcom'" id="wlcom-id" ng-checked="true" type="radio" value="wlcom" name="wlcomplete" ng-model="wl_complete"/><label for="wlcom-id">完整</label>
+                                <input id="wlbak-id" type="radio" value="wlbak" name="wlcomplete" ng-model="wl_complete"/><label for="wlbak-id">破损</label>
 							</span>
-                        </li>
-                    </ul>
+            </li>
+        </ul>
 
-                </div>
-            </div>
-        </div>
-        <div>
-            <div class="product col-lg-6">
-                <h5>开票信息</h5>
-                <ul>
-                    <li>
-                        <span class="wid15">名称</span>
-                        <span><input type="text" size="40" name="billingname" ng-model="billingname"/></span>
-                    </li>
-                    <li>
-                        <span class="wid15">纳税人识别号</span>
-                        <span><input type="text" size="40" name="identification" ng-model="identification"/></span>
-                    </li>
-                    <li>
-                        <span class="wid15">地址、电话</span>
+    </div>
+    <div form="contact_form">
+        <div class="product col-lg-6">
+            <h5>开票信息</h5>
+            <ul>
+                <li>
+                    <span class="wid15">名称</span>
+                    <span><input type="text" size="40" name="billingname" ng-model="billingname"/></span>
+                </li>
+                <li>
+                    <span class="wid15">纳税人识别号</span>
+                    <span><input type="text" size="40" name="identification" ng-model="identification"/></span>
+                </li>
+                <li>
+                    <span class="wid15">地址、电话</span>
 						<span class="">
 								<input type="text" size="40" name="address" ng-model="address"/>
 
 						</span>
 
-                    </li>
-                    <li>
-                        <span class="wid15">开户行、账户</span>
-                        <span><input type="text" size="40" name="account" ng-model="account"/></span>
-                    </li>
+                </li>
+                <li>
+                    <span class="wid15">开户行、账户</span>
+                    <span><input type="text" size="40" name="account" ng-model="account"/></span>
+                </li>
 
-                </ul>
-            </div>
-            <div class="product col-lg-6">
-                <h5>检测依据、检测项目与样品处理信息</h5>
-                <ul>
-                    <li>
-                        <span class="wid15">检测依据</span>
-                        <span><input type="text" size="40" name="detectionbasis" ng-model="detectionbasis"/></span>
-                    </li>
-                    <li>
-                        <span class="wid15">检测项目</span>
-                        <span><input type="text" size="40" name="detectionproject" ng-model="detectionproject"/></span>
-                    </li>
-                    <li>
-                        <span class="wid15">样品处置</span>
+            </ul>
+        </div>
+        <div class="product col-lg-6">
+            <h5>检测依据、检测项目与样品处理信息</h5>
+            <ul>
+                <li>
+                    <span class="wid15">检测依据</span>
+                    <span><input type="text" size="40" name="detectionbasis" ng-model="detectionbasis"/></span>
+                </li>
+                <li>
+                    <span class="wid15">检测项目</span>
+                    <span><input type="text" size="40" name="detectionproject" ng-model="detectionproject"/></span>
+                </li>
+                <li>
+                    <span class="wid15">样品处置</span>
 						<span class="">
-								<input type="radio" name="promana" ng-model="promana"/>字体样品
-								<input type="radio" name="promana" ng-model="promana"/>退回样品（运费到付）
-								<input type="radio" name="promana" ng-model="promana"/>不要求
+								<input id="font-id" ng-init="promana='fontpro'" type="radio" value="fontpro" name="promana" ng-model="promana" ng-checked="true"/><latel for="font-id">字体样品</latel>
+								<input id="backpro-id" type="radio" value="backpro" name="promana" ng-model="promana"/><label for="backpro-id">退回样品（运费到付）</label>
+								<input id="nopro-id" type="radio" value="nopro" name="promana" ng-model="promana"/><label for="nopro-id">不要求</label>
 						</span>
 
-                    </li>
-                    <li>
-                        <span class="wid15">备注</span>
+                </li>
+                <li>
+                    <span class="wid15">备注</span>
 
-                        <span><input type="text" size="40" name="remarks" ng-model="remarks"/></span>
-                    </li>
-                </ul>
-            </div>
+                    <span><input type="text" size="40" name="remarks" ng-model="remarks"/></span>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+</div>
+<div class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content tijiao">
+            <h4>{{tiji.title}}</h4>
+            <button class="btn btn-default" data-dismiss="modal" id="returnUnpro">{{tiji.no}}</button>
+            <button class="btn btn-danger" data-toggle="modal2" ng-click="queding()" id="tijiBtn">{{tiji.yes}}</button>
         </div>
 
-        <div class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
-            <div class="modal-dialog modal-sm">
-                <div class="modal-content tijiao">
-                    <h4>{{tiji.title}}</h4>
-                    <button class="btn btn-default" data-dismiss="modal">{{tiji.no}}</button>
-                    <button class="btn btn-danger" data-toggle="modal2" ng-click="queding()" id="tijiBtn">{{tiji.yes}}</button>
-                </div>
-
-            </div>
-        </div>
-    </form>
-
+    </div>
 </div>

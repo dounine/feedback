@@ -43,7 +43,7 @@ define(["app"], function(app) {
                         templateUrl:'/customer/app/tpls/rev/menu.html'
                     },
                     'content@unpro':{
-                        templateUrl:'/customer/app/tpls/rev/unpro.html'
+                        templateUrl:'/customer/app/tpls/rev/unpro.html',
                     }
 
                 }

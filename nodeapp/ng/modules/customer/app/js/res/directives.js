@@ -7,12 +7,12 @@ define(['app'], function(app) {
             link:function (scope,element,attrs) {
                 $('.clearWuli').click(function () {
                     $('#wuli input').each(function () {
-                        $('#wuli input').val(" ");
+                        $(this).val("");
                     })
                 })
                 $('.clearHuaxue').click(function () {
                     $('#huaxue input').each(function () {
-                        $('#huaxue input').val(" ");
+                        $(this).val("");
                     })
 
                 })

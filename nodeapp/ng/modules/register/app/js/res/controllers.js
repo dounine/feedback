@@ -13,6 +13,8 @@ define(['angular','services'], function(angular,config) {
     function ctl($scope, $rootScope,config,$http,$location,mailService) {
         var vm = $scope;
 
+
+
         vm.submitReg1 = function () {
             var data = {
                 email:vm.email,
@@ -30,6 +32,8 @@ define(['angular','services'], function(angular,config) {
                 vm.msg = response.data.msg;
             });
         }
+
+
 
 
 
