@@ -61,7 +61,7 @@ gulp.task('copy-sass', function () {
         .pipe(gulp.dest('app/sass/rev/'));
 });
 gulp.task('copy-img', function () {
-    return gulp.src(['./app/img/res/**/*.+(png|git|jpg)'])
+    return gulp.src(['./app/img/res/**/*.*'])
         .pipe(gulp.dest('app/img/rev/'));
 });
 gulp.task('copy-js', function () {
@@ -75,7 +75,7 @@ gulp.task('copy-html', function () {
 gulp.task('copy-module',['copy-css','copy-sass','copy-img','copy-js','copy-html']);//复制自己的所有文件到rev目录中,用于生产环境测试及开发
 
 gulp.task('copy-lib', function () {//复制第三方库文件
-    return gulp.src(['bower_components/**/*.min.+(js|css)',
+    return gulp.src(['bower_components/**/*.min.+(js|css)','bower_components/**/*.map',
         'bower_components/**/require.js'
     ]).pipe(gulp.dest('app/lib/'));
 });
@@ -203,6 +203,9 @@ gulp.task('watch-js', function() {//排除的路径必需加!./开头
 gulp.task('watch-css', function() {
     return gulp.watch(['./app/css/res/**/*.css'],['copy-css']);
 });
+gulp.task('watch-img', function() {
+    return gulp.watch(['./app/img/res/**/*.*'],['copy-img']);
+});
 gulp.task('copy-build-sass',['copy-sass'],function () {
     return gulp.start('build-css');
 });
@@ -216,7 +219,7 @@ gulp.task('watch-html', function() {
         return gulp.start('copy-html');
     });
 });
-gulp.task('watch', ['watch-js','watch-css','watch-sass','watch-html']);
+gulp.task('watch', ['watch-js','watch-css','watch-sass','watch-img','watch-html']);
 gulp.task('bs',gulpSequence(isPro()?'pro':'dev','bs-start','bs-watch'));//启动浏览器并自动刷新，用于开发模式
 gulp.task('pro', gulpSequence('dev','compress-all', 'version-all','clean-rev'));//生产环境打包配置
 gulp.task('dev', gulpSequence('clean','bower', ['copy-module', 'copy-lib'], ['create-config-ng', 'build-css'],'create-config-ng'));//开发环境打包配置

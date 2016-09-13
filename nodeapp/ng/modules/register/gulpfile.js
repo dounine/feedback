@@ -75,7 +75,7 @@ gulp.task('copy-html', function () {
 gulp.task('copy-module',['copy-css','copy-sass','copy-img','copy-js','copy-html']);//复制自己的所有文件到rev目录中,用于生产环境测试及开发
 
 gulp.task('copy-lib', function () {//复制第三方库文件
-    return gulp.src(['bower_components/**/*.min.+(js|css)',
+    return gulp.src(['bower_components/**/*.min.+(js|css)','bower_components/**/*.map',
         'bower_components/**/require.js'
     ]).pipe(gulp.dest('app/lib/'));
 });
