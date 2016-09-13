@@ -4,8 +4,8 @@
 		<meta charset="UTF-8">
 		<title>Feedback</title>
 		<title>Feedback</title>
-		<link rel="stylesheet" href="/proxy/app/lib/bootstrap/dist/css/bootstrap.min.css">
-		<link rel="stylesheet" href="/proxy/app/sass/rev/proxy.css" type='text/css' media='all' >
+		<link rel="stylesheet" href="/customer/app/lib/bootstrap/dist/css/bootstrap.min.css">
+		<link rel="stylesheet" href="/customer/app/sass/rev/customer.css" type='text/css' media='all' >
 		<link rel="shortcut icon" type="image/x-icon" href="/html/web/img/favicon.ico" media="screen" />
 
 	</head>
@@ -15,7 +15,7 @@
 		    	<p>公告</p>
 		    </div>
 	    	<div class="logo">
-	    		<img src="/proxy/app/img/rev/form/Feedback.png" class="pull-left"/>
+	    		<img src="/customer/app/img/rev/form/Feedback.png" class="pull-left"/>
 		    		<div class="search pull-right">
 		    		<input type="text" size="15" placeholder="输入关键字" style="text-indent:10px ;"/>
 		    		<span><a href="Javascript:;"class="btn btn-primary">搜索</a></span>
@@ -24,9 +24,10 @@
 	    </header>
 	    
 	    <div ui-view class="wrapbody"></div>
-		<script src="/proxy/app/lib/requirejs/require.js"></script>
+		<script src="/customer/app/lib/requirejs/require.js"></script>
 		<script>
-			require(['/proxy/app/js/rev/main.js?_t='+new Date().getTime()]);
+			require(['/customer/app/js/rev/main.js?_t='+new Date().getTime()]);
 		</script>
+
 	</body>
 </html>

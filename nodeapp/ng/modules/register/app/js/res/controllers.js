@@ -14,6 +14,8 @@ define(['angular','services'], function(angular,config) {
     function ctl($scope, $rootScope,config,$http,$location,$cookies) {
         var vm = $scope;
 
+
+
         vm.submitReg1 = function () {
             var data = {
                 email:vm.email,
@@ -43,6 +45,8 @@ define(['angular','services'], function(angular,config) {
         vm.change_captcha_url = function () {
             vm.captcha_url='/captcha?t='+(new Date().getTime());
         }
+
+
 
         vm.submitReg3 = function(){
             var data ={
