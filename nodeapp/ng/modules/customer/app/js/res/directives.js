@@ -6,14 +6,10 @@ define(['app'], function(app) {
             restrict:'A',
             link:function (scope,element,attrs) {
                 $('.clearWuli').click(function () {
-                    $('#wuli input').each(function () {
-                        $(this).val("");
-                    })
+                    $('#physics')[0].reset()
                 })
                 $('.clearHuaxue').click(function () {
-                    $('#huaxue input').each(function () {
-                        $(this).val("");
-                    })
+                    $('#chemistry')[0].reset()
 
                 })
 
@@ -21,12 +17,14 @@ define(['app'], function(app) {
         }
     })
 
-    app.directive('clear',function () {
+    app.directive('reset',function () {
         return{
             restrict:'A',
             link:function(scope,element,attrs){
                 $(element).click(function(){
-                    window.location.reload()
+                    $('#chemistry')[0].reset();
+                    $('#physics')[0].reset();
+                    $('#cusinfo')[0].reset()
                 })
             }
         }
