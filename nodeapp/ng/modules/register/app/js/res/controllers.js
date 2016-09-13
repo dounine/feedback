@@ -32,8 +32,8 @@ define(['angular','services'], function(angular,config) {
                 }else{
                     vm.captchaVal = null;
                     vm.change_captcha_url();
-                    vm.password = null;
                     if(response.data.msg!='请输入正确的验证码!'){
+                        vm.password = null;
                         vm.msg = response.data.msg;
                     }
                 }
