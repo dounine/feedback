@@ -21,9 +21,11 @@ define(["app"], function(app) {
                 views:{
                     '':{
                         templateUrl:'/customer/app/tpls/rev/wrapbody.html'
+
                     },
                     'menu@index':{
-                        templateUrl:'/customer/app/tpls/rev/menu.html'
+                        templateUrl:'/customer/app/tpls/rev/menu.html',
+                        controller:'customer'
                     },
                     'content@index':{
                         templateUrl:'/customer/app/tpls/rev/content.html',
@@ -40,7 +42,8 @@ define(["app"], function(app) {
                         templateUrl:'/customer/app/tpls/rev/wrapbody.html'
                     },
                     'menu@unpro':{
-                        templateUrl:'/customer/app/tpls/rev/menu.html'
+                        templateUrl:'/customer/app/tpls/rev/menu.html',
+                        controller:'customer'
                     },
                     'content@unpro':{
                         templateUrl:'/customer/app/tpls/rev/unpro.html',
@@ -56,7 +59,8 @@ define(["app"], function(app) {
                         templateUrl:'/customer/app/tpls/rev/wrapbody.html'
                     },
                     'menu@proing':{
-                        templateUrl:'/customer/app/tpls/rev/menu.html'
+                        templateUrl:'/customer/app/tpls/rev/menu.html',
+                        controller:'customer'
                     },
                     'content@proing':{
                         templateUrl:'/customer/app/tpls/rev/proing.html'
@@ -72,7 +76,8 @@ define(["app"], function(app) {
                         templateUrl:'/customer/app/tpls/rev/wrapbody.html'
                     },
                     'menu@proed':{
-                        templateUrl:'/customer/app/tpls/rev/menu.html'
+                        templateUrl:'/customer/app/tpls/rev/menu.html',
+                        controller:'customer'
                     },
                     'content@proed':{
                         templateUrl:'/customer/app/tpls/rev/proed.html'
@@ -88,7 +93,8 @@ define(["app"], function(app) {
                         templateUrl:'/customer/app/tpls/rev/wrapbody.html'
                     },
                     'menu@userinfo':{
-                        templateUrl:'/customer/app/tpls/rev/menu.html'
+                        templateUrl:'/customer/app/tpls/rev/menu.html',
+                        controller:'customer'
                     },
                     'content@userinfo':{
                         templateUrl:'/customer/app/tpls/rev/userinfo.html'

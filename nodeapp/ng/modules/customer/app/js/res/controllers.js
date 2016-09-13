@@ -25,8 +25,12 @@ define(['angular','services'], function(angular,config) {
             vm.information=!vm.information;
             vm.infocla = !vm.infocla
         }
+        vm.tiji = {
+            'title': "确定提交信息",
+            'yes' : "确定",
+            'no' : "取消，继续编辑"
+        }
         vm.subForm = function(){
-
             var data = {
                 details: {
                     /****化学电池数据****/
@@ -107,36 +111,39 @@ define(['angular','services'], function(angular,config) {
             }
             //console.info(JSON.stringify(data))
             console.info(data);
+
+
+
+        }
+
+        vm.list = function () {
+            if(vm.tiji.no!='取消，继续编辑'){
+                setTimeout(function(){
+                    $rootScope.$state.go("unpro");
+                },500)
+            }
+        }
+
+        vm.queding = function () {
+
+            if(vm.tiji.yes=='继续添加信息'){
+                $('#confirm').modal('hide');
+                $('#')
+            }
+
             vm.tiji = {
-                'title': "确定提交信息",
-                'yes' : "确定",
-                'no' : "取消，继续编辑"
-            }
-            vm.queding = function () {
-                var count = 0
-                vm.tiji = {
-                    'title': "提交成功！",
-                    'yes' : "继续添加信息",
-                    'no' : "查看状态",
-                };
+                'title': "提交成功！",
+                'yes' : "继续添加信息",
+                'no' : "查看状态",
+            };
 
-
-                $('#tijiBtn').click(function () {
-                    setTimeout(function(){
-                        $rootScope.$state.go("customer");
-                    },500)
-                    //count ++
-                });
-
-                $('#returnUnpro').click(function(){
-                    //window.location.href="customer#/unpro"
-                    setTimeout(function(){
-                        $rootScope.$state.go("unpro");
-                    },500)
-                    //count ++
-                })
-            }
-
+            //$('#returnUnpro').click(function(){
+                //window.location.href="customer#/unpro"
+                //setTimeout(function(){
+                //    $rootScope.$state.go("unpro");
+                //},500)
+                //count ++
+            //})
         }
 
     }
