@@ -20,13 +20,14 @@ define(["app"], function(app) {
                 url:'/index',
                 views:{
                     '':{
-                        templateUrl:'/proxy/app/tpls/rev/wrapbody.html'
+                        templateUrl:'/customer/app/tpls/rev/wrapbody.html'
                     },
                     'menu@index':{
-                        templateUrl:'/proxy/app/tpls/rev/menu.html'
+                        templateUrl:'/customer/app/tpls/rev/menu.html'
                     },
                     'content@index':{
-                        templateUrl:'/proxy/app/tpls/rev/content.html'
+                        templateUrl:'/customer/app/tpls/rev/content.html',
+                        controller:'customer'
                     }
 
                 }
@@ -36,13 +37,13 @@ define(["app"], function(app) {
                 url:'/unpro',
                 views:{
                     '':{
-                        templateUrl:'/proxy/app/tpls/rev/wrapbody.html'
+                        templateUrl:'/customer/app/tpls/rev/wrapbody.html'
                     },
                     'menu@unpro':{
-                        templateUrl:'/proxy/app/tpls/rev/menu.html'
+                        templateUrl:'/customer/app/tpls/rev/menu.html'
                     },
                     'content@unpro':{
-                        templateUrl:'/proxy/app/tpls/rev/unpro.html'
+                        templateUrl:'/customer/app/tpls/rev/unpro.html',
                     }
 
                 }
@@ -52,13 +53,13 @@ define(["app"], function(app) {
                 url:'/proing',
                 views:{
                     '':{
-                        templateUrl:'/proxy/app/tpls/rev/wrapbody.html'
+                        templateUrl:'/customer/app/tpls/rev/wrapbody.html'
                     },
                     'menu@proing':{
-                        templateUrl:'/proxy/app/tpls/rev/menu.html'
+                        templateUrl:'/customer/app/tpls/rev/menu.html'
                     },
                     'content@proing':{
-                        templateUrl:'/proxy/app/tpls/rev/proing.html'
+                        templateUrl:'/customer/app/tpls/rev/proing.html'
                     }
 
                 }
@@ -68,13 +69,13 @@ define(["app"], function(app) {
                 url:'/proed',
                 views:{
                     '':{
-                        templateUrl:'/proxy/app/tpls/rev/wrapbody.html'
+                        templateUrl:'/customer/app/tpls/rev/wrapbody.html'
                     },
                     'menu@proed':{
-                        templateUrl:'/proxy/app/tpls/rev/menu.html'
+                        templateUrl:'/customer/app/tpls/rev/menu.html'
                     },
                     'content@proed':{
-                        templateUrl:'/proxy/app/tpls/rev/proed.html'
+                        templateUrl:'/customer/app/tpls/rev/proed.html'
                     }
 
                 }
@@ -84,13 +85,13 @@ define(["app"], function(app) {
                 url:'/userinfo',
                 views:{
                     '':{
-                        templateUrl:'/proxy/app/tpls/rev/wrapbody.html'
+                        templateUrl:'/customer/app/tpls/rev/wrapbody.html'
                     },
                     'menu@userinfo':{
-                        templateUrl:'/proxy/app/tpls/rev/menu.html'
+                        templateUrl:'/customer/app/tpls/rev/menu.html'
                     },
                     'content@userinfo':{
-                        templateUrl:'/proxy/app/tpls/rev/userinfo.html'
+                        templateUrl:'/customer/app/tpls/rev/userinfo.html'
                     }
 
                 }
