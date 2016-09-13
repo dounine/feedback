@@ -3,7 +3,6 @@ var app = require('koa')();
 var sendfile = require('koa-sendfile');
 var path = require('path');
 var loginSer = require(path.resolve('koa/services/' + path.basename(__dirname) + '/index.js'));
-var config = require('../../../plugins/read-config.js');
 
 module.exports = function (config) {
     var router = new Router();
@@ -18,7 +17,6 @@ module.exports = function (config) {
         yield (loginSer().sso(user)
             .then(function (parsedBody) {
                 var responseText = JSON.parse(parsedBody);
-                console.info(responseText);
                 if (responseText['errno'] == 0) {
                     var token = JSON.parse(responseText['data'])['token'];
                     $self.body = responseText;

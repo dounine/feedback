@@ -20,7 +20,7 @@ import java.time.LocalDateTime;
  */
 @Document
 public class FeedbackInfo extends BaseEntity {
-    private String userId;//只设客户id,管理员不用
+    private String userId;//客户id
     private LocalDateTime createTime = LocalDateTime.now();
     private DetectionInfo detectionInfo ; //检测信息
     private InvoiceInfo invoiceInfo; //发票信息
@@ -31,6 +31,7 @@ public class FeedbackInfo extends BaseEntity {
     private Long detectionNo;//(001--)
     private OperatorStatus operatorStatus;//用户操作状态
     private Long copyNum;//版本号
+    private Long finalCopyField;//最终版本字段标志
     @Transient
     private String customerName ;//用户名
 
@@ -130,5 +131,13 @@ public class FeedbackInfo extends BaseEntity {
 
     public void setCopyNum(Long copyNum) {
         this.copyNum = copyNum;
+    }
+
+    public Long getFinalCopyField() {
+        return finalCopyField;
+    }
+
+    public void setFinalCopyField(Long finalCopyField) {
+        this.finalCopyField = finalCopyField;
     }
 }

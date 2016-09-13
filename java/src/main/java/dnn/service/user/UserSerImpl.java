@@ -1,11 +1,12 @@
 package dnn.service.user;
 
+import com.mongodb.WriteResult;
 import dnn.common.beans.PropertiesLoader;
-import dnn.dto.user.UserDto;
 import dnn.common.exception.SerException;
 import dnn.common.utils.IpUtils;
 import dnn.common.utils.PasswordHash;
 import dnn.dao.user.IUserDao;
+import dnn.dto.user.UserDto;
 import dnn.entity.user.User;
 import dnn.entity.user.UserType;
 import dnn.enums.Status;
@@ -14,7 +15,6 @@ import dnn.service.user.session.Online;
 import dnn.service.user.session.TokenUtils;
 import dnn.service.user.session.UserSession;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.stereotype.Service;
 
 import java.security.NoSuchAlgorithmException;
@@ -78,12 +78,16 @@ public class UserSerImpl extends ServiceImpl<User,UserDto> implements ISerUser {
                     online.setToken(token);
                     online.setUserType(dbUser.getUserType());
 
+                    if(Status.UNREVIEW.equals(dbUser.getStatus())){
+                        throw new SerException("帐号未审核,请联系管理进行审核.");
+                    }
+
                     UserSession.put(token,online);
 
                     return token;
                 }
             } catch (SerException e) {
-                e.printStackTrace();
+                throw e;
             } catch (InvalidKeySpecException e) {
                 e.printStackTrace();
             } catch (NoSuchAlgorithmException e) {
@@ -99,6 +103,12 @@ public class UserSerImpl extends ServiceImpl<User,UserDto> implements ISerUser {
         online.put("total",UserSession.count());
         online.put("rows",UserSession.sessions());
         return online;
+    }
+
+    @Override
+    public WriteResult auditiingUser(User user) throws SerException {
+        WriteResult writeResult = userDao.UpdateByCis2(user,"status",Status.THAW);
+        return writeResult;
     }
 
     @Override

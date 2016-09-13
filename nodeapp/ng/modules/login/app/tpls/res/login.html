@@ -1,6 +1,6 @@
 <div class="login-bg col-center-block">
-    <span class="logo"></span>
-    <form name="signin" ng-init="s='has-success';e='has-error';username='admin123';password='admin123'">
+    <a href="/"><span class="logo"></span></a>
+    <form name="signin" ng-init="s='has-success';e='has-error';">
         <fieldset class="form-group
                             {{signin.username.$valid?s:e}}{{signin.username.$dirty?'':'-'}}
                         ">
@@ -12,8 +12,8 @@
                     class = "form-control form-control-success form-control-error"
                     ng-model = "username"
                     placeholder = "请输入邮箱"
-                    required
                     autofocus
+                    required
                     />
             </div>
         </fieldset>
@@ -28,8 +28,8 @@
                     ng-model = "password"
                     class="form-control form-control-success form-control-error"
                     placeholder="请输入密码"
-                    ng-maxlength="18"
-                    ng-minlength="6"
+                    ng-maxlength="20"
+                    ng-minlength="8"
                     required
                     />
             </div>
@@ -37,6 +37,7 @@
         <fieldset class="form-group">
             <div class="checkbox">
               <label><input type="checkbox" name="rememberMe" checked="checked"> 记住我</label>
+                <span class="pull-right m-r-md"><a href="/register">注册帐号</a></span>
             </div>
             <p class="text-danger">{{msg}}</p>
         </fieldset>

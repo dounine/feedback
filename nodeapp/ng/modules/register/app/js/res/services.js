@@ -7,13 +7,7 @@ define(['angular'], function(angular) {
             "ui.router",//依赖的模块
             "ngCookies"
         ]);
-    app.factory("service",['$http', service]);
-    app.factory("mailService",['$http', mailService]);
-    // app.factory("cddCaptchaService", cddCaptchaService);
-    // app.factory("cddFileService", cddFileService);
-    // app.factory("cddCaptchaData", cddCaptchaData);
-    // app.factory("cddCheckService", cddCheckService);
-    // app.factory("cddSearchData", cddSearchData);
+    app.factory("mailService",['$http','$cookies', mailService]);
 
     app.constant("imgTypeIcos",
         [{suffixs: ["folder"]}
@@ -22,23 +16,12 @@ define(['angular'], function(angular) {
             , {suffixs: ["xls", "xlsx", "excel"]}
             , {suffixs: ["txt"]}]);
 
-    function service($http) {
-        var service = {
-            need_captcha: need_captcha
-        };
-        return service;
-
-        function need_captcha(account) {
-            var postDat = {"account": account};
-            return $http.post("admin/clouddisk/captcha/needCaptcha", postDat);//用户是否需要验证码http请求
-        }
-    }
-
-    function mailService($http) {
+    function mailService($http,$cookies) {
         var $self = this;
         var service = {
             getOpenUrl: getOpenUrl,
-            setOpenUrl: setOpenUrl
+            setOpenUrl: setOpenUrl,
+            getMailName:getMailName
         };
         return service;
 
@@ -48,76 +31,8 @@ define(['angular'], function(angular) {
         function setOpenUrl(openUrl) {
             $self.openUrl = openUrl;
         }
+        function getMailName() {
+            return $cookies.mailName;
+        }
     }
-
-    // function cddCheckService($http) {
-    //     var service = {
-    //         clear_request: clear_request
-    //     };
-    //     return service;
-
-    //     function clear_request(account) {
-    //         return $http.get("admin/clouddisk/loginCheck/clear");
-    //     }
-    // }
-
-    // function cddSearchData($http) {
-    //     return {
-    //         search: false
-    //     }
-    // }
-
-    // function cddCaptchaService($http) {
-    //     var service = {
-    //         captcha_request: captcha_request//验证
-    //     };
-    //     return service;
-
-
-    //     function captcha_request(data) {
-    //         return $http.post("admin/clouddisk/captcha/valid", data);
-    //     }
-    // }
-
-    // function cddCaptchaData() {
-    //     return {
-    //         url: null,
-    //         path: function () {
-    //             return "admin/clouddisk/captcha/read?account=403833139@qq.com&t=" + new Date().getTime()
-    //         }
-    //     }
-    // }
-
-    // function cddFileService($http, imgTypeIcos, $rootScope) {
-    //     var service = {
-    //         list_request: list_request,
-    //         suffix_ico: suffix_ico
-    //     };
-    //     return service;
-
-
-    //     function list_request(search) {
-    //         var postDat = {"path": $rootScope.$stateParams.path};
-    //         if(search){
-    //             return $http.post("admin/clouddisk/file/search", postDat);
-    //         }
-    //         return $http.post("admin/clouddisk/file/list", postDat);
-    //     }
-
-    //     function suffix_ico(suffix) {//后缀样式选择
-    //         var isItem = null;
-    //         for (var i in imgTypeIcos) {
-    //             var item = imgTypeIcos[i];
-    //             for (var j in item.suffixs) {
-    //                 var value = item.suffixs[j];
-    //                 if (value == suffix) {
-    //                     isItem = item;
-    //                     break;
-    //                 }
-    //             }
-    //         }
-    //         isItem = isItem || imgTypeIcos[0];
-    //         return "ico-" + isItem.suffixs[0];
-    //     }
-    // }
 });

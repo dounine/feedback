@@ -1,8 +1,10 @@
 package dnn.service;
 
+import com.mongodb.WriteResult;
 import dnn.dto.BaseDto;
 import dnn.common.exception.SerException;
 import dnn.entity.BaseEntity;
+import org.springframework.data.mongodb.core.mapreduce.GroupByResults;
 import org.springframework.data.mongodb.core.query.Criteria;
 
 import java.util.List;
@@ -153,7 +155,7 @@ public interface IService<Entity extends BaseEntity, Dto extends BaseDto> {
      * 删除符合条件对象列表
      * @param conditions
      */
-    void removeByCis(Map<String, Object> conditions)throws SerException ;
+    int removeByCis(Map<String, Object> conditions)throws SerException ;
 
     /**
      * 根据列 和条件查找最大值对象
@@ -166,5 +168,15 @@ public interface IService<Entity extends BaseEntity, Dto extends BaseDto> {
      * @param fields
      */
     Entity findByMin(List<Object> fields,Map<String,Object> conditions)throws SerException ;
+
+    /**
+     * 更新某个特定字段
+     * @param entities
+     * @param key  更新的键
+     * @param value 要更新的值
+     * @return
+     * @throws SerException
+     */
+    WriteResult UpdateByCis2(Entity entities, String key , Object value)throws SerException ;
 
 }

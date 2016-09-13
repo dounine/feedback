@@ -1,8 +1,10 @@
 package dnn.dao;
 
+import com.mongodb.WriteResult;
 import dnn.common.exception.SerException;
 import dnn.dto.BaseDto;
 import dnn.entity.BaseEntity;
+import org.springframework.data.mongodb.core.mapreduce.GroupByResults;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 
@@ -122,6 +124,9 @@ public interface IDao<Entity extends BaseEntity, Dto extends BaseDto> {
      */
     void update(List<Entity> entities);
 
+
+    WriteResult UpdateByCis2(Entity entities, String key , Object value) ;
+
     /**
      * 根据字段条件查询对象列表
      *
@@ -156,7 +161,7 @@ public interface IDao<Entity extends BaseEntity, Dto extends BaseDto> {
      * 删除符合条件对象列表
      * @param conditions
      */
-    void removeByCis(Map<String, Object> conditions);
+    int removeByCis(Map<String, Object> conditions);
 
     /**
      * 根据列查找最大值对象
@@ -169,6 +174,5 @@ public interface IDao<Entity extends BaseEntity, Dto extends BaseDto> {
      * @param fields
      */
     Entity findByMin(List<Object> fields,Map<String,Object> conditions);
-
 
 }

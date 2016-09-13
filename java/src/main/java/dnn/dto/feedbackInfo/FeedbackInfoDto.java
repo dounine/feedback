@@ -8,7 +8,7 @@ import dnn.enums.FeedbackStatus;
  */
 public class FeedbackInfoDto extends BaseDto {
     private FeedbackStatus status;
-    private String searchCondition;//搜索条件
+    private String detectionNum;//工单编号搜索条件
 
     public FeedbackStatus getStatus() {
         return status;
@@ -18,11 +18,11 @@ public class FeedbackInfoDto extends BaseDto {
         this.status = status;
     }
 
-    public String getSearchCondition() {
-        return searchCondition;
+    public String getDetectionNum() {
+        return detectionNum;
     }
 
-    public void setSearchCondition(String searchCondition) {
-        this.searchCondition = searchCondition;
+    public void setDetectionNum(String detectionNum) {
+        this.detectionNum = detectionNum;
     }
 }

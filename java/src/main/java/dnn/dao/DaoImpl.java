@@ -1,5 +1,6 @@
 package dnn.dao;
 
+import com.mongodb.WriteResult;
 import dnn.common.exception.SerException;
 import dnn.dto.BaseDto;
 import dnn.common.utils.GenericsUtils;
@@ -8,6 +9,9 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.mongodb.core.MongoTemplate;
+import org.springframework.data.mongodb.core.aggregation.Aggregation;
+import org.springframework.data.mongodb.core.mapreduce.GroupBy;
+import org.springframework.data.mongodb.core.mapreduce.GroupByResults;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.data.mongodb.core.query.Update;
@@ -168,7 +172,14 @@ public class DaoImpl<Entity extends BaseEntity, Dto extends BaseDto> implements 
     }
 
     @Override
-    public void removeByCis(Map<String, Object> conditions) {
+    public WriteResult UpdateByCis2(Entity entities, String key ,Object value) {
+        WriteResult s=mongoTemplate.updateFirst(new Query(Criteria.where("id").is(entities.getId())),
+                    Update.update(key,value), clazz);
+        return s;
+    }
+
+    @Override
+    public int removeByCis(Map<String, Object> conditions) {
 
         Query query = new Query();
         if (null != conditions && conditions.size() > 0) {
@@ -176,7 +187,8 @@ public class DaoImpl<Entity extends BaseEntity, Dto extends BaseDto> implements 
                 query.addCriteria(Criteria.where(entry.getKey()).is(entry.getValue()));
             }
         }
-        mongoTemplate.remove(query, clazz);
+        int result =mongoTemplate.remove(query, clazz).getN();
+        return result;
     }
 
 
@@ -215,4 +227,5 @@ public class DaoImpl<Entity extends BaseEntity, Dto extends BaseDto> implements 
 
         return mongoTemplate.findOne(query,clazz);
     }
+
 }

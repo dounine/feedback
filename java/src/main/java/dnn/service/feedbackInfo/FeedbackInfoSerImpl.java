@@ -1,5 +1,6 @@
 package dnn.service.feedbackInfo;
 
+import dnn.common.utils.UserContext;
 import dnn.dto.SearchJson;
 import dnn.dto.feedbackInfo.FeedbackInfoDto;
 import dnn.common.exception.SerException;
@@ -79,20 +80,10 @@ public class FeedbackInfoSerImpl extends ServiceImpl<FeedbackInfo,FeedbackInfoDt
     }
 
     private  void  intoDto(FeedbackInfoDto dto){
-        /*List<Online>  userSession=UserSession.sessions();
-        UserType userType= userSession.get(0).getUserType();
-        String userId = userSession.get(0).getId();
-
-        Map<String,Object> maps =dto.getConditions();
-        if(userType.equals(UserType.CUSTOM)){
-            maps.put("userId",userId);
-            maps.put("feedbackStatus", dto.getStatus().name());
-//            maps.put("detectionNum", dto.getSearchCondition());
-        }*/
-
-
+//        UserType userType =UserContext.currentUser().getUserType();
+//        String userId = UserContext.currentUser().getId();
         User user = new User();
-        user.setUserType(UserType.MANAGER);
+        user.setUserType(UserType.MANAGER);//TODO 从当前登录的用户获取
         String userId ="57cfdf3179d23f8f570f49fd";
         Map<String,Object> maps =dto.getConditions();
         if(user.getUserType().equals(UserType.CUSTOM)){
@@ -102,9 +93,12 @@ public class FeedbackInfoSerImpl extends ServiceImpl<FeedbackInfo,FeedbackInfoDt
         if(dto.getStatus()!=null){
             maps.put("feedbackStatus", dto.getStatus().name());
         }
-        if(dto.getSearchCondition()!=null){
-            maps.put("detectionNum", dto.getSearchCondition());//根据工单号查询
+        if(dto.getDetectionNum()!=null){
+            maps.put("detectionNum", dto.getDetectionNum());//根据工单号查询
         }
+        maps.put("finalCopyField",1);
+
+
     }
 
     /**
@@ -114,21 +108,17 @@ public class FeedbackInfoSerImpl extends ServiceImpl<FeedbackInfo,FeedbackInfoDt
      */
     @Override
     public void save(FeedbackInfo feedbackInfo) throws SerException {
-        String chemicalCellSampleName = feedbackInfo.getChemicalCell().getSampleName();
-        String physicalEnergySampleName = feedbackInfo.getPhysicalEnergy().getSampleName();
-        if(StringUtils.isNotBlank(chemicalCellSampleName) && StringUtils.isNotBlank(physicalEnergySampleName)){
+        feedbackInfo =checkFeedback(feedbackInfo);
+        if(feedbackInfo == null){
             throw  new SerException("电池只能选填一项");
-        }
-        if(StringUtils.isBlank(chemicalCellSampleName)){
-            feedbackInfo.setChemicalCell(null);
-        }else{
-            feedbackInfo.setPhysicalEnergy(null);
-        }
-        feedbackInfo= getDealFeedbackInfo(feedbackInfo);
-        feedbackInfo.setOperatorStatus(OperatorStatus.INIT);
-        feedbackInfo.setCopyNum(1L);
+        }else {
+            feedbackInfo = getDealFeedbackInfo(feedbackInfo);
+            feedbackInfo.setOperatorStatus(OperatorStatus.INIT);
+            feedbackInfo.setCopyNum(1L);
+            feedbackInfo.setFinalCopyField(1L);
 
-        super.save(feedbackInfo);
+            super.save(feedbackInfo);
+        }
     }
 
     @Override
@@ -142,7 +132,7 @@ public class FeedbackInfoSerImpl extends ServiceImpl<FeedbackInfo,FeedbackInfoDt
     public FeedbackInfo findOneInfo(FeedbackInfo feedbackInfo) throws SerException {
         Map<String, Object> conditions = new HashMap<>(0);
         Map<String, Object> criteria = new HashMap<>(1);
-        //得捣最新的版本
+        //得到最新的版本
         List<Object> field=new ArrayList<>(0);
         field.add("copyNum");
         criteria.put("userId",feedbackInfo.getUserId());
@@ -157,83 +147,99 @@ public class FeedbackInfoSerImpl extends ServiceImpl<FeedbackInfo,FeedbackInfoDt
 
     @Override
     public void updateOneInfo(FeedbackInfo feedbackInfo) throws SerException {
-        String chemicalCellSampleName = feedbackInfo.getChemicalCell().getSampleName();
-        String physicalEnergySampleName = feedbackInfo.getPhysicalEnergy().getSampleName();
-        if(StringUtils.isNotBlank(chemicalCellSampleName) && StringUtils.isNotBlank(physicalEnergySampleName)){
-            throw  new SerException("电池只能选填一项");
+        feedbackInfo =checkFeedback(feedbackInfo);
+        if(feedbackInfo ==null){
+           throw new SerException("电池只能选填一项");
         }
-        if(StringUtils.isBlank(chemicalCellSampleName)){
-            feedbackInfo.setChemicalCell(null);
-        }else{
-            feedbackInfo.setPhysicalEnergy(null);
-        }
-        List<Online>  userSession=UserSession.sessions();
-        UserType userType= userSession.get(0).getUserType();
-
-        FeedbackInfo copyInfo = findById(feedbackInfo.getId());
-        if(copyInfo.getOperatorStatus().equals(OperatorStatus.INIT) && userType.equals(UserType.CUSTOM)){
-            feedbackInfo.setOperatorStatus(OperatorStatus.INIT);
-        }else if(copyInfo.getOperatorStatus().equals(OperatorStatus.INIT) && userType.equals(UserType.MANAGER)){
-            feedbackInfo.setOperatorStatus(OperatorStatus.MANAGERCONFIRM);
-        }else if(copyInfo.getOperatorStatus().equals(OperatorStatus.MANAGERCONFIRM) && userType.equals(UserType.CUSTOM)){
-            feedbackInfo.setOperatorStatus(OperatorStatus.CUSTOMCONFIRM);
-        }else if(copyInfo.getOperatorStatus().equals(OperatorStatus.MANAGERCONFIRM) && userType.equals(UserType.MANAGER)){
-            feedbackInfo.setOperatorStatus(OperatorStatus.MANAGERCONFIRM);
-        }else if(copyInfo.getOperatorStatus().equals(OperatorStatus.CUSTOMCONFIRM) && userType.equals(UserType.CUSTOM)){
-            feedbackInfo.setOperatorStatus(OperatorStatus.CUSTOMFINALCONFIRM);
-        }else if(copyInfo.getOperatorStatus().equals(OperatorStatus.CUSTOMCONFIRM) && userType.equals(UserType.MANAGER)){
-            feedbackInfo.setOperatorStatus(OperatorStatus.MANAGERCONFIRM);
-        }
-
-        //得捣最新的版本
+//        UserType userType =UserContext.currentUser().getUserType();
+        UserType userType= UserType.MANAGER;//TODO 从当前登录的用户获取
+        //得到最新的版本
         List<Object> field=new ArrayList<>(0);
         Map<String,Object> map =new HashMap<>(0);
+        Map<String,Object> updateMap =new HashMap<>(1);
         field.add("copyNum");
         map.put("detectionNum",feedbackInfo.getDetectionNum());
         map.put("userId",feedbackInfo.getUserId());
         FeedbackInfo maxByCopyNum = findByMax(field,map);
-        feedbackInfo.setCopyNum(maxByCopyNum.getCopyNum()+001L);
+        super.UpdateByCis2(maxByCopyNum,"finalCopyField",0L);
 
-        super.save(feedbackInfo);
+        String str1=maxByCopyNum.getOperatorStatus().name().toString();
+        String str2=null;
+        if(userType.equals(UserType.CUSTOM)){
+            switch (str1){
+                case  "INIT":
+                    feedbackInfo.setOperatorStatus(OperatorStatus.INIT);//客户自行修改还是init
+                case  "MANAGERCONFIRM":
+                    feedbackInfo.setOperatorStatus(OperatorStatus.CUSTOMCONFIRM);//客户确认
+                case  "CUSTOMCONFIRM":
+                    feedbackInfo.setOperatorStatus(OperatorStatus.CUSTOMFINALCONFIRM);//客户最终确认
+                case  "CHARGENOT":
+                    feedbackInfo.setOperatorStatus(OperatorStatus.CHARGECONFIRM);//客户最终确认
+            }
+        }else if(userType.equals(UserType.MANAGER)){
+            switch (str1){
+                case  "INIT":
+                    feedbackInfo.setOperatorStatus(OperatorStatus.MANAGERCONFIRM);//管理员在init状态修改后变为managerconfirm
+                case  "MANAGERCONFIRM":
+                    feedbackInfo.setOperatorStatus(OperatorStatus.MANAGERCONFIRM);//管理员确认
+            }
+        }
+
+        feedbackInfo.setCopyNum(maxByCopyNum.getCopyNum()+001L);
+        feedbackInfo.setDetectionNo(maxByCopyNum.getDetectionNo());
+        feedbackInfo.setFinalCopyField(1L);
+        if(feedbackInfo.getOperatorStatus()!=null){
+            super.save(feedbackInfo);
+        }else{
+           Exception e =new Exception();
+            e.printStackTrace();
+        }
+
     }
 
     @Override
     public void confirmFeedback(FeedbackInfo feedbackInfo) throws SerException {
-        String chemicalCellSampleName = feedbackInfo.getChemicalCell().getSampleName();
-        String physicalEnergySampleName = feedbackInfo.getPhysicalEnergy().getSampleName();
-        if(StringUtils.isNotBlank(chemicalCellSampleName) && StringUtils.isNotBlank(physicalEnergySampleName)){
-            throw  new SerException("电池只能选填一项");
-        }
-        if(StringUtils.isBlank(chemicalCellSampleName)){
-            feedbackInfo.setChemicalCell(null);
-        }else{
-            feedbackInfo.setPhysicalEnergy(null);
+        feedbackInfo =checkFeedback(feedbackInfo);
+        if(feedbackInfo ==null){
+            throw new SerException("电池只能选填一项");
         }
 
         //得捣最新的版本
         List<Object> field=new ArrayList<>(0);
         Map<String,Object> map =new HashMap<>(0);
+//        UserType userType =UserContext.currentUser().getUserType();
+        UserType userType= UserType.MANAGER;//TODO 从当前登录的用户获取
         field.add("copyNum");
         map.put("userId",feedbackInfo.getUserId());
         map.put("detectionNum",feedbackInfo.getDetectionNum());
         FeedbackInfo maxByCopyNum = findByMax(field,map);
+
+        if(maxByCopyNum.getOperatorStatus().equals(OperatorStatus.CHARGECONFIRM) && userType.equals(UserType.MANAGER)){
+            feedbackInfo.setOperatorStatus(OperatorStatus.HANDLECONFIRM);//客户最终确认
+        }
         feedbackInfo.setCopyNum(maxByCopyNum.getCopyNum()+001L);
-        feedbackInfo.setOperatorStatus(OperatorStatus.HANDLECONFIRM);
         super.save(feedbackInfo);
     }
 
-    public FeedbackInfo getDealFeedbackInfo(FeedbackInfo feedbackInfo) {
+    @Override
+    public int deleteFeedback(FeedbackInfo feedbackInfo) throws SerException {
+        Map<String ,Object> map =new HashMap<>(1);
+        map.put("detectionNum",feedbackInfo.getDetectionNum());
+        map.put("userId",feedbackInfo.getUserId());
+        int result = super.removeByCis(map);
+        return result;
+    }
 
-       /* List<Online>  userSession=UserSession.sessions();
-        UserType userType= userSession.get(0).getUserType();
-        String userId = userSession.get(0).getId();*/
-       User user =new User();
+    public FeedbackInfo getDealFeedbackInfo(FeedbackInfo feedbackInfo) {
+//        UserType userType =UserContext.currentUser().getUserType();
+//        String userId = UserContext.currentUser().getId();
+        User user = new User();
         user.setUserType(UserType.CUSTOM);
-        String userId="57cfdf3179d23f8f570f49fd";
-        if(user.getUserType().equals(UserType.CUSTOM)){
+        String userId = "57cfdf3179d23f8f570f49fd";//TODO 从当前登录的用户获取
+        if (user.getUserType().equals(UserType.CUSTOM)) {
             feedbackInfo.setUserId(userId);//设置当前用户的user_id
             //设置工单号
-            makeDetectionNum(feedbackInfo,userId);
+            makeDetectionNum(feedbackInfo, userId);
         }
         return feedbackInfo;
     }
@@ -241,16 +247,11 @@ public class FeedbackInfoSerImpl extends ServiceImpl<FeedbackInfo,FeedbackInfoDt
     private FeedbackInfo makeDetectionNum(FeedbackInfo feedbackInfo,String userId){
         String detectionNum=null;
         Long detectionNo=001L;
-        Date date = new Date();
 
         Map<String,Object> map =new HashMap<>(0);
         List<Object> field = new ArrayList<>(1);
-        if(feedbackInfo.getChemicalCell()!=null){
-            field.add("chemicalCell.chemicalCellSubmitDate");
-        }else{
-            field.add("physicalEnergy.physicalEnergySubmitDate");
-        }
 
+        field.add("detectionNum");
         field.add(userId);
         map.put("userId",userId);
         FeedbackInfo feedbackInfos=null;
@@ -258,19 +259,35 @@ public class FeedbackInfoSerImpl extends ServiceImpl<FeedbackInfo,FeedbackInfoDt
             feedbackInfos = findByMax(field,map);
         }catch (SerException e){
             e.printStackTrace();
-        }
-        if(feedbackInfos != null){
-            if(feedbackInfos.getDetectionNo() !=0){
-                detectionNo = feedbackInfos.getDetectionNo()+001L;
-            }else{
-                detectionNo = 001L;
+        }finally {
+            if(feedbackInfos != null){
+                if(feedbackInfos.getDetectionNo() !=0){
+                    detectionNo = feedbackInfos.getDetectionNo()+001L;
+                }else{
+                    detectionNo = 001L;
+                }
             }
+
+            detectionNum = LocalDateTime.now().getYear()+"ST"+detectionNo;
+            feedbackInfo.setDetectionNo(detectionNo);
+            feedbackInfo.setDetectionNum(detectionNum);
+
+            return feedbackInfo;
         }
 
-        detectionNum = date.getYear()+"ST"+detectionNo;
-        feedbackInfo.setDetectionNo(detectionNo);
-        feedbackInfo.setDetectionNum(detectionNum);
+    }
 
+    private FeedbackInfo checkFeedback(FeedbackInfo feedbackInfo){
+        String chemicalCellSampleName = feedbackInfo.getChemicalCell().getSampleName();
+        String physicalEnergySampleName = feedbackInfo.getPhysicalEnergy().getSampleName();
+        if(StringUtils.isNotBlank(chemicalCellSampleName) && StringUtils.isNotBlank(physicalEnergySampleName)){
+            feedbackInfo =null;
+        }
+        if(StringUtils.isBlank(chemicalCellSampleName)){
+            feedbackInfo.setChemicalCell(null);
+        }else{
+            feedbackInfo.setPhysicalEnergy(null);
+        }
         return feedbackInfo;
     }
 }

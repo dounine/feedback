@@ -38,7 +38,7 @@ public class EmailUtil {
     private static String reg = "[\\w\\.\\-]+@([\\w\\-]+\\.)+[\\w\\-]+";// 邮箱格式正
 
 
-    public static  void SendMail(Email em) throws Exception {
+    public static boolean SendMail(Email em) throws Exception {
         accessoriesList.removeAll(accessoriesList);
         init_email(em);
         // 发送带附件的邮件
@@ -47,16 +47,18 @@ public class EmailUtil {
                 AddAccessories(path);
             }
         }
-        if(!sendHtmlEMail(em)){
+        if (!sendHtmlEMail(em)) {
             CLONSOLE.info("邮件发失败");
-        }else{
+            return false;
+        } else {
             CLONSOLE.info("邮件发送成功");
+            return true;
         }
 
     }
 
 
-    private static void init_email(Email em) throws Exception{
+    private static void init_email(Email em) throws Exception {
         // 初始化邮件服务器
         em.setHost("smtp.163.com");
         PropertiesLoader loader = PropertyUtil.getInstance();
@@ -66,13 +68,13 @@ public class EmailUtil {
             em.setUsername(loader.getProperty("email.username"));
             em.setPassword(loader.getProperty("email.password"));
         }
-        if(StringUtils.isBlank(em.getSender())){
+        if (StringUtils.isBlank(em.getSender())) {
             em.setSender(loader.getProperty("email.username"));
             em.setSenderName(loader.getProperty("email.sender.name"));
         }
 
 
-        if (null == em.getReceiver() || StringUtils.isBlank(em.getContent())  || StringUtils.isBlank(em.getSubject())|| StringUtils.isBlank( em.getSender()) ) {
+        if (null == em.getReceiver() || StringUtils.isBlank(em.getContent()) || StringUtils.isBlank(em.getSubject()) || StringUtils.isBlank(em.getSender())) {
             throw new Exception("收件人/发送人/主题/内容 不能为空!");
         }
 
@@ -94,8 +96,6 @@ public class EmailUtil {
         }
         return true;
     }
-
-
 
 
     /**
@@ -204,12 +204,10 @@ public class EmailUtil {
             email.send();
 
         } catch (EmailException e) {
-            e.printStackTrace();
             return false;
         }
         return true;
     }
-
 
 
     /**

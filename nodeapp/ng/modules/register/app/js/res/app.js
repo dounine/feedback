@@ -11,12 +11,25 @@ define(['angular', 'controllers'], function(angular) {
 	app.config(['$httpProvider','$stateProvider','$urlRouterProvider',appConfig]);
 
 	function appConfig($httpProvider, $stateProvider, $urlRouterProvider) {
-		$httpProvider.defaults.headers.post["Content-Type"] = "application/x-www-form-urlencoded; charset=UTF-8";
+		$httpProvider.defaults.headers.post["Accept"] = "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8";
+		$httpProvider.defaults.headers.post["Content-Type"] = "application/x-www-form-urlencoded";
 		$httpProvider.defaults.transformRequest = function(data) {
 			if(data === undefined) {
 				return data;
 			}
-			return $.param(data);
+			var datas = "";
+			for(var name in data){
+				if((typeof data[name])=="object"){
+					for(var _n in data[name]){
+						var val = data[name][_n];
+						datas +=((name+"."+_n)+'='+(val?val:'')+'&');
+					}
+				}else{
+					datas += (name+'='+data[name]+'&');
+				}
+			}
+			//return $.param(data);
+			return datas;
 		}
 	}
 	return app;

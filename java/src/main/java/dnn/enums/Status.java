@@ -7,7 +7,8 @@ public enum Status {
     THAW(0)//解冻(正常)
     , CONGEAL(1)//冻结
     , DELETE(2)//删除
-    , UNREVIEW(3)//未审核
+    , NOACTIVE(3)//未激活
+    , UNREVIEW(4)//未审核
     ;
 
     private int code;

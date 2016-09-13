@@ -4,18 +4,20 @@ package dnn.web.user;
  * Created by lgq on 16-9-7.
  */
 
+import dnn.common.exception.SerException;
+import dnn.common.json.ResponseText;
 import dnn.common.mails.Email;
 import dnn.common.mails.EmailUtil;
 import dnn.common.utils.CryptUtil;
 import dnn.common.utils.PasswordHash;
-import dnn.common.utils.PropertyUtil;
 import dnn.entity.user.User;
+import dnn.entity.user.UserType;
 import dnn.enums.Status;
 import dnn.service.user.ISerUser;
+import dnn.web.CaptchaAct;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.text.StrBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -29,8 +31,8 @@ import java.util.Map;
 /**
  * Created by lgq on 16-9-3.
  */
-@RequestMapping("register")
 @RestController
+@RequestMapping("register")
 public class RegisterAct {
 
     @Autowired
@@ -48,22 +50,16 @@ public class RegisterAct {
      * @return
      * @throws Throwable
      */
-    @PostMapping("reg")
-    public ModelAndView register(User user) throws Throwable {
-        String errMsg = null;
-        if (StringUtils.isBlank(user.getUsername())) {
-            errMsg = "用户名不能为空";
-        } else if (StringUtils.isBlank(user.getPassword())) {
-            errMsg = "密码不能为空";
-        } else if (!(user.getUsername().length() >= 5 && user.getUsername().length() <= 18)) {
-            errMsg = "用户名长度在 5 到 18 之间";
-        } else if (!(user.getPassword().length() >= 6 && user.getPassword().length() <= 18)) {
-            errMsg = "密码长度在 6 到 18 之间";
-        } else {
-            user.setStatus(Status.UNREVIEW);//未审核
-            serUser.save(user);
-        }
-        return new ModelAndView("redirect:/register");
+    @PostMapping("perfect")
+    public ResponseText register(User user) throws Throwable {
+        user.setStatus(Status.UNREVIEW);//未审核
+        serUser.UpdateByCis2(user,"details.company",user.getDetails().getCompany());
+        serUser.UpdateByCis2(user,"details.address",user.getDetails().getAddress());
+        serUser.UpdateByCis2(user,"details.postcodes",user.getDetails().getPostcodes());
+        serUser.UpdateByCis2(user,"details.telephone",user.getDetails().getTelephone());
+        serUser.UpdateByCis2(user,"details.fax",user.getDetails().getFax());
+        serUser.UpdateByCis2(user,"details.contact",user.getDetails().getContact());
+        return new ResponseText<>();
     }
 
     /**
@@ -73,66 +69,125 @@ public class RegisterAct {
      * @return
      * @throws Throwable
      */
-    @GetMapping("activate")
-    public ModelAndView email_activate(String code, String sid, HttpServletRequest request) throws Throwable {
-        ModelAndView modelAndView = null;
-        if (StringUtils.isNotBlank(sid)) {
-            sid = request.getParameter("amp;sid");
+    @PostMapping("activate")
+    public ResponseText email_activate(String code, String sid, String uid, HttpServletRequest request) throws Throwable {
+        if (StringUtils.isBlank(code) || StringUtils.isBlank(sid) || StringUtils.isBlank(uid)) {
+            throw new SerException("激活链接地扯不正确,请检查");
+        }
+        ResponseText responseText = new ResponseText();
+        if (StringUtils.isBlank(sid)) {
+            sid = request.getParameter("sid");
         }
         String str = CryptUtil.decryptBASE64(sid);
-        String email = str.split("#")[0];
-        String time = str.split("#")[1];
+        String time = str.split("#")[0];
+        String email = str.split("#")[1];
         LocalDateTime d_time = LocalDateTime.parse(time);
         if (PasswordHash.validatePassword(email, code)  //是否比配,时间是否超时
-                && d_time.plusHours(1).isBefore(LocalDateTime.now())) {
-            modelAndView = new ModelAndView("admin/register"); //注册页面
-
+                && d_time.plusHours(1).isAfter(LocalDateTime.now())) {
+            Map<String, Object> map = new HashMap<>(1);
+            map.put("id", uid);
+            User user = serUser.findOne(map);
+            if (null != user && user.getStatus() == Status.NOACTIVE) {
+//                user.setStatus(Status.UNREVIEW);//未审核
+                serUser.UpdateByCis2(user, "status", Status.UNREVIEW);
+            }
+            responseText.setMsg("注册成功");
         } else {
-            modelAndView = new ModelAndView("admin/timeout");//验证超时
-            // time out
+            responseText.setErrno(2);
+            responseText.setMsg("验证超时,必需在一小时内验证");
         }
 
-        return modelAndView;
+        return responseText;
     }
 
     /**
      * 注册邮箱验证
-     *
-     * @param email
-     * @return
-     * @throws Throwable
      */
     @PostMapping("valid")
-    public ModelAndView email_valid(String email) throws Throwable {
+    public ResponseText email_valid(String captchaKey,String captchaVal, String activePath, String email, String password, HttpServletRequest request) throws Throwable {
+        if(StringUtils.isBlank(captchaVal)){
+            throw new SerException("验证码不能为空!");
+        }
+        if(StringUtils.isBlank(captchaKey)){
+            throw new SerException("验证码key不能为空!");
+        }
+        if(!CaptchaAct.validCaptcha(captchaKey,captchaVal)){
+            throw new SerException("请输入正确的验证码!");
+        }
+        if (StringUtils.isBlank(email)) {
+            throw new SerException("邮箱地扯不能为空!");
+        }
+        if (StringUtils.isBlank(password)) {
+            throw new SerException("密码不能为空!");
+        }
+        if (StringUtils.isBlank(activePath)) {
+            throw new SerException("激活回调地扯不能为空!");
+        }
         String subject = "Feedback 注册验证";
         String content = null;
         StrBuilder sb = new StrBuilder();
         ModelAndView modelAndView = null;
         Map<String, Object> map = new HashMap<>(1);
-        map.put("details.email", email);
-        if (null != serUser.findOne(map)) {
-            modelAndView = new ModelAndView("user/login");
-            modelAndView.addObject("msg", "该邮箱已被注册!");
-            return modelAndView;
+        map.put("username", email);
+        User user = serUser.findOne(map);
+        if (null != user && user.getStatus() == Status.THAW) {
+            ResponseText responseText = new ResponseText();
+            responseText.setMsg("该邮箱已被注册!");
+            responseText.setErrno(2);
+            return responseText;
+        }else if (null != user && user.getStatus() == Status.UNREVIEW){
+            ResponseText responseText = new ResponseText();
+            responseText.setMsg("该邮箱已激活,请联系管理员进行审核使用!");
+            responseText.setErrno(2);
+            return responseText;
         } else {
             sb.append("<a href='link_url'>请点击该链接</a>或复制以下链接到浏览器进行注册验证:<br/><br/>");
-            sb.append(PropertyUtil.getInstance().getProperty("realm.name")); //域名
-            sb.append("/register/activate");
-            sb.append("?code=");
             Email em = new Email(email);
-            sb.append(PasswordHash.createHash(email));
-            sb.append("&sid=");
-            sb.append(CryptUtil.encryptBASE64(LocalDateTime.now().toString() + "#" + email));
-            content = sb.toString();
-            content = content.replace("link_url",content.substring(content.indexOf("http"),content.length()));
-            em.initEmailInfo(subject, content);
-            EmailUtil.SendMail(em);
-            String host = email.split("@")[1];
-            host = host.substring(0,host.indexOf("."));
-            return new ModelAndView("redirect: https://mail."+host+".com"); //处理跳转到注册邮箱域名...
+            StringBuilder urlSb = new StringBuilder(activePath);
+            urlSb.append("?code=");
+            String code = PasswordHash.createHash(email);
+            urlSb.append(code);
+            urlSb.append("&sid=");
+            String sid = CryptUtil.encryptBASE64(LocalDateTime.now().toString() + "#" + email);
+            urlSb.append(sid);
 
+            User newUser = new User();
+            newUser.setUsername(email);
+            newUser.setPassword(password);
+            newUser.setUserType(UserType.CUSTOM);
+            newUser.setStatus(Status.NOACTIVE);//未注册
+
+            User _user = null;
+            map = new HashMap<>(1);
+            map.put("username", email);
+            if (null != user &&user.getStatus().equals(Status.NOACTIVE)) {
+                _user = serUser.findOne(map);
+            }else{
+                serUser.save(newUser);
+                _user = serUser.findOne(map);
+            }
+            urlSb.append("&uid=");
+
+            if (null == _user) {
+                throw new SerException("注册失败");
+            }
+            urlSb.append(_user.getId());
+
+            sb.append(urlSb.toString());
+            content = sb.toString();
+            content = sb.toString().replace("link_url", urlSb.toString());
+            em.initEmailInfo(subject, content);
+            boolean status = EmailUtil.SendMail(em);
+            String host = email.split("@")[1];
+            if(status){
+                return new ResponseText("https://mail." + host);
+            }else{
+                ResponseText responseText = new ResponseText();
+                responseText.setMsg("邮件发送失败,请联系管理员");
+                responseText.setErrno(3);
+                return responseText;
+            }
         }
     }
-
 
 }
