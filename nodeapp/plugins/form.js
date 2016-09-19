@@ -22,16 +22,15 @@ module.exports = function (d) {
     }
     return ds;
 }
-//function listForm(prefix,objs) {
+//function listForm(prefix,deArr,objs) {
 //	if(!objs)return null;
-//	var dsArr = [];
 //	var f = function(name,o,dx) {
 //		for(var i in o){
 //			var v = o[i];
 //			if((typeof v)==='object')
 //				f(i,v,dx);
 //			else
-//				dsArr.push(prefix+'['+dx+'].'+name+'.'+i+'='+(v || ''));
+//				deArr.push(prefix+'['+dx+'].'+name+'.'+i+'='+(v || ''));
 //			
 //		}
 //	}
@@ -42,12 +41,14 @@ module.exports = function (d) {
 //			if((typeof v)==='object')
 //				f(i,v,dx);
 //			else
-//				dsArr.push(prefix+'['+dx+'].'+i+'='+v);
+//				deArr.push(prefix+'['+dx+'].'+i+'='+v);
 //			
 //		}
 //	}
-//	return dsArr.join('&');
+//	return deArr.join('&');
 //}
 //
 //var objs = [{name:'haha',age:21},{name:'nihao',age:23,info:{name:1,age:null}}];
-//console.log(listForm('users',objs));
+//var deArr = [];
+//console.log(listForm('users',deArr,objs));
+//console.log(deArr.join('&'));
