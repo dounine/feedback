@@ -33,14 +33,14 @@ public class UserSerImpl extends ServiceImpl<User, UserDto> implements ISerUser 
     public void systemLogin(User user) throws SerException {
         if (user.getPassword().equals(propertiesLoader.getProperty("system.password"))) {
             System.out.println("admin 系统帐号登录成功!!");
-        }else{
+        } else {
             throw new SerException("用户名或密码错误");
         }
     }
 
     @Override
     public void login(User user) throws SerException {
-        if(user.getUsername().equals("123@qq.com")&&user.getPassword().equals("11111111")){
+        if (user.getUsername().equals("123@qq.com") && user.getPassword().equals("11111111")) {
             user.setUserType(UserType.CUSTOM);
             UserContext.saveUserSession(user);
             return;
@@ -50,7 +50,7 @@ public class UserSerImpl extends ServiceImpl<User, UserDto> implements ISerUser 
             systemLogin(user);
             user.setUserType(UserType.MANAGER);
             UserContext.saveUserSession(user);
-        }else{
+        } else {
             User dbUser = userDao.findByName(user.getUsername());
             if (null != dbUser) {
                 try {
@@ -83,8 +83,9 @@ public class UserSerImpl extends ServiceImpl<User, UserDto> implements ISerUser 
 
     @Override
     public WriteResult auditiingUser(User user) throws SerException {
-        WriteResult writeResult = userDao.UpdateByCis2(user, "status", Status.THAW);
-        return writeResult;
+//// TODO: 16-9-23
+//        WriteResult writeResult = userDao.UpdateByCis2(user,"status",Status.THAW);
+        return null;
     }
 
     @Override

@@ -29,6 +29,8 @@ import java.util.stream.Stream;
  */
 public class ServiceImpl<Entity extends BaseEntity, Dto extends BaseDto> extends FinalCommons implements IService<Entity, Dto> {
 
+
+
     @Autowired
     protected IDao<Entity, Dto> dao;
     private static final Logger CONSOLE = LoggerFactory.getLogger(ServiceImpl.class);
@@ -51,18 +53,9 @@ public class ServiceImpl<Entity extends BaseEntity, Dto extends BaseDto> extends
         }
         query.skip(dto.getSkip());
         query.limit(dto.getLimit());
-        return dao.findByPage(query);
+        return dao.findByPage(dto);
     }
 
-    @Override
-    public Entity findOne(Map<String, Object> conditions) throws SerException {
-        return dao.findOne(conditions);
-    }
-
-    @Override
-    public List<Entity> findByCriteria(Criteria criteria) throws SerException {
-        return dao.findByCriteria(criteria);
-    }
 
     @Override
     public Long count(Dto dto) throws SerException {
@@ -73,17 +66,12 @@ public class ServiceImpl<Entity extends BaseEntity, Dto extends BaseDto> extends
                 query.addCriteria(Criteria.where(entry.getKey()).is(entry.getValue()));
             }
         }
-        return dao.count(query);
+        return dao.count(dto);
     }
 
     @Override
     public Entity findById(String id) throws SerException {
         return dao.findById(id);
-    }
-
-    @Override
-    public List<Entity> findByIn(String field, List<String> values) throws SerException {
-        return dao.findByIn(field, values);
     }
 
     @Override
@@ -115,52 +103,11 @@ public class ServiceImpl<Entity extends BaseEntity, Dto extends BaseDto> extends
     public void update(Entity entity) throws SerException {
         dao.update(entity);
     }
-    @Override
-    public WriteResult UpdateByCis2(Entity entities, String key , Object value)throws SerException {
-        return dao.UpdateByCis2(entities,key,value);
-    }
-    @Override
-    public void update(List<Entity> entities) {
-        dao.update(entities);
-    }
 
     @Override
-    public List<Entity> findByCis(Map<String, Object> conditions) throws SerException {
-        return dao.findByCis(conditions);
+    public Entity findOne(Map<String, Object> conditions) throws SerException {
+        return dao.findOne(conditions);
     }
-
-    @Override
-    public List<Entity> findByFuzzy(Map<String, Object> conditions) throws SerException {
-        return dao.findByFuzzy(conditions);
-    }
-
-    @Override
-    public long countByCis(Map<String, Object> conditions) throws SerException {
-        return dao.countByCis(conditions);
-    }
-
-    @Override
-    public void UpdateByCis(Entity entity, Map<String, Object> conditions) throws SerException {
-        dao.UpdateByCis(entity, conditions);
-    }
-
-    @Override
-    public Entity findByMax(List<Object> fields,Map<String,Object> conditions) throws SerException {
-        return dao.findByMax(fields,conditions);
-    }
-
-    @Override
-    public Entity findByMin(List<Object> fields,Map<String,Object> conditions) throws SerException {
-        return dao.findByMin(fields,conditions);
-    }
-
-    @Override
-    public int removeByCis(Map<String, Object> conditions) throws SerException {
-        int result = dao.removeByCis(conditions);
-        return  result;
-    }
-
-
 
     private Query init_search(Query query, Dto dto) {
 

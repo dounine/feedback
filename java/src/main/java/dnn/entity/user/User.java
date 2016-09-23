@@ -6,16 +6,19 @@ import dnn.entity.BaseEntity;
 import dnn.enums.Status;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotBlank;
-import org.springframework.data.mongodb.core.mapping.Document;
 
+import javax.persistence.*;
 import java.time.LocalDateTime;
 
 /**
  * Created by huanghuanlai on 16/4/28.
  */
-@Document
+@Entity
+@Table(name="feedback_user")
 public class User extends BaseEntity{
-
+    @Id
+    @Column(name = "id", unique = false, nullable = false)
+    private String id;
     public static final int UNAME_MIN_SIZE = 6;
     public static final int UNAME_MAX_SIZE = 20;
     public static final String TOKEN_NAME = "token";
@@ -28,12 +31,20 @@ public class User extends BaseEntity{
     @NotBlank(message = "密码不能空",groups = {Add.class})
     @PasswordValid(groups = {Add.class})
     private String password;
-    private String[] tags;
     private Status status;
+    @Transient
     private UserDetails details;
     private Integer age;
     private Double money;
     private Float height;
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
 
     private LocalDateTime accessTime;
 
@@ -71,13 +82,6 @@ public class User extends BaseEntity{
         this.userType = userType;
     }
 
-    public String[] getTags() {
-        return tags;
-    }
-
-    public void setTags(String[] tags) {
-        this.tags = tags;
-    }
 
     public Status getStatus() {
         return status;

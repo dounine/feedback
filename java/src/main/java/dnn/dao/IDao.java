@@ -4,9 +4,7 @@ import com.mongodb.WriteResult;
 import dnn.common.exception.SerException;
 import dnn.dto.BaseDto;
 import dnn.entity.BaseEntity;
-import org.springframework.data.mongodb.core.mapreduce.GroupByResults;
-import org.springframework.data.mongodb.core.query.Criteria;
-import org.springframework.data.mongodb.core.query.Query;
+import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
 import java.util.Map;
@@ -29,10 +27,10 @@ public interface IDao<Entity extends BaseEntity, Dto extends BaseDto> {
     /**
      * 查询分页数据
      *
-     * @param query
+     * @param dto
      * @return
      */
-    List<Entity> findByPage(Query query);
+    List<Entity> findByPage(Dto dto);
 
 
     /**
@@ -40,7 +38,7 @@ public interface IDao<Entity extends BaseEntity, Dto extends BaseDto> {
      *
      * @return
      */
-    Long count(Query query);
+    Long count(Dto dto);
 
     /**
      * 查询第一个对象
@@ -52,30 +50,12 @@ public interface IDao<Entity extends BaseEntity, Dto extends BaseDto> {
 
 
     /**
-     * 自定义查询
-     *
-     * @param criteria
-     * @return
-     */
-    List<Entity> findByCriteria(Criteria criteria) ;
-
-
-    /**
      * 查询某个对象
      *
      * @param id
      * @return
      */
     Entity findById(String id);
-
-    /**
-     * 查询符合某个条件对象
-     *
-     * @param field
-     * param values
-     * @return
-     */
-    List<Entity> findByIn(String field,List<String> values);
 
     /**
      * 保存对象
@@ -125,54 +105,5 @@ public interface IDao<Entity extends BaseEntity, Dto extends BaseDto> {
     void update(List<Entity> entities);
 
 
-    WriteResult UpdateByCis2(Entity entities, String key , Object value) ;
-
-    /**
-     * 根据字段条件查询对象列表
-     *
-     * @param conditions
-     */
-    public List<Entity> findByCis(Map<String, Object> conditions);
-
-
-    /**
-     * 根据字段条件查询对象列表数量
-     *
-     * @param conditions
-     */
-    long countByCis(Map<String, Object> conditions);
-
-
-    /**
-     * 模糊条件查询对象列表(只支持字段属性是字符串的查询)
-     *
-     * @param conditions
-     */
-    List<Entity> findByFuzzy(Map<String, Object> conditions);
-
-    /**
-     * 更新符合条件对象列表
-     * @param entity
-     * @param conditions
-     */
-    void UpdateByCis(Entity entity, Map<String, Object> conditions);
-
-    /**
-     * 删除符合条件对象列表
-     * @param conditions
-     */
-    int removeByCis(Map<String, Object> conditions);
-
-    /**
-     * 根据列查找最大值对象
-     * @param fields
-     */
-    Entity findByMax(List<Object> fields,Map<String,Object> conditions);
-
-    /**
-     * 根据列查找最大值对象
-     * @param fields
-     */
-    Entity findByMin(List<Object> fields,Map<String,Object> conditions);
 
 }

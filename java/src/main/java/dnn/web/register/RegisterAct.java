@@ -64,12 +64,13 @@ public class RegisterAct {
     @PostMapping("perfect")
     public ResponseText register(User user) throws Throwable {
         user.setStatus(Status.UNREVIEW);//未审核
-        serUser.UpdateByCis2(user,"details.company",user.getDetails().getCompany());
-        serUser.UpdateByCis2(user,"details.address",user.getDetails().getAddress());
-        serUser.UpdateByCis2(user,"details.postcodes",user.getDetails().getPostcodes());
-        serUser.UpdateByCis2(user,"details.telephone",user.getDetails().getTelephone());
-        serUser.UpdateByCis2(user,"details.fax",user.getDetails().getFax());
-        serUser.UpdateByCis2(user,"details.contact",user.getDetails().getContact());
+        //// TODO: 16-9-23  
+//        serUser.UpdateByCis2(user,"details.company",user.getDetails().getCompany());
+//        serUser.UpdateByCis2(user,"details.address",user.getDetails().getAddress());
+//        serUser.UpdateByCis2(user,"details.postcodes",user.getDetails().getPostcodes());
+//        serUser.UpdateByCis2(user,"details.telephone",user.getDetails().getTelephone());
+//        serUser.UpdateByCis2(user,"details.fax",user.getDetails().getFax());
+//        serUser.UpdateByCis2(user,"details.contact",user.getDetails().getContact());
         return new ResponseText();
     }
 
@@ -100,7 +101,7 @@ public class RegisterAct {
             User user = serUser.findOne(map);
             if (null != user && user.getStatus() == Status.NOACTIVE) {
 //                user.setStatus(Status.UNREVIEW);//未审核
-                serUser.UpdateByCis2(user, "status", Status.UNREVIEW);
+//       todo         serUser.UpdateByCis2(user, "status", Status.UNREVIEW);
             }
             responseText.setMsg("注册成功");
         } else {

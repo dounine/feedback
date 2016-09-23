@@ -1,6 +1,5 @@
 package dnn.service.feedbackInfo;
 
-import dnn.common.utils.UserContext;
 import dnn.dto.SearchJson;
 import dnn.dto.feedbackInfo.FeedbackInfoDto;
 import dnn.common.exception.SerException;
@@ -13,8 +12,6 @@ import dnn.entity.user.UserType;
 import dnn.enums.*;
 import dnn.service.ServiceImpl;
 import dnn.service.user.ISerUser;
-import dnn.service.user.session.Online;
-import dnn.service.user.session.UserSession;
 import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.UploadContext;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
@@ -125,7 +122,7 @@ public class FeedbackInfoSerImpl extends ServiceImpl<FeedbackInfo,FeedbackInfoDt
     public List<FeedbackInfo> findByUserId(String userId)throws SerException {
         Map<String, Object> conditions = new HashMap<>();
         conditions.put("userId",userId);
-        return findByCis(conditions);
+        return  null;//// TODO: 16-9-23  //findByCis(conditions);
     }
 
     @Override
@@ -137,7 +134,8 @@ public class FeedbackInfoSerImpl extends ServiceImpl<FeedbackInfo,FeedbackInfoDt
         field.add("copyNum");
         criteria.put("userId",feedbackInfo.getUserId());
         criteria.put("detectionNum",feedbackInfo.getDetectionNum());
-        FeedbackInfo maxByCopyNum = findByMax(field,criteria);
+        FeedbackInfo maxByCopyNum =null;//todo
+        // findByMax(field,criteria);
 
         User user = serUser.findById(feedbackInfo.getUserId());
         maxByCopyNum.setCustomerName(user.getUsername());
@@ -160,8 +158,9 @@ public class FeedbackInfoSerImpl extends ServiceImpl<FeedbackInfo,FeedbackInfoDt
         field.add("copyNum");
         map.put("detectionNum",feedbackInfo.getDetectionNum());
         map.put("userId",feedbackInfo.getUserId());
-        FeedbackInfo maxByCopyNum = findByMax(field,map);
-        super.UpdateByCis2(maxByCopyNum,"finalCopyField",0L);
+        FeedbackInfo maxByCopyNum = null;
+        // //// TODO: 16-9-23  findByMax(field,map);
+     //   super.UpdateByCis2(maxByCopyNum,"finalCopyField",0L);
 
         String str1=maxByCopyNum.getOperatorStatus().name().toString();
         String str2=null;
@@ -212,7 +211,8 @@ public class FeedbackInfoSerImpl extends ServiceImpl<FeedbackInfo,FeedbackInfoDt
         field.add("copyNum");
         map.put("userId",feedbackInfo.getUserId());
         map.put("detectionNum",feedbackInfo.getDetectionNum());
-        FeedbackInfo maxByCopyNum = findByMax(field,map);
+        //// TODO: 16-9-23
+        FeedbackInfo maxByCopyNum = null;//findByMax(field,map);
 
         if(maxByCopyNum.getOperatorStatus().equals(OperatorStatus.CHARGECONFIRM) && userType.equals(UserType.MANAGER)){
             feedbackInfo.setOperatorStatus(OperatorStatus.HANDLECONFIRM);//客户最终确认
@@ -226,7 +226,8 @@ public class FeedbackInfoSerImpl extends ServiceImpl<FeedbackInfo,FeedbackInfoDt
         Map<String ,Object> map =new HashMap<>(1);
         map.put("detectionNum",feedbackInfo.getDetectionNum());
         map.put("userId",feedbackInfo.getUserId());
-        int result = super.removeByCis(map);
+        //// TODO: 16-9-23
+        int result =0; //super.removeByCis(map);
         return result;
     }
 
@@ -256,7 +257,8 @@ public class FeedbackInfoSerImpl extends ServiceImpl<FeedbackInfo,FeedbackInfoDt
         map.put("userId",userId);
         FeedbackInfo feedbackInfos=null;
         try {
-            feedbackInfos = findByMax(field,map);
+            //// TODO: 16-9-23
+            feedbackInfos = findOne(null);//findByMax(field,map);
         }catch (SerException e){
             e.printStackTrace();
         }finally {
