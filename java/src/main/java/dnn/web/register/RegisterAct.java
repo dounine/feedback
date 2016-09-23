@@ -70,7 +70,7 @@ public class RegisterAct {
         serUser.UpdateByCis2(user,"details.telephone",user.getDetails().getTelephone());
         serUser.UpdateByCis2(user,"details.fax",user.getDetails().getFax());
         serUser.UpdateByCis2(user,"details.contact",user.getDetails().getContact());
-        return new ResponseText<>();
+        return new ResponseText();
     }
 
     /**

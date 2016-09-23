@@ -4,30 +4,17 @@ package dnn.web.custom.feedbackInfo;
  * Created by lgq on 16-9-4.
  */
 
-import dnn.dto.feedbackInfo.FeedbackInfoDto;
 import dnn.common.json.ResponseText;
-import dnn.entity.feedbackInfo.detection.DetectionInfo;
+import dnn.dto.feedbackInfo.FeedbackInfoDto;
 import dnn.entity.feedbackInfo.FeedbackInfo;
-import dnn.entity.feedbackInfo.specimen.ChemicalCell;
-import dnn.entity.feedbackInfo.specimen.PhysicalEnergy;
-import dnn.entity.user.User;
-import dnn.enums.DisposeType;
-import dnn.enums.FeedbackStatus;
-import dnn.enums.OperatorStatus;
 import dnn.service.feedbackInfo.ISerFeedbackInfo;
-import dnn.service.user.ISerUser;
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.mongodb.core.mapreduce.GroupByResults;
-import org.springframework.data.mongodb.core.query.Criteria;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
-import javax.servlet.http.HttpServletRequest;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -46,7 +33,7 @@ public class FeedbackInfoAct {
     @PostMapping("save")
     public ResponseText save(FeedbackInfo feedbackInfo) throws Throwable {
         iSerFeedbackInfo.save(feedbackInfo);
-        return new ResponseText<>();
+        return new ResponseText();
     }
 
     @GetMapping("findById")

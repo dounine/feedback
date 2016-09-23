@@ -3,24 +3,24 @@ package dnn.common.json;
 /**
  * Created by huanghuanlai on 16/4/1.
  */
-public class ResponseText<T> {
+public class ResponseText {
 
     public static final int SUCCESS_CODE = 0;
 
     private int errno = SUCCESS_CODE;
-    private T data;
+    private Object data;
     private Object msg;
 
     public ResponseText(){}
-    public ResponseText(T data) {
+    public ResponseText(Object data) {
         this.data = data;
     }
 
-    public T getData() {
+    public Object getData() {
         return data;
     }
 
-    public void setData(T data) {
+    public void setData(Object data) {
         this.data = data;
     }
 
