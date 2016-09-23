@@ -1,13 +1,10 @@
 package dnn.common.handler.intercept;
 
-import dnn.common.utils.RequestUtils;
+import dnn.common.utils.UserContext;
 import dnn.entity.user.UserType;
-import dnn.service.user.session.UserSession;
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -28,42 +25,30 @@ public class LoginInterceptor implements HandlerInterceptor {
                 break;
             }
         }
-        Cookie tokenCookie = RequestUtils.getUserTokenCookie(request);
+        boolean isLogin = UserContext.isLogin();
         if (!flag) {
-            if(null!=tokenCookie&& StringUtils.isNotBlank(tokenCookie.getValue())){
-                if(UserSession.verify(tokenCookie.getValue())){//验证令牌的正确性
-                    UserType userType = UserSession.findByToken(tokenCookie.getValue()).getUserType();
-                    if(UserType.CUSTOM.equals(userType)&&url.startsWith("/admin")){
-                        response.sendRedirect("/404");
-                    }else if(UserType.MANAGER.equals(userType)&&url.startsWith("/custom")){
-                        response.sendRedirect("/404");
-                    }else{
-                        UserSession.update(tokenCookie.getValue());//更新会话
-                        flag = true;
-                    }
+            if(isLogin){
+                UserType userType = UserContext.currentUser().getUserType();
+                if(UserType.CUSTOM.equals(userType)&&url.startsWith("/admin")){
+                    response.sendRedirect("/404");
+                }else if(UserType.MANAGER.equals(userType)&&url.startsWith("/customer")){
+                    response.sendRedirect("/404");
                 }else{
-                    tokenCookie.setMaxAge(0);//清除验证失败cookie
-                    response.addCookie(tokenCookie);
-                    response.sendRedirect("/login");
+                    flag = true;
                 }
             }else{
                 response.sendRedirect("/login");
             }
         }else{
-            if(null!=tokenCookie&& StringUtils.isNotBlank(tokenCookie.getValue())){
-                if(UserSession.verify(tokenCookie.getValue())){//验证令牌的正确性
-                    UserSession.update(tokenCookie.getValue());//更新会话
-                    UserType userType = UserSession.findByToken(tokenCookie.getValue()).getUserType();
-                    if(!"/login".equals(url)){//除登录请求,其余请求全部拦截
-                        if(UserType.CUSTOM.equals(userType)){
-                            response.sendRedirect("/custom");
-                        }else{
-                            response.sendRedirect("/admin");
-                        }
+            if(isLogin){
+                    //UserSession.update(tokenCookie.getValue());//更新会话
+                UserType userType = UserContext.currentUser().getUserType();
+                if(!"/login".equals(url)){//除登录请求,其余请求全部拦截
+                    if(UserType.CUSTOM.equals(userType)){
+                        response.sendRedirect("/customer");
+                    }else{
+                        response.sendRedirect("/admin");
                     }
-                }else{
-                    tokenCookie.setMaxAge(0);//清除验证失败cookie
-                    response.addCookie(tokenCookie);
                 }
             }
         }

@@ -1,0 +1,229 @@
+*{
+  margin:0; padding:0; font-size:14px;
+}
+body{
+  ul li{ list-style:none; }
+  a{ text-decoration:none; }
+  img{ border:none; }
+}
+header{
+  position:fixed;
+  left:0;
+  right:0;
+  top:0;
+  z-index:990;
+  height:116px;
+  line-height:116px;
+  .logo{
+    background:#29b8f4;
+    height:70px;
+
+    img{ margin:15px 50px; }
+    .search{
+      height:74px;
+      line-height:74px;
+      margin-right:50px;
+      input{
+        border-radius:4px;
+        height:35px;
+        border:none;
+        line-height:35px;
+      }
+    }
+  }
+
+  .notice{ height:30px; line-height:30px; background:#29b8f4;
+    p{ margin-left:250px; }
+  }
+}
+.wrapbody{
+  .menu{
+    left:0;
+    width:180px;
+    right:180px;
+    padding:0;
+    position:fixed;
+    z-index:990;
+    background:#063346;
+    top:70px;
+    bottom:0;
+
+    ul li{
+      &.li-root{
+        a{
+          display:inline-block;
+          height:30px;
+          line-height:30px;
+          width:100%;
+          text-decoration:none;
+          padding-left:20px;
+          color:#fff;
+          span{
+            display:inline-block;
+            width:10px;
+            height:10px;
+          }
+          .icon_right{ background:url(/public/modules/customer/app/img/form/sanjiao2.png) center no-repeat; }
+          .icon_bonton{ background:url(/public/modules/customer/app/img/form/sanjiao1.png) center no-repeat; }
+
+        }
+        &.active{
+          background:#29b8f4;
+        }
+      }
+      &.li-sec{
+        text-indent:10px;
+        background:#114960;
+        &.active{
+          background:#29b8f4;
+        }
+
+      }
+    }
+  }
+  .content{
+    margin-top:70px;
+    margin-left:230px;
+    width:85%;
+    .mainbody{
+
+      .mainbody-top{ border-bottom:1px solid #ccc; height:70px; }
+      margin-top:30px;
+      h5{
+        background:url(/public/modules/customer/app/img/form/zs.png) no-repeat 0 5px;
+        height:40px;
+        line-height:40px;
+        text-indent:10px;
+      }
+      .user{
+        height:230px;
+        border-bottom:1px solid #ddd;
+        .usercon{
+          ul li{
+            float:left;
+            margin:10px;
+            font-size:16px;
+          }
+        }
+      }
+      .product{
+        .nav-tabs{
+
+          .nav-item{
+
+            a{
+              border:none;
+              color: #666666;
+              &.active{
+                border-radius:0;
+                background-color:rgba(41,184,244,1);
+                color:white;
+              }
+            }
+          }
+        }
+
+      }
+      ul{
+        border:1px solid #ccc;
+
+        li{
+          margin:10px 0;
+          span{
+            display:inline-block;
+            height:28px;
+            font-size:16px;
+            line-height:28px;
+          }
+          input[type|="radio"], input[type="checkbox"]{
+            width:40px;
+          }
+          input{
+            text-indent:4px;
+            color:#000;
+            border:none;
+            border-bottom:1px solid #cccccc;
+            line-height:normal;
+            outline:medium;
+          }
+        }
+      }
+
+      .userinfo{
+        margin-top:50px;
+        label{
+          color:#666;
+          font-size:16px;
+          span{ color:red; }
+        }
+        .form-success{ border:1px solid green; }
+        .form-err{ border:1px solid red; }
+        .form-iferr{ color:red; }
+      }
+      .wid15{
+        display:inline-block;
+        width:120px;
+        margin-right:4px;
+        text-align:right;
+      }
+      .usertable{
+        margin-top:20px;
+        table{
+          td, th{ text-align:center; }
+          td:nth-child(2){
+            color:red;
+          }
+        }
+      }
+      .fenye{
+        width:530px;
+        margin:0 auto;
+        .prey{
+          display:inline-block;
+          background:url(/public/modules/customer/app/img/form/page_next.png);
+          height:30px;
+          width:30px;
+          margin-right:20px;
+          margin-bottom:25px;
+        }
+        .next2{
+          display:inline-block;
+          background:url(/public/modules/customer/app/img/form/page_next2.png);
+          height:30px;
+          width:30px;
+          margin-left:20px;
+          margin-bottom:25px;
+        }
+        .pagination{
+          li a{
+            margin:5px;
+          }
+
+        }
+
+        .text_go{
+          margin-top:30px;
+
+          button{
+            width:40px;
+          }
+        }
+      }
+
+    }
+
+    .tijiao{
+      text-align:center;
+      width:424px;
+      height:250px;
+      h4{
+        margin-top:63px;
+      }
+      button{
+        width:150px;
+        margin:60px 25px;
+      }
+    }
+  }
+  #resetBtn{ margin-right:20px; }
+}

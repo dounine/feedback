@@ -13,7 +13,7 @@ import java.util.Map;
  */
 public interface ISerUser extends IService<User,UserDto>{
 
-    String login(User user) throws SerException;
+    void login(User user) throws SerException;
 
     Map<String,Object> listOnline();
 

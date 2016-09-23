@@ -1,0 +1,180 @@
+* {
+  margin: 0;
+  padding: 0;
+  font-size: 14px; }
+
+body ul li {
+  list-style: none; }
+body a {
+  text-decoration: none; }
+body img {
+  border: none; }
+
+header {
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 0;
+  z-index: 990;
+  height: 116px;
+  line-height: 116px; }
+  header .logo {
+    background: #29b8f4;
+    height: 70px; }
+    header .logo img {
+      margin: 15px 50px; }
+    header .logo .search {
+      height: 74px;
+      line-height: 74px;
+      margin-right: 50px; }
+      header .logo .search input {
+        border-radius: 4px;
+        height: 35px;
+        border: none;
+        line-height: 35px; }
+  header .notice {
+    height: 30px;
+    line-height: 30px;
+    background: #29b8f4; }
+    header .notice p {
+      margin-left: 250px; }
+
+.wrapbody .menu {
+  left: 0;
+  width: 180px;
+  right: 180px;
+  padding: 0;
+  position: fixed;
+  z-index: 990;
+  background: #063346;
+  top: 70px;
+  bottom: 0; }
+  .wrapbody .menu ul li.li-root a {
+    display: inline-block;
+    height: 30px;
+    line-height: 30px;
+    width: 100%;
+    text-decoration: none;
+    padding-left: 20px;
+    color: #fff; }
+    .wrapbody .menu ul li.li-root a span {
+      display: inline-block;
+      width: 10px;
+      height: 10px; }
+    .wrapbody .menu ul li.li-root a .icon_right {
+      background: url(/public/modules/customer/app/img/form/sanjiao2.png) center no-repeat; }
+    .wrapbody .menu ul li.li-root a .icon_bonton {
+      background: url(/public/modules/customer/app/img/form/sanjiao1.png) center no-repeat; }
+  .wrapbody .menu ul li.li-root.active {
+    background: #29b8f4; }
+  .wrapbody .menu ul li.li-sec {
+    text-indent: 10px;
+    background: #114960; }
+    .wrapbody .menu ul li.li-sec.active {
+      background: #29b8f4; }
+.wrapbody .content {
+  margin-top: 70px;
+  margin-left: 230px;
+  width: 85%; }
+  .wrapbody .content .mainbody {
+    margin-top: 30px; }
+    .wrapbody .content .mainbody .mainbody-top {
+      border-bottom: 1px solid #ccc;
+      height: 70px; }
+    .wrapbody .content .mainbody h5 {
+      background: url(/public/modules/customer/app/img/form/zs.png) no-repeat 0 5px;
+      height: 40px;
+      line-height: 40px;
+      text-indent: 10px; }
+    .wrapbody .content .mainbody .user {
+      height: 230px;
+      border-bottom: 1px solid #ddd; }
+      .wrapbody .content .mainbody .user .usercon ul li {
+        float: left;
+        margin: 10px;
+        font-size: 16px; }
+    .wrapbody .content .mainbody .product .nav-tabs .nav-item a {
+      border: none;
+      color: #666666; }
+      .wrapbody .content .mainbody .product .nav-tabs .nav-item a.active {
+        border-radius: 0;
+        background-color: #29b8f4;
+        color: white; }
+    .wrapbody .content .mainbody ul {
+      border: 1px solid #ccc; }
+      .wrapbody .content .mainbody ul li {
+        margin: 10px 0; }
+        .wrapbody .content .mainbody ul li span {
+          display: inline-block;
+          height: 28px;
+          font-size: 16px;
+          line-height: 28px; }
+        .wrapbody .content .mainbody ul li input[type|="radio"], .wrapbody .content .mainbody ul li input[type="checkbox"] {
+          width: 40px; }
+        .wrapbody .content .mainbody ul li input {
+          text-indent: 4px;
+          color: #000;
+          border: none;
+          border-bottom: 1px solid #cccccc;
+          line-height: normal;
+          outline: medium; }
+    .wrapbody .content .mainbody .userinfo {
+      margin-top: 50px; }
+      .wrapbody .content .mainbody .userinfo label {
+        color: #666;
+        font-size: 16px; }
+        .wrapbody .content .mainbody .userinfo label span {
+          color: red; }
+      .wrapbody .content .mainbody .userinfo .form-success {
+        border: 1px solid green; }
+      .wrapbody .content .mainbody .userinfo .form-err {
+        border: 1px solid red; }
+      .wrapbody .content .mainbody .userinfo .form-iferr {
+        color: red; }
+    .wrapbody .content .mainbody .wid15 {
+      display: inline-block;
+      width: 120px;
+      margin-right: 4px;
+      text-align: right; }
+    .wrapbody .content .mainbody .usertable {
+      margin-top: 20px; }
+      .wrapbody .content .mainbody .usertable table td, .wrapbody .content .mainbody .usertable table th {
+        text-align: center; }
+      .wrapbody .content .mainbody .usertable table td:nth-child(2) {
+        color: red; }
+    .wrapbody .content .mainbody .fenye {
+      width: 530px;
+      margin: 0 auto; }
+      .wrapbody .content .mainbody .fenye .prey {
+        display: inline-block;
+        background: url(/public/modules/customer/app/img/form/page_next.png);
+        height: 30px;
+        width: 30px;
+        margin-right: 20px;
+        margin-bottom: 25px; }
+      .wrapbody .content .mainbody .fenye .next2 {
+        display: inline-block;
+        background: url(/public/modules/customer/app/img/form/page_next2.png);
+        height: 30px;
+        width: 30px;
+        margin-left: 20px;
+        margin-bottom: 25px; }
+      .wrapbody .content .mainbody .fenye .pagination li a {
+        margin: 5px; }
+      .wrapbody .content .mainbody .fenye .text_go {
+        margin-top: 30px; }
+        .wrapbody .content .mainbody .fenye .text_go button {
+          width: 40px; }
+  .wrapbody .content .tijiao {
+    text-align: center;
+    width: 424px;
+    height: 250px; }
+    .wrapbody .content .tijiao h4 {
+      margin-top: 63px; }
+    .wrapbody .content .tijiao button {
+      width: 150px;
+      margin: 60px 25px; }
+.wrapbody #resetBtn {
+  margin-right: 20px; }
+
+/*# sourceMappingURL=customer.css.map */

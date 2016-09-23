@@ -34,6 +34,11 @@ public class UserAct {
     @Autowired
     protected ISerUser serUser;
 
+    @GetMapping("loginT")
+    public ModelAndView loginTpl(){
+        return new ModelAndView("login/login");
+    }
+
     @GetMapping("checkLogin")
     public ResponseText checkLogin(HttpServletRequest request){
         Cookie cookie = RequestUtils.getUserTokenCookie(request);

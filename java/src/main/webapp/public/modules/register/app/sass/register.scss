@@ -1,0 +1,95 @@
+*{
+  margin:0;
+  padding:0;
+  ul li{
+    list-style:none;
+  }
+  a{ text-decoration:none; }
+}
+header{
+  margin:30px;
+}
+//h4{margin-top: 100px;}
+
+.reg1,.reg2,.reg3,.reg4 {
+  img{
+    margin:20px 0 60px 20px;
+  }
+  .form-success{ border:1px solid green; }
+  .form-err{ border:1px solid red; }
+}
+.reg2{
+  .reg2-con{
+    text-align:center;
+    div{
+      strong{ margin-right:20px; }
+      margin-bottom:10px;
+    }
+    button{
+      margin-top:30px;
+    }
+  }
+}
+.reg3{
+  span{ color:red; }
+  img{
+    margin:20px 0 44px 20px;
+  }
+  label{
+    width:110px;
+    height:38px;
+    line-height:38px;
+  }
+  .button{
+    margin-left:40%;
+    margin-top:40px;
+  }
+
+}
+.reg3-con{
+  width:840px;
+  margin-left:60px;
+  h5{
+    line-height:50px;
+  }
+}
+.reg4{
+
+  .reg4-con{
+    //      width: 600px;
+
+    text-align:center;
+  }
+}
+footer{
+  width:100%;
+  height:100px;
+  position:relative;
+  left:10%;
+  top:100px;
+  text-align:center;
+  ul{
+    text-align:center;
+    li{
+      float:left;
+      a{
+        border-right:1px solid #ccc;
+        padding:0 3px;
+      }
+    }
+  }
+}
+.reg1 .captcha-box{
+  position: relative;
+  height:38px;
+  img.captcha{
+    margin: 0px 0px 0px 0px;
+    position: absolute;
+    left:0;
+    top:0;
+    cursor: pointer;
+    width: 100px;
+    height: 36px;
+  }
+}
+

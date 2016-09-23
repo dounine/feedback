@@ -1,5 +1,7 @@
 package dnn.web;
 
+import dnn.common.request.RequestContext;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -10,9 +12,6 @@ import javax.servlet.http.HttpServletResponse;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
 import java.util.Random;
 
 /**
@@ -26,8 +25,6 @@ public class CaptchaAct {
     private static final char[] codeSequence = {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'J',
             'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W',
             'X', 'Y', 'Z', '0', '2', '3', '4', '5', '6', '7', '8', '9'};
-
-    private static final List<CaptchaSession> CAPTCHA_SESSIONS = new ArrayList<>();
 
     public static final String NAME = "captcha";
 
@@ -44,17 +41,6 @@ public class CaptchaAct {
     private static final int fontHeight = 30;
     private static final int codeY = 30;
 
-    public static boolean validCaptcha(String key,String captcha){
-        Optional<CaptchaSession> cs = CAPTCHA_SESSIONS.stream().filter(k->k.getKey().equals(key)).findAny();
-        if(cs.isPresent()){
-            if(cs.get().getVal().equalsIgnoreCase(captcha)){
-                CAPTCHA_SESSIONS.remove(cs.get());
-                return true;
-            }
-        }
-        return false;
-    }
-
     public static void init(int fontHeight, int width, int height) {
         font = new Font("Fixedsys", Font.BOLD, fontHeight);
         buffImg = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
@@ -63,14 +49,7 @@ public class CaptchaAct {
     }
 
     @GetMapping("/captcha")
-    public void getCode(String key, HttpServletResponse response, HttpServletRequest request) throws IOException {
-        if(null==key||(null!=key&&key.trim()=="")){
-            response.setStatus(403);
-            response.getWriter().print("{\"msg\":\"key not empty\",\"errno\":3}");
-            return;
-        }
-
-
+    public void getCode(HttpServletResponse response, HttpServletRequest request) throws IOException {
         init(fontHeight, width, height);
 
         gd.setColor(Color.white);
@@ -99,14 +78,7 @@ public class CaptchaAct {
             int yl = random.nextInt(4);
             gd.drawLine(x, y, x + xl, y + yl);
         }
-        //request.getSession().setAttribute(NAME,codes.toString());
-
-        for(CaptchaSession ca : CAPTCHA_SESSIONS){
-            if(ca.getKey().equalsIgnoreCase(key)){
-                CAPTCHA_SESSIONS.remove(ca);break;
-            }
-        }
-        CAPTCHA_SESSIONS.add(new CaptchaSession(key,codes.toString()));
+        request.getSession().setAttribute(NAME,codes.toString());
 
         response.setHeader("Pragma", "no-cache");
         response.setHeader("Cache-Control", "no-cache");
@@ -118,29 +90,14 @@ public class CaptchaAct {
         ImageIO.write(buffImg, "png", sos);
         sos.close();
     }
-}
-class CaptchaSession{
-    private String key;
-    private String val;
 
-    public CaptchaSession(String key,String val){
-        this.key = key;
-        this.val = val;
-    }
-
-    public String getKey() {
-        return key;
-    }
-
-    public void setKey(String key) {
-        this.key = key;
-    }
-
-    public String getVal() {
-        return val;
-    }
-
-    public void setVal(String val) {
-        this.val = val;
+    public static boolean validCaptcha(String captchaVal) {
+        if(StringUtils.isBlank(captchaVal)){
+            return false;
+        }
+        if(captchaVal.equalsIgnoreCase(RequestContext.get().getSession().getAttribute(NAME).toString())){
+            return true;
+        }
+        return false;
     }
 }

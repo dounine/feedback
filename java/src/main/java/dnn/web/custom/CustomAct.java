@@ -1,11 +1,5 @@
 package dnn.web.custom;
 
-import dnn.common.json.ResponseText;
-import dnn.dto.SearchJson;
-import dnn.dto.feedbackInfo.FeedbackInfoDto;
-import dnn.entity.feedbackInfo.FeedbackInfo;
-import dnn.enums.FeedbackStatus;
-import dnn.enums.RestrictionType;
 import dnn.service.feedbackInfo.ISerFeedbackInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,28 +7,56 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
-import javax.servlet.http.HttpServletRequest;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 @RestController
-@RequestMapping("custom")
+@RequestMapping("customer")
 public class CustomAct {
 
     @Autowired
     private ISerFeedbackInfo iSerFeedbackInfo;
 
     @GetMapping("")
-    public ModelAndView home(HttpServletRequest request) {
-        return new ModelAndView("redirect:/custom/index");
+    public ModelAndView home() {
+        return new ModelAndView("redirect:/customer/index");
     }
 
     @GetMapping("index")
-    public ModelAndView index(HttpServletRequest request) {
+    public ModelAndView index() {
+        return new ModelAndView("customer/index");
+    }
 
-        return new ModelAndView("custom/index");
+    @GetMapping("wrapbody")
+    public ModelAndView wrapbody() {
+        return new ModelAndView("customer/wrapbody");
+    }
+
+    @GetMapping("menu")
+    public ModelAndView menu() {
+        return new ModelAndView("customer/menu");
+    }
+
+    @GetMapping("content")
+    public ModelAndView content() {
+        return new ModelAndView("customer/content");
+    }
+
+    @GetMapping("unpro")
+    public ModelAndView unpro() {
+        return new ModelAndView("customer/unpro");
+    }
+
+    @GetMapping("proing")
+    public ModelAndView proing() {
+        return new ModelAndView("customer/proing");
+    }
+
+    @GetMapping("proed")
+    public ModelAndView proed() {
+        return new ModelAndView("customer/proed");
+    }
+
+    @GetMapping("userinfo")
+    public ModelAndView userinfo() {
+        return new ModelAndView("customer/userinfo");
     }
 
 }

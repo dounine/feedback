@@ -1,12 +1,16 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
-<!DOCTYPE HTML>
-<HTML xmlns="http://www.w3.org/1999/xhtml">
-	<head>
-		<title>admin </title>
-	</head>
-	<body>
-        <a href="${ctx}/user/list">用户列表</a><br/>
-		<a href="${ctx}/logout">退出系统</a>
-	</body>
+<%--
+  Created by IntelliJ IDEA.
+  User: huanghuanlai
+  Date: 16/9/23
+  Time: 14:03
+  To change this template use File | Settings | File Templates.
+--%>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<html>
+<head>
+    <title>admin</title>
+</head>
+<body>
+hello admin!!!<a href="/logout">退出</a>
+</body>
 </html>

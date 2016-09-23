@@ -1,0 +1,260 @@
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<div class="mainbody row ">
+    <div name="customer" id="contact_form">
+        <div class="mainbody-top m-b-md">
+            <h5 class="pull-left">样品信息</h5>
+            <button type="button" class="btn btn-danger pull-right" data-toggle="modal" data-target=".bs-example-modal-sm" ng-click="subForm()">提交</button>
+            <button type="button" class="btn btn-default pull-right" id="resetBtn" reset>重置</button>
+        </div>
+
+        <div class=" col-lg-12">
+            <div class="product">
+                <ul class="nav nav-tabs" role="tablist" style="border: none;" ng-init="powerType='chemistry';">
+                    <li class="nav-item">
+                        <a class="nav-link active clearWuli" ng-click="powerType='chemistry'" href="#chemistry" role="tab" data-toggle="tab" cleartab>化学电池(蓄电池)</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link clearHuaxue" ng-click="powerType='physics'" href="#physics" role="tab" data-toggle="tab" cleartab>物理电源(太阳电池组件)</a>
+                    </li>
+
+                </ul>
+            </div>
+        </div>
+
+    </div>
+
+    <div id="myTabContent" class="tab-content col-lg-12">
+        <form id="chemistry" class="tab-pane fade in active">
+            <ul class="huaxue ">
+                <li>
+                    <span class="wid15">样品名称</span> <span><input type="text" size="70" name="chemicalCell.sampleName" ng-model="chemicalCell.sampleName"/></span>
+                </li>
+                <li>
+                    <span class="wid15">型号规格</span> <span><input type="text" size="70" name="chemicalCell.ts" ng-model="chemicalCell.ts"/></span>
+                </li>
+                <li>
+                    <span class="wid15">注册商标</span>
+                    <span class=""><input type="text" size="12" name="chemicalCell.trademark" ng-model="chemicalCell.trademark"/></span>
+                    <span class="wid15">样品数量</span>
+                    <span><input type="text" size="6" name="chemicalCell.amount" ng-model="chemicalCell.amount"/></span>
+                    <span class="wid15">送样日期</span>
+                    <span class=""><input type="date" size="12" name="chemicalCell.chemicalCellSubmitDate" ng-model="chemicalCell.chemicalCellSubmitDate"/></span>
+                </li>
+                <li>
+                    <span class="wid15">外形尺寸</span>
+                    <span><input type="text" size="30" name="chemicalCell.size" ng-model="chemicalCell.size"/></span>
+                    <span class="wid15">重量</span> <span><input type="text" size="5" name="chemicalCell.weight" ng-model="chemicalCell.weight"/></span>
+                </li>
+                <li>
+                    <span class="wid15">充放电参数</span>
+                    <span><input type="text" size="70" name="chemicalCell.parameter" ng-model="chemicalCell.parameter"/></span>
+                </li>
+                <li>
+                    <span class="wid15">包装类别</span>
+							<span>
+
+                                <input type="checkbox" name="chemicalCell.packTypes" ng-model="chemicalCell.packTypes.carton"/>纸箱
+                                <input type="checkbox" name="chemicalCell.packTypes.wooden" ng-model="chemicalCell.packTypes.wooden"/>木箱
+                                <input type="checkbox" name="chemicalCell.packTypes.otherbox" ng-model="chemicalCell.packTypes.otherbox"/>无包装
+
+
+							</span> <span style="margin-left: 40px;">样品状态（装箱前后）</span>
+							<span>
+                                    <input ng-init="hx_complete='chemicalCellcom';" id="com-id" ng-checked="true" type="radio" value="chemicalCellcom" name="chemicalCell.damage" ng-model="chemicalCell.damage"/><label for="com-id">完整</label>
+                                    <input id="bak-id" type="radio" value="chemicalCellbak" name="chemicalCell.damage" ng-model="chemicalCell.damage"/><label for="bak-id">破损</label>
+							</span>
+
+                </li>
+            </ul>
+        </form>
+        <form id="physics" class="wuli tab-pane fade" >
+            <ul>
+                <li>
+                    <span class="wid15">样品名称</span> <span><input type="text" name="physicalEnergy.sampleName" size="70" ng-model="physicalEnergy.sampleName"/></span>
+                </li>
+                <li>
+                    <span class="wid15">型号规格</span> <span><input type="text" size="70" name="physicalEnergy.ts" ng-model="physicalEnergy.ts"/></span>
+                </li>
+                <li>
+                    <span class="wid15">注册商标</span>
+                    <span class=""><input type="text" name="physicalEnergy.trademark" ng-model="physicalEnergy.trademark"/></span>
+                    <span class="wid15">样品数量</span>
+                    <span><input type="text" size="4" name="physicalEnergy.amount" ng-model="physicalEnergy.amount"/></span>
+                    <span class="wid15">送样日期</span>
+                    <span class=""><input type="date" size="10" name="physicalEnergy.physicalEnergySubmitDate" ng-model="physicalEnergy.physicalEnergySubmitDate"/></span>
+                </li>
+                <li>
+                    <span class="wid15">外形尺寸</span> <span><input type="text" name="physicalEnergy.size" ng-model="physicalEnergy.size"/></span>
+                    <span class="wid15">重量</span>
+                    <span><input type="text" size="10" name="physicalEnergy.weight" ng-model="physicalEnergy.weight"/></span>
+                </li>
+                <li>
+                    <span class="wid15">样品序列号</span>
+                    <span><input type="text" size="70" name="physicalEnergy.serialNumber" ng-model="physicalEnergy.serialNumber"/></span>
+                </li>
+                <li>
+                    <span class="wid15">单体电池材料</span>
+							<span>
+								<input type="checkbox" name="physicalEnergy.materialTypes.a" ng-model="physicalEnergy.materialTypes.a"/>单晶硅
+								<input type="checkbox" name="physicalEnergy.materialTypes.m" ng-model="physicalEnergy.materialTypes.m"/>多晶硅
+								<input type="checkbox" name="physicalEnergy.materialTypes.n" ng-model="physicalEnergy.materialTypes.n"/>N型
+								<input type="checkbox" name="physicalEnergy.materialTypes.p" ng-model="physicalEnergy.materialTypes.p"/>P型
+								<input type="checkbox" name="physicalEnergy.materialTypes.o" ng-model="physicalEnergy.materialTypes.o"/>其他
+							</span>
+                </li>
+                <li>
+                    <span class="wid15">单体相关参数</span> <span style="width:7%;text-align: right;">尺寸</span>
+                    <span><input type="text" size="5" name="physicalEnergy.monomerSize" ng-model="physicalEnergy.monomerSize"/></span>
+                    <span style="width:7%;text-align: right;">厚度</span>
+                    <span><input type="text" size="5" name="physicalEnergy.monomerThickness" ng-model="physicalEnergy.monomerThickness"/></span>
+                    <span style="width:7%;text-align: right;">面积</span>
+                    <span><input type="text" size="5" name="physicalEnergy.monomerAcreage" ng-model="physicalEnergy.monomerAcreage"/></span>
+                    <span style="margin-left:10px;">减反射膜类型</span>
+                    <span><input type="text" size="10" name="physicalEnergy.monomerType" ng-model="physicalEnergy.monomerType"/></span>
+                </li>
+                <li>
+                    <span class="wid15">玻璃类型</span>
+							<span>
+								<input type="checkbox" name="physicalEnergy.tempered " ng-model="physicalEnergy.tempered.yes "/>钢化
+								<input type="checkbox" name="physicalEnergy.tempered " ng-model="physicalEnergy.tempered.no "/>非钢化
+							</span> <span style="margin-left:10px;">玻璃厚度</span>
+                    <span><input type="text" name="physicalEnergy.temperedThickness" ng-model="physicalEnergy.temperedThickness"/></span>
+                </li>
+                <li>
+                    <span class="wid15">串联电池数</span>
+							<span>
+								<input type="checkbox" name="physicalEnergy.seriesBattery.num18" ng-model="physicalEnergy.seriesBattery.num18"/>18
+								<input type="checkbox" name="physicalEnergy.seriesBattery.num36" ng-model="physicalEnergy.seriesBattery.num36"/>36
+								<input type="checkbox" name="physicalEnergy.seriesBattery.num54" ng-model="physicalEnergy.seriesBattery.num54"/>54
+								<input type="checkbox" name="physicalEnergy.seriesBattery.num72" ng-model="physicalEnergy.seriesBattery.num72"/>72
+
+							</span>
+                    <span class="wid15">并联电池数</span>
+							<span>
+								<input type="checkbox" name="physicalEnergy.parallelBattery.num1" ng-model="physicalEnergy.parallelBattery.num1"/>1
+								<input type="checkbox" name="physicalEnergy.parallelBattery.num2" ng-model="physicalEnergy.parallelBattery.num2"/>2
+								<input type="checkbox" name="physicalEnergy.parallelBattery.num3" ng-model="physicalEnergy.parallelBattery.num3"/>3
+								<input type="checkbox" name="physicalEnergy.parallelBattery.num4" ng-model="physicalEnergy.parallelBattery.num4"/>4
+								<input type="checkbox" name="physicalEnergy.parallelBattery.num5" ng-model="physicalEnergy.parallelBattery.num5"/>5
+							</span>
+                </li>
+                <li>
+                    <span class="wid15">系统标称电压</span> <span><input type="text" size="70" name="physicalEnergy.voltage" ng-model="physicalEnergy.voltage"/></span>
+                </li>
+                <li id="teshuli">
+                    <span class="wid15 ">客户提供配件和资料</span><span style="height: 90px;position: relative;left: -1px;top: 2px;"></span>
+							<span style="margin-left: 10px;" class="sp2">
+									<div><span>①组件应有接线盒和引出线，并另附一套测试用转接线（必备）。</span></div>
+									<div>
+                                        <span>②电器原理图、二极管型号、参数</span>
+                                        <span class="sp3">
+                                            <input type="radio" ng-init="cusappl='cusappl_have'" ; id="cusapplhave-id" ng-checked="true" value="cusappl_have" name="physicalEnergy.parameter" ng-model="physicalEnergy.parameter"/> <label for="cusapplhave-id">有</label>
+                                            <input type="radio" id="cusapplnone-id" value="cusappl_none" name="physicalEnergy.parameter" ng-model="physicalEnergy.parameter"/><label for="cusapplnone-id">无</label>
+                                        </span>
+                                    </div>
+									<div style="border-bottom:1px solid #cccccc;">
+                                        <span>③标识，包括：Voc、Isc、Vmp、Imp、Pmax等信息</span>
+                                        <span class="sp3">
+                                            <input id="wlcushave-id" type="radio" name="physicalEnergy.identifying" ng-model="physicalEnergy.identifying" ng-checked="true" ng-init="wl_cusmark='wl_cusmarkhave'" value="wl_cusmarkhave"/><label for="wlcushave-id">有</label>
+                                            <input id="wlcusnone-id" type="radio" name="physicalEnergy.identifying" ng-model="physicalEnergy.identifying" value="wl_cusmarknone"/><label for="wlcusnone-id">无</label>
+                                        </span>
+                                    </div>
+                            </span>
+
+                    </span>
+                </li>
+                <li>
+                    <span class="wid15">包装类别</span>
+							<span>
+								<input type="checkbox" name="physicalEnergy.packTypes.carton" ng-model="physicalEnergy.packTypes.carton"/>纸箱
+								<input type="checkbox" name="physicalEnergy.packTypes.wooden" ng-model="physicalEnergy.packTypes.wooden"/>木箱
+								<input type="checkbox" name="physicalEnergy.packTypes.otherbox" ng-model="physicalEnergy.packTypes.otherbox"/>无包装
+							</span> <span style="margin-left: 60px;margin-right:10px; text-align: center;">样品状态前后</span>
+							<span>
+								<input ng-init="wl_complete='wlcom'" id="wlcom-id" ng-checked="true" type="radio" value="wlcom" name="physicalEnergy.damage" ng-model="physicalEnergy.damage"/><label for="wlcom-id">完整</label>
+                                <input id="wlbak-id" type="radio" value="wlbak" name="physicalEnergy.damage" ng-model="physicalEnergy.damage"/><label for="wlbak-id">破损</label>
+							</span>
+                </li>
+            </ul>
+        </form>
+    </div>
+    <form id="cusinfo">
+        <div class="product col-lg-6">
+            <h5>开票信息</h5>
+            <ul>
+                <li>
+                    <span class="wid15">名称</span>
+                    <span><input type="text" size="30" name="invoiceInfo.name" ng-model="invoiceInfo.name"/></span>
+                </li>
+                <li>
+                    <span class="wid15">纳税人识别号</span>
+                    <span><input type="text" size="30" name="invoiceInfo.identifyNumber" ng-model="invoiceInfo.identifyNumber"/></span>
+                </li>
+                <li>
+                    <span class="wid15">地址</span>
+						<span class="">
+								<input type="text" size="30" name="invoiceInfo.address" ng-model="invoiceInfo.address"/>
+						</span>
+                    <span class="wid15">电话</span>
+						<span class="">
+								<input type="text" size="25" name="invoiceInfo.telephone" ng-model="invoiceInfo.telephone"/>
+						</span>
+                </li>
+                <li>
+
+
+                </li>
+                <li>
+                    <span class="wid15">开户行</span>
+						<span class="">
+								<input type="text" size="30" name="invoiceInfo.bank" ng-model="invoiceInfo.bank"/>
+						</span>
+                    <span class="wid15">账户</span>
+                    <span><input type="text" size="25" name="invoiceInfo.card" ng-model="invoiceInfo.card"/></span>
+                </li>
+                <li>
+
+                </li>
+
+            </ul>
+        </div>
+        <div class="product col-lg-6">
+            <h5>检测依据、检测项目与样品处理信息</h5>
+            <ul>
+                <li>
+                    <span class="wid15">检测依据</span>
+                    <span><input type="text" size="40" name="detectionInfo.basis" ng-model="detectionInfo.basis"/></span>
+                </li>
+                <li>
+                    <span class="wid15">检测项目</span>
+                    <span><input type="text" size="40" name="detectionInfo.testItem" ng-model="detectionInfo.testItem"/></span>
+                </li>
+                <li>
+                    <span class="wid15">样品处置</span>
+						<span >
+								<input id="font-id" ng-init="promana='NOT'" type="radio" value="NOT" name="detectionInfo.disposeType" ng-model="detectionInfo.disposeType" ng-checked="true"/><latel for="font-id">字体样品</latel>
+								<input id="backpro-id" type="radio" value="PICKUP" name="detectionInfo.disposeType" ng-model="detectionInfo.disposeType"/><label for="backpro-id">退回样品（运费到付）</label>
+								<input id="nopro-id" type="radio" value="BACK" name="detectionInfo.disposeType" ng-model="detectionInfo.disposeType"/><label for="nopro-id">不要求</label>
+						</span>
+
+                </li>
+                <li>
+                    <span class="wid15">备注</span>
+
+                    <span><input type="text" size="40" name="detectionInfo.remark" ng-model="detectionInfo.remark"/></span>
+                </li>
+            </ul>
+        </div>
+    </form>
+
+</div>
+<div id="confirm" class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content tijiao">
+            <h4>{{tiji.title}}</h4>
+            <button class="btn btn-default" data-dismiss="modal" ng-click="list()" id="returnUnpro">{{tiji.no}}</button>
+            <button class="btn btn-danger" data-toggle="modal2" ng-click="queding()" id="tijiBtn">{{tiji.yes}}</button>
+        </div>
+
+    </div>
+</div>

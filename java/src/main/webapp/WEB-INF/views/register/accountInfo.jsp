@@ -1,0 +1,73 @@
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<div class="reg3">
+    <img src="${ctx}/public/modules/register/app/img/form/reg3.png"/>
+
+    <div class="reg3-con">
+        <h5><strong>填写账户信息</strong></h5>
+        <form ng-init="s='has-success';e='has-error';" role="form" name="register" ng-submit="submitReg3()" method="post">
+            <div class="row">
+                <fieldset class="form-group col-sm-5
+                            {{register.contact.$valid?s:e}}{{register.contact.$dirty?'':'-'}}
+                        ">
+                    <label for="inputEmail3" class="col-sm-1 control-label text-right">姓名：</label>
+                    <div class="col-sm-8">
+                        <input type="text" autofocus required class="form-control form-control-success form-control-error" placeholder="请输入姓名" ng-model="contact" name="contact" ng-minlength="2">
+                    </div>
+                </fieldset>
+                <fieldset class="form-group col-sm-5
+                            {{register.company.$valid?s:e}}{{register.company.$dirty?'':'-'}}
+                        ">
+                    <label for="inputEmail3" class="col-sm-1 control-label text-right">单位名称：</label>
+                    <div class="col-sm-8">
+                        <input type="text" required class="form-control form-control-success form-control-error" placeholder="请输入单位名称" ng-model="company" name="company" ng-maxlength="30" ng-minlength="2">
+                    </div>
+                </fieldset>
+            </div>
+            <div class="row">
+                <fieldset class="form-group col-sm-5
+                            {{register.address.$valid?s:e}}{{register.address.$dirty?'':'-'}}
+                        ">
+                    <label for="inputEmail3" class="col-sm-1 control-label text-right">通讯地址：</label>
+                    <div class="col-sm-8">
+                        <input type="text" required class="form-control form-control-success form-control-error" placeholder="请输入通选地址" ng-model="address" name="address" ng-maxlength="50" ng-minlength="2">
+                    </div>
+                </fieldset>
+                <fieldset class="form-group col-sm-5
+                            {{register.postcodes.$valid?s:e}}{{register.postcodes.$dirty?'':'-'}}
+                        ">
+                    <label for="inputEmail3" class="col-sm-1 control-label text-right">邮编：</label>
+                    <div class="col-sm-8">
+                        <input type="number" required class="form-control form-control-success form-control-error" placeholder="请输入邮编" ng-model="postcodes" name="postcodes" ng-maxlength="6" ng-minlength="6">
+                    </div>
+                </fieldset>
+            </div>
+            <div class="row">
+                <fieldset class="form-group col-sm-5
+                            {{register.telephone.$valid?s:e}}{{register.telephone.$dirty?'':'-'}}
+                        ">
+                    <label for="inputEmail3" class="col-sm-1 control-label text-right">电话：</label>
+                    <div class="col-sm-8">
+                        <input type="number" required class="form-control form-control-success form-control-error" placeholder="请输入电话" ng-model="telephone" name="telephone" ng-maxlength="11" ng-minlength="7">
+                    </div>
+                </fieldset>
+                <fieldset class="form-group col-sm-5
+                            {{register.fax.$valid?s:e}}{{register.fax.$dirty?'':'-'}}
+                        ">
+                    <label for="inputEmail3" class="col-sm-1 control-label text-right">传真：</label>
+                    <div class="col-sm-8">
+                        <input type="number" class="form-control form-control-success form-control-error" placeholder="请输入传真" ng-model="fax" name="fax" ng-maxlength="11" ng-minlength="7">
+                    </div>
+                </fieldset>
+            </div>
+
+            <fieldset class="button">
+                <button type="submit" ng-disabled="register.$invalid" class="btn btn-danger">提 交</button>
+
+            </fieldset>
+
+        </form>
+
+
+    </div>
+</div>
+
