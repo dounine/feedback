@@ -31,30 +31,6 @@ public class TestAct {
 
 
     /**
-     * 条件查询
-     * @return
-     * @throws Throwable
-     */
-    @GetMapping("findByCondition")
-    public List<User> findByCondition() throws Throwable {
-        HashMap<String, Object> conditions = new HashMap<>();
-        conditions.put("userDetails.company", "艾佳");
-        return serUser.findByCis(conditions);
-    }
-
-    /**
-     * 模糊查询
-     * @return
-     * @throws Throwable
-     */
-    @GetMapping("findByFuzzy")
-    public List<User> findByFuzzy()throws Throwable {
-        HashMap<String, Object> conditions = new HashMap<>();
-        conditions.put("username", "ligui");
-        return serUser.findByFuzzy(conditions);
-    }
-
-    /**
      * 分页查询(带模糊搜索,排序)
      * @return
      * @throws Throwable
@@ -141,7 +117,6 @@ public class TestAct {
         user.setPassword("aml");
         user.setAccessTime(LocalDateTime.now());
         user.setUsername("xinaml");
-        user.setTags(tags);
         user.setHeight(20.4f);
         user.setAge(50);
         user.setMoney(888.88);

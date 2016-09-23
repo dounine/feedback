@@ -12,13 +12,13 @@ import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.expression.spel.ast.Operator;
 
+import javax.persistence.*;
 import java.time.LocalDateTime;
 
 /**
  * Created by lgq on 16-9-4.
  * 反馈订单信息
  */
-@Document
 public class FeedbackInfo extends BaseEntity {
     private String userId;//客户id
     private LocalDateTime createTime = LocalDateTime.now();

@@ -6,12 +6,17 @@ import dnn.common.validation.Get;
 import org.hibernate.validator.constraints.NotBlank;
 import org.springframework.data.annotation.Id;
 
+import javax.persistence.Column;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+
 /**
  * Created by huanghuanlai on 16/9/3.
  */
 public class BaseEntity {
     @Id
-    //validation
+    @GeneratedValue(strategy=GenerationType.AUTO)
+    @Column(name = "id", nullable = false)
     @NotBlank(message = "user id not blank",groups = {Del.class, Edit.class, Get.class})
     protected String id;
 

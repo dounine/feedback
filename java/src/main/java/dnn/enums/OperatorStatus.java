@@ -4,6 +4,7 @@ package dnn.enums;
  * Created by ike on 16-9-10.
  * 工单确认流程状态
  */
+
 public enum OperatorStatus {
     INIT(0),//初始状态
     MANAGERCONFIRM(1),//管理员工单修改确认
