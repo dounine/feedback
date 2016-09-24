@@ -8,7 +8,6 @@ import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 import org.springframework.stereotype.Component;
 
 import javax.persistence.EntityManagerFactory;
-import java.util.Properties;
 
 /**
  * Created by huanghuanlai on 16/8/17.
@@ -39,17 +38,6 @@ public class Components{
         lcemf.setDataSource(druidDataSource);
         lcemf.setJpaVendorAdapter(new HibernateJpaVendorAdapter());
         lcemf.setPackagesToScan("dnn.entity");
-
-        Properties jpaProperties = new Properties();
-        jpaProperties.setProperty("hibernate.dialect","org.hibernate.dialect.MySQLDialect");
-        jpaProperties.setProperty("hibernate.ejb.naming_strategy","org.hibernate.cfg.ImprovedNamingStrategy");
-        jpaProperties.setProperty("hibernate.cache.provider_class","org.hibernate.cache.NoCacheProvider");
-        jpaProperties.setProperty("hibernate.show_sql","true");
-        jpaProperties.setProperty("hibernate.format_sql","true");
-        jpaProperties.setProperty("hibernate.hbm2ddl.auto","update");
-
-        lcemf.setJpaProperties(jpaProperties);
-
         return lcemf;
     }
 

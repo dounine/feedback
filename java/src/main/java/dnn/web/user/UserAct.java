@@ -1,9 +1,9 @@
 package dnn.web.user;
 
-import com.mongodb.WriteResult;
 import dnn.common.json.ResponseText;
 import dnn.common.utils.RequestUtils;
 import dnn.common.validation.Add;
+import dnn.dto.user.UserDto;
 import dnn.entity.user.User;
 import dnn.service.user.ISerUser;
 import org.slf4j.Logger;
@@ -19,7 +19,6 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
-import java.util.Map;
 
 /**
  * Created by huanghuanlai on 16/9/3.
@@ -47,38 +46,25 @@ public class UserAct {
         return new ResponseText();
     }
 
+    @GetMapping("findByUsername")
+    public ResponseText findByUsername(String username) throws Throwable {
+        return new ResponseText(serUser.findByUsername(username));
+    }
+
+    @GetMapping("findById")
+    public ResponseText findById(String id) throws Throwable {
+        return new ResponseText(serUser.findById(id));
+    }
+
     @GetMapping("list")
-    public ModelAndView listView() throws Throwable {
-        ModelAndView modelAndView = new ModelAndView("admin/list");
-        modelAndView.addObject("users",serUser.findAll());
-        return modelAndView;
+    public ResponseText listView(UserDto userDto) throws Throwable {
+        return new ResponseText(serUser.findByPage(userDto));
     }
 
     @PostMapping("add")
-    public ModelAndView add(@Validated(Add.class) User user, BindingResult result) throws Throwable {
-        ModelAndView modelAndView = new ModelAndView("admin/list");
-            serUser.register(user);
-        modelAndView.addObject("user",user);
-        return modelAndView;
+    public ResponseText add(@Validated(Add.class) User user, BindingResult result) throws Throwable {
+        serUser.register(user);
+        return new ResponseText(user);
     }
-
-    @GetMapping("online")
-    public Map<String, Object> online() {
-        return serUser.listOnline();
-    }
-
-    /**
-     * 审核用户
-     * @param user
-     * @return
-     * @throws Throwable
-     */
-    @GetMapping("auditiingUser")
-    public ResponseText auditiingUser(User user) throws Throwable {
-        WriteResult writeResult = serUser.auditiingUser(user);
-        ResponseText text = new ResponseText(writeResult);
-        return text;
-    }
-
 
 }

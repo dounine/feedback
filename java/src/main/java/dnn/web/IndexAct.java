@@ -5,7 +5,7 @@ import dnn.common.json.ResponseText;
 import dnn.common.response.ResponseContext;
 import dnn.common.utils.UserContext;
 import dnn.common.validation.Add;
-import dnn.dao.user.IUserDao;
+import dnn.dao.user.UserRep;
 import dnn.entity.user.User;
 import dnn.entity.user.UserType;
 import dnn.service.user.ISerUser;
@@ -30,9 +30,10 @@ import javax.servlet.http.HttpServletResponse;
 @RestController
 public class IndexAct {
 
-    @Autowired
-    IUserDao userDao;
     private static final Logger LOGGER = LoggerFactory.getLogger(IndexAct.class);
+
+    @Autowired
+    UserRep userDao;
 
     @Autowired
     ISerUser serUser;

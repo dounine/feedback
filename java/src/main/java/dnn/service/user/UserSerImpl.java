@@ -1,11 +1,10 @@
 package dnn.service.user;
 
-import com.mongodb.WriteResult;
 import dnn.common.beans.PropertiesLoader;
 import dnn.common.exception.SerException;
 import dnn.common.utils.PasswordHash;
 import dnn.common.utils.UserContext;
-import dnn.dao.user.IUserDao;
+import dnn.dao.user.UserRep;
 import dnn.dto.user.UserDto;
 import dnn.entity.user.User;
 import dnn.entity.user.UserType;
@@ -16,8 +15,6 @@ import org.springframework.stereotype.Service;
 
 import java.security.NoSuchAlgorithmException;
 import java.security.spec.InvalidKeySpecException;
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * Created by huanghuanlai on 16/9/3.
@@ -26,7 +23,8 @@ import java.util.Map;
 public class UserSerImpl extends ServiceImpl<User, UserDto> implements ISerUser {
 
     @Autowired
-    private IUserDao userDao;
+    private UserRep userRep;
+
     @Autowired
     protected PropertiesLoader propertiesLoader;
 
@@ -51,7 +49,7 @@ public class UserSerImpl extends ServiceImpl<User, UserDto> implements ISerUser 
             user.setUserType(UserType.MANAGER);
             UserContext.saveUserSession(user);
         } else {
-            User dbUser = userDao.findByUsername(user.getUsername());
+            User dbUser = userRep.findByUsername(user.getUsername());
             if (null != dbUser) {
                 try {
                     if (PasswordHash.validatePassword(user.getPassword(), dbUser.getPassword())) {
@@ -74,23 +72,13 @@ public class UserSerImpl extends ServiceImpl<User, UserDto> implements ISerUser 
     }
 
     @Override
-    public Map<String, Object> listOnline() {
-        Map<String, Object> online = new HashMap<>();
-        online.put("total", 1l);
-        online.put("rows", null);
-        return online;
+    public User register(User user) throws SerException {
+        return super.save(user);
     }
 
     @Override
-    public WriteResult auditiingUser(User user) throws SerException {
-//// TODO: 16-9-23
-//        WriteResult writeResult = userDao.UpdateByCis2(user,"status",Status.THAW);
-        return null;
-    }
-
-    @Override
-    public User register(User user) {
-        return userDao.save(user);
+    public User findByUsername(String username) {
+        return userRep.findByUsername(username);
     }
 
     @Override
@@ -98,8 +86,8 @@ public class UserSerImpl extends ServiceImpl<User, UserDto> implements ISerUser 
         super.remove(entity);
     }
 
-    public void save(User entity) throws SerException {
-        User user = userDao.findByUsername(entity.getUsername());
+    public User save(User entity) throws SerException {
+        User user = userRep.findByUsername(entity.getUsername());
         if (null != user) {
             throw new SerException(entity.getUsername() + " 用户已经存在");
         }
@@ -110,7 +98,7 @@ public class UserSerImpl extends ServiceImpl<User, UserDto> implements ISerUser 
         } catch (InvalidKeySpecException e) {
             e.printStackTrace();
         }
-        super.save(entity);
+        return super.save(entity);
     }
 
 }

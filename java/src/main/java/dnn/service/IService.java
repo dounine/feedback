@@ -1,11 +1,8 @@
 package dnn.service;
 
-import com.mongodb.WriteResult;
-import dnn.dto.BaseDto;
 import dnn.common.exception.SerException;
+import dnn.dto.BaseDto;
 import dnn.entity.BaseEntity;
-import org.springframework.data.mongodb.core.mapreduce.GroupByResults;
-import org.springframework.data.mongodb.core.query.Criteria;
 
 import java.util.List;
 import java.util.Map;
@@ -13,14 +10,14 @@ import java.util.Map;
 /**
  * Created by huanghuanlai on 16/9/3.
  */
-public interface IService<Entity extends BaseEntity, Dto extends BaseDto> {
+public interface IService<BE extends BaseEntity, BD extends BaseDto> {
 
     /**
      * 查询所有数据
      *
      * @return
      */
-    List<Entity> findAll()throws SerException ;
+    List<BE> findAll()throws SerException ;
 
     /**
      * 查询分页数据
@@ -28,7 +25,7 @@ public interface IService<Entity extends BaseEntity, Dto extends BaseDto> {
      * @param dto
      * @return
      */
-    List<Entity> findByPage(Dto dto)throws SerException ;
+    List<BE> findByPage(BD dto)throws SerException ;
 
 
     /**
@@ -37,7 +34,7 @@ public interface IService<Entity extends BaseEntity, Dto extends BaseDto> {
      * @param conditions
      * @return
      */
-    Entity findOne(Map<String,Object> conditions) throws SerException ;
+    BE findOne(Map<String,Object> conditions) throws SerException ;
 
 
     /**
@@ -45,7 +42,7 @@ public interface IService<Entity extends BaseEntity, Dto extends BaseDto> {
      *@param dto
      * @return
      */
-    Long count(Dto dto)throws SerException;
+    Long count(BD dto)throws SerException;
 
     /**
      * 查询某个对象
@@ -53,7 +50,7 @@ public interface IService<Entity extends BaseEntity, Dto extends BaseDto> {
      * @param id
      * @return
      */
-    Entity findById(String id)throws SerException;
+    BE findById(String id)throws SerException;
 
 
     /**
@@ -61,13 +58,13 @@ public interface IService<Entity extends BaseEntity, Dto extends BaseDto> {
      *
      * @param entity
      */
-    void save(Entity entity)throws SerException;
+    BE save(BE entity)throws SerException;
 
     /**
      * 保存对象列表
      * @param entities
      */
-    void save(List<Entity> entities)throws SerException;
+    void save(List<BE> entities)throws SerException;
 
     /**
      * 通过id删除对象
@@ -81,14 +78,14 @@ public interface IService<Entity extends BaseEntity, Dto extends BaseDto> {
      *
      * @param entity
      */
-    void remove(Entity entity)throws SerException;
+    void remove(BE entity)throws SerException;
 
     /**
      * 删除对象列表
      *
      * @param entities
      */
-    void remove(List<Entity> entities);
+    void remove(List<BE> entities);
 
 
     /**
@@ -96,7 +93,7 @@ public interface IService<Entity extends BaseEntity, Dto extends BaseDto> {
      *
      * @param entity
      */
-    void update(Entity entity)throws SerException;
+    void update(BE entity)throws SerException;
 
 
 }

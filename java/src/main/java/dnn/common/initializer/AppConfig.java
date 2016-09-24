@@ -14,5 +14,4 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @EnableTransactionManagement(proxyTargetClass = true)
 public class AppConfig {
 
-    //这里是测试标签版本
 }
