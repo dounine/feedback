@@ -1,5 +1,6 @@
 package dnn.web.register;
 
+import dnn.common.beans.PropertiesLoader;
 import dnn.common.exception.SerException;
 import dnn.common.json.ResponseText;
 import dnn.common.mails.Email;
@@ -34,8 +35,8 @@ public class RegisterAct {
 
     @Autowired
     ISerUser serUser;
-
-    public static final String ACTIVE_PATH = "http://localhost:8080";
+    @Autowired
+    PropertiesLoader propertiesLoader;
 
     @GetMapping("index")
     public ModelAndView index(){
@@ -117,6 +118,7 @@ public class RegisterAct {
      */
     @PostMapping("valid")
     public ResponseText email_valid(String captchaVal, String email, String password, HttpServletRequest request) throws Throwable {
+        String ACTIVE_PATH = propertiesLoader.getProperty("domain.name");
         if(StringUtils.isBlank(captchaVal)){
             throw new SerException("验证码不能为空!");
         }

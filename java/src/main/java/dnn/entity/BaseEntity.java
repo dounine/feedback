@@ -3,19 +3,22 @@ package dnn.entity;
 import dnn.common.validation.Del;
 import dnn.common.validation.Edit;
 import dnn.common.validation.Get;
+import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.validator.constraints.NotBlank;
-import org.springframework.data.annotation.Id;
 
-import javax.persistence.Column;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
+import javax.persistence.*;
+import java.io.Serializable;
 
 /**
  * Created by huanghuanlai on 16/9/3.
  */
-public class BaseEntity {
+
+@Entity
+@Inheritance(strategy=InheritanceType.TABLE_PER_CLASS)
+public abstract class BaseEntity implements Serializable{
     @Id
-    @GeneratedValue(strategy=GenerationType.AUTO)
+    @GeneratedValue(generator = "uuid2")
+    @GenericGenerator(name = "uuid2", strategy = "uuid2")
     @Column(name = "id", nullable = false)
     @NotBlank(message = "user id not blank",groups = {Del.class, Edit.class, Get.class})
     protected String id;

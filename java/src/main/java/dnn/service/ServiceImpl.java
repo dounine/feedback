@@ -1,21 +1,19 @@
 package dnn.service;
 
-import com.mongodb.WriteResult;
 import dnn.common.constant.FinalCommons;
-import dnn.dto.BaseDto;
 import dnn.common.exception.SerException;
 import dnn.dao.IDao;
+import dnn.dto.BaseDto;
 import dnn.dto.SearchJson;
 import dnn.entity.BaseEntity;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.math.NumberUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
-import org.springframework.data.mongodb.core.mapreduce.GroupByResults;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
+
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -29,10 +27,8 @@ import java.util.stream.Stream;
  */
 public class ServiceImpl<Entity extends BaseEntity, Dto extends BaseDto> extends FinalCommons implements IService<Entity, Dto> {
 
+    private IDao<Entity, Dto> dao;
 
-
-    @Autowired
-    protected IDao<Entity, Dto> dao;
     private static final Logger CONSOLE = LoggerFactory.getLogger(ServiceImpl.class);
 
 
@@ -76,12 +72,12 @@ public class ServiceImpl<Entity extends BaseEntity, Dto extends BaseDto> extends
 
     @Override
     public void save(Entity entity) throws SerException {
-        dao.save(entity);
+        //dao.save(entity);
     }
 
     @Override
     public void save(List<Entity> entities) throws SerException {
-        dao.save(entities);
+        //dao.save(entities);
     }
 
     @Override

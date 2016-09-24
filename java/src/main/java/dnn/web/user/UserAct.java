@@ -1,7 +1,6 @@
 package dnn.web.user;
 
 import com.mongodb.WriteResult;
-import dnn.common.exception.SerException;
 import dnn.common.json.ResponseText;
 import dnn.common.utils.RequestUtils;
 import dnn.common.validation.Add;
@@ -58,12 +57,8 @@ public class UserAct {
     @PostMapping("add")
     public ModelAndView add(@Validated(Add.class) User user, BindingResult result) throws Throwable {
         ModelAndView modelAndView = new ModelAndView("admin/list");
-        try {
-            serUser.save(user);
-        }catch (SerException se){
-            modelAndView.addObject("msg",se.getMessage());
-        }
-        modelAndView.addObject("users",serUser.findAll());
+            serUser.register(user);
+        modelAndView.addObject("user",user);
         return modelAndView;
     }
 

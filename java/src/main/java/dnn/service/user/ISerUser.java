@@ -19,4 +19,6 @@ public interface ISerUser extends IService<User,UserDto>{
 
     WriteResult auditiingUser(User user) throws SerException;
 
+    User register(User user);
+
 }

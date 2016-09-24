@@ -1,7 +1,5 @@
 package dnn.web.custom;
 
-import dnn.service.feedbackInfo.ISerFeedbackInfo;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -10,9 +8,6 @@ import org.springframework.web.servlet.ModelAndView;
 @RestController
 @RequestMapping("customer")
 public class CustomAct {
-
-    @Autowired
-    private ISerFeedbackInfo iSerFeedbackInfo;
 
     @GetMapping("")
     public ModelAndView home() {

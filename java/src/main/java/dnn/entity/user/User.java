@@ -7,7 +7,9 @@ import dnn.enums.Status;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotBlank;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.Table;
+import javax.persistence.Transient;
 import java.time.LocalDateTime;
 
 /**
@@ -16,9 +18,6 @@ import java.time.LocalDateTime;
 @Entity
 @Table(name="feedback_user")
 public class User extends BaseEntity{
-    @Id
-    @Column(name = "id", unique = false, nullable = false)
-    private String id;
     public static final int UNAME_MIN_SIZE = 6;
     public static final int UNAME_MAX_SIZE = 20;
     public static final String TOKEN_NAME = "token";
@@ -37,15 +36,6 @@ public class User extends BaseEntity{
     private Integer age;
     private Double money;
     private Float height;
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
-
     private LocalDateTime accessTime;
 
     private UserType userType=UserType.CUSTOM;

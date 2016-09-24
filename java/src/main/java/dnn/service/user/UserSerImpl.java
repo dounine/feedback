@@ -26,7 +26,7 @@ import java.util.Map;
 public class UserSerImpl extends ServiceImpl<User, UserDto> implements ISerUser {
 
     @Autowired
-    protected IUserDao userDao;
+    private IUserDao userDao;
     @Autowired
     protected PropertiesLoader propertiesLoader;
 
@@ -51,7 +51,7 @@ public class UserSerImpl extends ServiceImpl<User, UserDto> implements ISerUser 
             user.setUserType(UserType.MANAGER);
             UserContext.saveUserSession(user);
         } else {
-            User dbUser = userDao.findByName(user.getUsername());
+            User dbUser = userDao.findByUsername(user.getUsername());
             if (null != dbUser) {
                 try {
                     if (PasswordHash.validatePassword(user.getPassword(), dbUser.getPassword())) {
@@ -89,13 +89,17 @@ public class UserSerImpl extends ServiceImpl<User, UserDto> implements ISerUser 
     }
 
     @Override
+    public User register(User user) {
+        return userDao.save(user);
+    }
+
+    @Override
     public void remove(User entity) throws SerException {
         super.remove(entity);
     }
 
-    @Override
     public void save(User entity) throws SerException {
-        User user = userDao.findByName(entity.getUsername());
+        User user = userDao.findByUsername(entity.getUsername());
         if (null != user) {
             throw new SerException(entity.getUsername() + " 用户已经存在");
         }
