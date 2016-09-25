@@ -17,7 +17,7 @@ public interface IService<BE extends BaseEntity, BD extends BaseDto> {
      *
      * @return
      */
-    List<BE> findAll()throws SerException ;
+    List<BE> findAll() throws SerException;
 
     /**
      * 查询分页数据
@@ -25,7 +25,7 @@ public interface IService<BE extends BaseEntity, BD extends BaseDto> {
      * @param dto
      * @return
      */
-    List<BE> findByPage(BD dto)throws SerException ;
+    List<BE> findByPage(BD dto) throws SerException;
 
 
     /**
@@ -34,15 +34,16 @@ public interface IService<BE extends BaseEntity, BD extends BaseDto> {
      * @param conditions
      * @return
      */
-    BE findOne(Map<String,Object> conditions) throws SerException ;
+    BE findOne(Map<String, Object> conditions) throws SerException;
 
 
     /**
      * 查询数据量
-     *@param dto
+     *
+     * @param dto
      * @return
      */
-    Long count(BD dto)throws SerException;
+    Long count(BD dto) throws SerException;
 
     /**
      * 查询某个对象
@@ -50,7 +51,7 @@ public interface IService<BE extends BaseEntity, BD extends BaseDto> {
      * @param id
      * @return
      */
-    BE findById(String id)throws SerException;
+    BE findById(String id) throws SerException;
 
 
     /**
@@ -58,34 +59,35 @@ public interface IService<BE extends BaseEntity, BD extends BaseDto> {
      *
      * @param entity
      */
-    BE save(BE entity)throws SerException;
+    BE save(BE entity) throws SerException;
 
     /**
      * 保存对象列表
+     *
      * @param entities
      */
-    void save(List<BE> entities)throws SerException;
+    void save(List<BE> entities) throws SerException;
 
     /**
      * 通过id删除对象
      *
      * @param id
      */
-    void remove(String id)throws SerException;
+    void remove(String id) throws SerException;
 
     /**
      * 删除对象
      *
      * @param entity
      */
-    void remove(BE entity)throws SerException;
+    void remove(BE entity) throws SerException;
 
     /**
      * 删除对象列表
      *
      * @param entities
      */
-    void remove(List<BE> entities);
+    void remove(List<BE> entities) throws SerException;
 
 
     /**
@@ -93,7 +95,9 @@ public interface IService<BE extends BaseEntity, BD extends BaseDto> {
      *
      * @param entity
      */
-    void update(BE entity)throws SerException;
+    void update(BE entity) throws SerException;
 
+
+    boolean exists(String id) throws SerException;
 
 }

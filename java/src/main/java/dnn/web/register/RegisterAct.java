@@ -1,6 +1,5 @@
 package dnn.web.register;
 
-import dnn.common.beans.PropertiesLoader;
 import dnn.common.exception.SerException;
 import dnn.common.json.ResponseText;
 import dnn.common.mails.Email;
@@ -15,6 +14,7 @@ import dnn.web.CaptchaAct;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.text.StrBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.config.PropertiesFactoryBean;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -36,7 +36,7 @@ public class RegisterAct {
     @Autowired
     ISerUser serUser;
     @Autowired
-    PropertiesLoader propertiesLoader;
+    PropertiesFactoryBean propertiesFactoryBean;
 
     @GetMapping("index")
     public ModelAndView index(){
@@ -118,7 +118,7 @@ public class RegisterAct {
      */
     @PostMapping("valid")
     public ResponseText email_valid(String captchaVal, String email, String password, HttpServletRequest request) throws Throwable {
-        String ACTIVE_PATH = propertiesLoader.getProperty("domain.name");
+        String ACTIVE_PATH = propertiesFactoryBean.getObject().getProperty("domain.name");
         if(StringUtils.isBlank(captchaVal)){
             throw new SerException("验证码不能为空!");
         }

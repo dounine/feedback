@@ -79,4 +79,9 @@ public class ServiceImpl<BE extends BaseEntity, BD extends BaseDto> extends Fina
     public void update(BE entity) throws SerException {
         myRepository.saveAndFlush(entity);
     }
+
+    @Override
+    public boolean exists(String id) throws SerException {
+        return myRepository.exists(id);
+    }
 }

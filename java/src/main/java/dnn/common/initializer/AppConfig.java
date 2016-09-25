@@ -3,6 +3,7 @@ package dnn.common.initializer;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.FilterType;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
@@ -10,6 +11,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @ComponentScan(basePackages = { Constant.SCAN_APP_PACKAGES },excludeFilters = {@ComponentScan.Filter(
         type = FilterType.ANNOTATION,
         value = {Configuration.class})})
+@PropertySource("classpath:config.properties")
 @EnableJpaRepositories(basePackages = "dnn.dao")
 @EnableTransactionManagement(proxyTargetClass = true)
 public class AppConfig {
