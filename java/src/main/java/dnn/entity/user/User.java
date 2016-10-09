@@ -4,13 +4,21 @@ import dnn.common.jsr303.PasswordValid;
 import dnn.common.validation.Add;
 import dnn.entity.BaseEntity;
 import dnn.enums.Status;
+import org.hibernate.Incubating;
+import org.hibernate.annotations.*;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotBlank;
+import org.springframework.context.annotation.Lazy;
 
+import javax.persistence.*;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.OrderBy;
 import javax.persistence.Table;
-import javax.persistence.Transient;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.util.List;
+import java.util.Set;
 
 /**
  * Created by huanghuanlai on 16/4/28.
@@ -25,18 +33,27 @@ public class User extends BaseEntity{
     //groups 用于CRUD组合使用,当字段有分组时,@Validated(?)占位符内必需有值(Add,Del,Edit,Get)
     @NotBlank(message = "用户名不能空",groups = {Add.class})
     @Length(message = "用户名长度在 {min} 到 {max} 之间",min = UNAME_MIN_SIZE,max = UNAME_MAX_SIZE,groups = {Add.class})
+    @Column(unique = true,nullable=true)
     private String username;
 
     @NotBlank(message = "密码不能空",groups = {Add.class})
     @PasswordValid(groups = {Add.class})
     private String password;
     private Status status;
-    @Transient
+    @ManyToOne(cascade = {CascadeType.ALL})
+    @JoinColumn(name = "details_id")
     private UserDetails details;
+
+    @OrderBy(value = "age desc ")
     private Integer age;
     private Double money;
     private Float height;
+
     private LocalDateTime accessTime;
+
+    @OneToMany(mappedBy = "user",cascade = {CascadeType.PERSIST,CascadeType.MERGE,CascadeType.REMOVE},fetch = FetchType.EAGER)
+    @OrderBy(value = "seq ASC")
+    private Set<UserInterest> interests;
 
     private UserType userType=UserType.CUSTOM;
 
@@ -111,5 +128,13 @@ public class User extends BaseEntity{
 
     public void setHeight(Float height) {
         this.height = height;
+    }
+
+    public Set<UserInterest> getInterests() {
+        return interests;
+    }
+
+    public void setInterests(Set<UserInterest> interests) {
+        this.interests = interests;
     }
 }

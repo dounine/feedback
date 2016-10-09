@@ -1,18 +1,19 @@
 package dnn.service;
 
 import dnn.common.constant.FinalCommons;
+import dnn.common.exception.RepException;
 import dnn.common.exception.SerException;
 import dnn.dao.MyRep;
+import dnn.dao.MySpecification;
 import dnn.dto.BaseDto;
 import dnn.entity.BaseEntity;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 
 import java.util.List;
-import java.util.Map;
+import java.util.stream.Stream;
 
 /**
  * Created by huanghuanlai on 16/9/3.
@@ -31,18 +32,44 @@ public class ServiceImpl<BE extends BaseEntity, BD extends BaseDto> extends Fina
 
     @Override
     public List<BE> findByPage(BD dto) throws SerException {
-        Pageable pageable = new PageRequest(dto.getPage(),dto.getLimit());
-        return myRepository.findAll(pageable).getContent();
+        try {
+            MySpecification mySpecification = new MySpecification<BE, BD>(dto);
+            PageRequest pageRequest = mySpecification.getPageRequest(dto);
+            return myRepository.findAll(mySpecification, pageRequest).getContent();
+        } catch (RepException e) {
+            throw repExceptionHandler(e);
+        }
     }
 
-    @Override
-    public BE findOne(Map<String, Object> conditions) throws SerException {
-        return null;
-    }
 
     @Override
     public Long count(BD dto) throws SerException {
-        return myRepository.count();
+        MySpecification mySpecification = new MySpecification<BE, BD>(dto);
+        return myRepository.count(mySpecification);
+    }
+
+    @Override
+    public BE findOne(BD dto) throws SerException {
+        MySpecification mySpecification = new MySpecification<BE, BD>(dto);
+        List<BE> list = myRepository.findAll(mySpecification);
+        return null != list && list.size() > 0 ? list.get(0) : null;
+    }
+
+    @Override
+    public List<BE> findByCis(BD dto, Boolean pageAndSort) throws SerException {
+        MySpecification mySpecification = new MySpecification<BE, BD>(dto);
+        if (pageAndSort) {
+            PageRequest pageRequest = mySpecification.getPageRequest(dto);
+            return myRepository.findAll(mySpecification, pageRequest).getContent();
+        } else {
+            return myRepository.findAll(mySpecification);
+        }
+    }
+
+    @Override
+    public Long countByCis(BD dto) throws SerException {
+        MySpecification mySpecification = new MySpecification<BE, BD>(dto);
+        return myRepository.count(mySpecification);
     }
 
     @Override
@@ -81,7 +108,38 @@ public class ServiceImpl<BE extends BaseEntity, BD extends BaseDto> extends Fina
     }
 
     @Override
+    public void update(List<BE> entities) throws SerException {
+        Stream<BE> stream = entities.stream();
+        stream.forEach(entity -> {
+            myRepository.saveAndFlush(entity);
+        });
+
+    }
+
+    @Override
     public boolean exists(String id) throws SerException {
         return myRepository.exists(id);
     }
+
+    private SerException repExceptionHandler(RepException e) {
+        String msg = "";
+        switch (e.getType()) {
+            case NOT_FIND_FIELD:
+                msg = "非法查询";
+                break;
+            case ERROR_ARGUMENTS:
+                msg = "参数不匹配";
+                break;
+            case ERROR_PARSE_DATE:
+                msg = "时间类型转换错误,字段类型不匹配";
+                break;
+            case ERROR_NUMBER_FORMAT:
+                msg = "整形转换错误,字段类型不匹配";
+                break;
+            default:
+                msg = e.getMessage();
+        }
+        return new SerException(msg);
+    }
+
 }

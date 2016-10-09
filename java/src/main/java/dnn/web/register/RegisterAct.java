@@ -6,6 +6,7 @@ import dnn.common.mails.Email;
 import dnn.common.mails.EmailUtil;
 import dnn.common.utils.CryptUtil;
 import dnn.common.utils.PasswordHash;
+import dnn.dto.user.UserDto;
 import dnn.entity.user.User;
 import dnn.entity.user.UserType;
 import dnn.enums.Status;
@@ -99,7 +100,7 @@ public class RegisterAct {
                 && d_time.plusHours(1).isAfter(LocalDateTime.now())) {
             Map<String, Object> map = new HashMap<>(1);
             map.put("id", uid);
-            User user = serUser.findOne(map);
+            User user = serUser.findOne(new UserDto());
             if (null != user && user.getStatus() == Status.NOACTIVE) {
 //                user.setStatus(Status.UNREVIEW);//未审核
 //       todo         serUser.UpdateByCis2(user, "status", Status.UNREVIEW);
@@ -140,7 +141,7 @@ public class RegisterAct {
         ModelAndView modelAndView = null;
         Map<String, Object> map = new HashMap<>(1);
         map.put("username", email);
-        User user = serUser.findOne(map);
+        User user = serUser.findOne(new UserDto());
         if (null != user && user.getStatus() == Status.THAW) {
             ResponseText responseText = new ResponseText();
             responseText.setMsg("该邮箱已被注册!");
@@ -172,10 +173,10 @@ public class RegisterAct {
             map = new HashMap<>(1);
             map.put("username", email);
             if (null != user &&user.getStatus().equals(Status.NOACTIVE)) {
-                _user = serUser.findOne(map);
+                _user = serUser.findOne(new UserDto());
             }else{
                 serUser.save(newUser);
-                _user = serUser.findOne(map);
+                _user = serUser.findOne(new UserDto());
             }
             urlSb.append("&uid=");
 

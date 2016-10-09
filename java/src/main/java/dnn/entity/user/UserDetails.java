@@ -1,12 +1,20 @@
 package dnn.entity.user;
 
+import dnn.entity.BaseEntity;
+import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.CascadeType;
+
+import javax.persistence.Entity;
+import javax.persistence.Table;
 import java.time.LocalDateTime;
 
 /**
  * Created by lgq on 16-9-4.
  * 用户详情信息
  */
-public class UserDetails {
+@Entity
+@Table(name="feedback_user_details")
+public class UserDetails extends BaseEntity {
     private String company; //所在单位
     private String address; //通讯地址
     private String postcodes; //邮编

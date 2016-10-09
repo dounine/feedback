@@ -7,6 +7,7 @@ import dnn.entity.user.User;
 /**
  * Created by huanghuanlai on 16/9/3.
  */
+
 public interface UserRep extends MyRep<User,UserDto> {
 
     /**
@@ -16,5 +17,6 @@ public interface UserRep extends MyRep<User,UserDto> {
      * @return 用户信息
      */
     User findByUsername(String username);
+
 
 }
