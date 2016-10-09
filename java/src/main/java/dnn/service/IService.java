@@ -2,6 +2,7 @@ package dnn.service;
 
 import dnn.common.exception.SerException;
 import dnn.dto.BaseDto;
+import dnn.dto.Condition;
 import dnn.entity.BaseEntity;
 
 import java.util.List;
@@ -27,16 +28,6 @@ public interface IService<BE extends BaseEntity, BD extends BaseDto> {
      */
     List<BE> findByPage(BD dto) throws SerException;
 
-
-    /**
-     * 查询第一个对象
-     *
-     * @param conditions
-     * @return
-     */
-    BE findOne(Map<String, Object> conditions) throws SerException;
-
-
     /**
      * 查询数据量
      *
@@ -44,6 +35,25 @@ public interface IService<BE extends BaseEntity, BD extends BaseDto> {
      * @return
      */
     Long count(BD dto) throws SerException;
+
+
+    BE findOne(BD dto) throws SerException;
+
+    /**
+     * 根据条件询对象列表
+     *是否分页排序
+     * @param dto
+     * @return
+     */
+    List<BE> findByCis(BD dto,Boolean pageAndSort) throws SerException;
+
+    /**
+     * 根据条件询对象列表数量
+     *
+     * @param dto
+     * @return
+     */
+    Long countByCis(BD dto ) throws SerException;
 
     /**
      * 查询某个对象
@@ -96,6 +106,13 @@ public interface IService<BE extends BaseEntity, BD extends BaseDto> {
      * @param entity
      */
     void update(BE entity) throws SerException;
+
+    /**
+     * 更新对象
+     *
+     * @param entities
+     */
+    void update(List<BE> entities) throws SerException;
 
 
     boolean exists(String id) throws SerException;

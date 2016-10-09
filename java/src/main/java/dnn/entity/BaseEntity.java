@@ -4,6 +4,7 @@ import dnn.common.validation.Del;
 import dnn.common.validation.Edit;
 import dnn.common.validation.Get;
 import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotBlank;
 
 import javax.persistence.*;
@@ -19,7 +20,7 @@ public abstract class BaseEntity implements Serializable{
     @Id
     @GeneratedValue(generator = "uuid2")
     @GenericGenerator(name = "uuid2", strategy = "uuid2")
-    @Column(name = "id", nullable = false)
+    @Column(name = "id", nullable = false,length = 36)
     @NotBlank(message = "user id not blank",groups = {Del.class, Edit.class, Get.class})
     protected String id;
 
