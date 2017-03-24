@@ -33,7 +33,7 @@
     * 复制前端依赖包到项目中
     
     ```shell
-    grunt begin
+    gulp begin
     ```
     * 最后下载项目的java包并打包
     
