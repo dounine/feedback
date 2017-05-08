@@ -1,4 +1,3 @@
-[feedback](http://dounine.com)
 ![feedback](https://github.com/dounine/feedback/raw/master/design/cut/feedback.png)
 # feedback 客户进度实时反馈系统
 
